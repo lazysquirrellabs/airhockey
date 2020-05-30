@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3900110830356335714}
   - component: {fileID: 3900110830356335716}
   - component: {fileID: 3900110830356335717}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Puck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
