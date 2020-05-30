@@ -1,4 +1,4 @@
-using AirHockey.Input;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -19,13 +19,26 @@ namespace AirHockey.Movement
 
         private bool _dragging;
         private Vector2 _position;
+        private bool _canMove;
 
         #endregion
 
         #region Properties
 
         /// <summary> Fetches the current mouse world position, abstracting the implementation. </summary>
-        public InputManager.MouseWorldPositionGetter GetMousePosition { private get; set; }
+        public Func<Vector2> GetMousePosition { private get; set; }
+
+        public bool CanMove
+        {
+            set
+            {
+                if (value == _canMove) return;
+
+                _canMove = value;
+                _position = _rigidBody.position;
+                _rigidBody.velocity = Vector2.zero;
+            }
+        }
 
         #endregion
 
@@ -33,7 +46,7 @@ namespace AirHockey.Movement
 
         private void FixedUpdate()
         {
-            if (!_dragging) return;
+            if (!_dragging || !_canMove) return;
             
             _rigidBody.MovePosition(_position);
         }
@@ -44,17 +57,20 @@ namespace AirHockey.Movement
         
         public void OnDrag(PointerEventData eventData)
         {
-            _position = GetMousePosition();
+            if (_canMove)
+                _position = GetMousePosition();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _dragging = true;
+            if (_canMove)
+                _dragging = true;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            _dragging = false;
+            if (_canMove)
+                _dragging = false;
         }
         
         #endregion
