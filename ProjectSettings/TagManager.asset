@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Rink
+    uniqueID: 3625446291
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
