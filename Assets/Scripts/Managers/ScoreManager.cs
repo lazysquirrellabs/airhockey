@@ -1,4 +1,5 @@
-using DefaultNamespace;
+using System;
+using AirHockey.Match;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,12 @@ namespace AirHockey.Managers
 {
     public class ScoreManager : MonoBehaviour
     {
+        #region Events
+
+        public event Action<Player> OnScore;
+
+        #endregion
+        
         #region Serialized fields
 
         [SerializeField] private Goal _player1Goal;
@@ -43,12 +50,14 @@ namespace AirHockey.Managers
         {
             _player2Score++;
             UpdateScore();
+            OnScore?.Invoke(Player.LeftPlayer);
         }
         
         private void ScoreRight()
         {
             _player1Score++;
             UpdateScore();
+            OnScore?.Invoke(Player.RightPlayer);
         }
 
         #endregion

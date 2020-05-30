@@ -2,7 +2,7 @@ using System;
 using Physics;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace AirHockey.Match
 {
     public class Goal : MonoBehaviour
     {
