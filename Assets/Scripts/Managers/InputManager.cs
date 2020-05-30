@@ -1,15 +1,13 @@
 using AirHockey.Movement;
 using UnityEngine;
 
-namespace AirHockey.Input
+namespace AirHockey.Managers
 {
     /// <summary>
     /// Manages non-UI game input like pointer movement.
     /// </summary>
     public class InputManager : MonoBehaviour
     {
-        public delegate Vector2 MouseWorldPositionGetter();
-        
         #region Serialized fields
 
         [SerializeField] private Camera _camera;
@@ -36,7 +34,7 @@ namespace AirHockey.Input
         /// <returns>The mouse world 2D position.</returns>
         private Vector2 GetMouseWorldPosition2D()
         {
-            var pos3D = _camera.ScreenToWorldPoint(UnityEngine.Input.mousePosition);
+            var pos3D = _camera.ScreenToWorldPoint(Input.mousePosition);
             return new Vector2(pos3D.x, pos3D.y);
         }
 

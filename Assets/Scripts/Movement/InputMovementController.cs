@@ -1,4 +1,4 @@
-using AirHockey.Input;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -25,7 +25,7 @@ namespace AirHockey.Movement
         #region Properties
 
         /// <summary> Fetches the current mouse world position, abstracting the implementation. </summary>
-        public InputManager.MouseWorldPositionGetter GetMousePosition { private get; set; }
+        public Func<Vector2> GetMousePosition { private get; set; }
 
         #endregion
 
