@@ -35,6 +35,7 @@ namespace AirHockey.Movement
                 if (value == _canMove) return;
 
                 _canMove = value;
+                _position = _rigidBody.position;
                 _rigidBody.velocity = Vector2.zero;
             }
         }
