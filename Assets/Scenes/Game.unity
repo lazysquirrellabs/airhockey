@@ -297,8 +297,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidBody: {fileID: 747815045}
-  _prefabStart: {fileID: 0}
-  _prefabEnd: {fileID: 0}
 --- !u!50 &747815045 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 6028013258757047422, guid: 860c251117edf45a6bafa4723e4438c0,
@@ -350,7 +348,7 @@ PrefabInstance:
     - target: {fileID: 6028013258757047416, guid: 860c251117edf45a6bafa4723e4438c0,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6028013258757047416, guid: 860c251117edf45a6bafa4723e4438c0,
         type: 3}
@@ -478,7 +476,7 @@ Transform:
   - {fileID: 32107795}
   - {fileID: 1650479994}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1505406945
 GameObject:

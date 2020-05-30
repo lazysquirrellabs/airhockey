@@ -1,23 +1,31 @@
+using AirHockey.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace AirHockey.Movement
 {
+    /// <summary>
+    /// Moves a 2D object around based on pointer drag movement.
+    /// </summary>
     public class InputMovementController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         #region Serialized fields
 
         [SerializeField] private Rigidbody2D _rigidBody;
-        [SerializeField] private GameObject _prefabStart;
-        [SerializeField] private GameObject _prefabEnd;
 
         #endregion
 
         #region Fields
 
         private bool _dragging;
-        private Vector3 _lastDragWorldPos;
         private Vector2 _position;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary> Fetches the current mouse world position, abstracting the implementation. </summary>
+        public InputManager.MouseWorldPositionGetter GetMousePosition { private get; set; }
 
         #endregion
 
@@ -36,9 +44,7 @@ namespace AirHockey.Movement
         
         public void OnDrag(PointerEventData eventData)
         {
-            var thisDragPos = Camera.main.ScreenToWorldPoint(eventData.position);
-            var thisDragPos2D = new Vector2(thisDragPos.x, thisDragPos.y);
-            _position = thisDragPos2D;
+            _position = GetMousePosition();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
