@@ -12,10 +12,9 @@ namespace AirHockey.Physics
         
         #region Event handlers
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            Debug.Log($"Collised with velocity {other.relativeVelocity}");
-            _rigidbody.velocity = other.relativeVelocity;
+            _rigidbody.velocity = collision.relativeVelocity;
         }
 
         #endregion

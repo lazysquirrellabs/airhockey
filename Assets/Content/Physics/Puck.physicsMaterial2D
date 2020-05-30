@@ -8,4 +8,4 @@ PhysicsMaterial2D:
   m_PrefabAsset: {fileID: 0}
   m_Name: Puck
   friction: 0.4
-  bounciness: 1
+  bounciness: 0
