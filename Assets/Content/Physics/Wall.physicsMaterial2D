@@ -6,6 +6,6 @@ PhysicsMaterial2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Puck
-  friction: 1
-  bounciness: 0.5
+  m_Name: Wall
+  friction: 10
+  bounciness: 0
