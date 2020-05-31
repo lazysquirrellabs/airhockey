@@ -13,14 +13,14 @@ TagManager:
   - UI
   - 
   - 
-  - Goal
-  - Player
+  - RightPlayer
+  - LeftPlayer
   - Puck
   - Rink
   - GoalWall
-  - 
-  - 
-  - 
+  - RightWall
+  - LeftWall
+  - Goal
   - 
   - 
   - 
