@@ -1,5 +1,6 @@
 using System;
 using AirHockey.Match;
+using UniRx.Async;
 using UnityEngine;
 
 namespace AirHockey.Managers
@@ -23,33 +24,31 @@ namespace AirHockey.Managers
 
         public void StartMatch()
         {
-            RegroupAt(_puckNeutralStart);
+            _puck.Regroup(_puckNeutralStart.position);
+            _leftPlayer.MoveTo(_leftPlayerStart.position);
+            _rightPlayer.MoveTo(_rightPlayerStart.position);
         }
 
-        public void Regroup(Player player)
+        public async UniTask ResetPlayersAsync(float duration)
+        {
+            var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration);
+            var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration);
+            await UniTask.WhenAll(leftWait, rightWait);
+        }
+
+        public void PlacePuck(Player player)
         {
             switch (player)
             {
                 case Player.LeftPlayer:
-                    RegroupAt(_puckRightStart);
+                    _puck.Regroup(_puckLeftStart.position);
                     break;
                 case Player.RightPlayer:
-                    RegroupAt(_puckLeftStart);
+                    _puck.Regroup(_puckRightStart.position);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(player), player, null);
-            }
-        }
-
-        #endregion
-
-        #region Private
-
-        private void RegroupAt(Transform puckStart)
-        {
-            _puck.Regroup(puckStart.position);
-            _leftPlayer.Regroup(_leftPlayerStart.position);
-            _rightPlayer.Regroup(_rightPlayerStart.position);
+            } 
         }
 
         #endregion

@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,14 +10,16 @@ namespace AirHockey.Match
         #region Serialized fields
 
         [SerializeField] private CanvasGroup _canvas;
-        [SerializeField] private Text _text;
+        [SerializeField] private Text _leftText;
+        [SerializeField] private Text _rightText;
 
         #endregion
 
         #region Fields
 
         private const string MatchStartText = "The match starts in {0}...";
-        private const string ScoreText = "Player {0} scored!";
+        private const string ScoredText = "Goal!!!";
+        private const string OtherScoreText = "Player {0} scored";
         private const string GetReadyText = "On your marks...";
         private const string GoText = "GO!";
 
@@ -28,55 +29,83 @@ namespace AirHockey.Match
 
         public async UniTask AnnounceMatchStartAsync(int seconds)
         {
-            FadeIn(0.5f);
+            SetTexts(seconds);
+            await FadeInAsync(500f);
             _canvas.alpha = 1f;
             while (seconds > 0)
             {
-                _text.text = String.Format(MatchStartText, seconds);
+                SetTexts(seconds);
                 await UniTask.Delay(1_000);
                 seconds--;
             }
+            await FadeOutAsync(500f);
+
+            void SetTexts(int s)
+            {
+                _leftText.text = String.Format(MatchStartText, s);
+                _rightText.text = String.Format(MatchStartText, s);
+            }
         }
 
-        public async Task AnnouncePlayerScored(int playerID, int seconds)
+        public async UniTask AnnouncePlayerScoredAsync(Player player, int duration)
         {
-            FadeIn(0.5f);
-            _text.text = String.Format(ScoreText, playerID);
-            await UniTask.Delay(seconds * 1_000);
+            switch (player)
+            {
+                case Player.LeftPlayer:
+                    _leftText.text = ScoredText;
+                    _rightText.text = String.Format(OtherScoreText, 1);
+                    break;
+                case Player.RightPlayer:
+                    _leftText.text = String.Format(OtherScoreText, 2);
+                    _rightText.text = ScoredText;
+                    break;
+                default:
+                    throw new NotImplementedException($"Player not valid: {player}");
+            }
+            
+            await FadeInAsync(duration * 0.1f);
+            await UniTask.Delay((int) (duration * 0.8f));
+            await FadeOutAsync(duration * 0.1f);
         }
 
-        public async Task AnnounceGetReadyAsync(int seconds)
+        public async UniTask AnnounceGetReadyAsync(int duration)
         {
-            _text.text = GetReadyText;
-            await UniTask.Delay(seconds * 1_000);
-            _text.text = GoText;
-            await FadeOut(1f);
+            _leftText.text = GetReadyText;
+            _rightText.text = GetReadyText;
+            await FadeInAsync(duration * 0.1f);
+            await UniTask.Delay((int) (duration * 0.9f));
+            _leftText.text = GoText;
+            _rightText.text = GoText;
+            FadeOutAsync(1_000).Forget();
         }
 
         #endregion
 
         #region Private
-
-        private async Task FadeOut(float duration)
+        private async UniTask FadeOutAsync(float duration)
         {
             var totalTime = 0f;
             while (totalTime <= duration)
             {
-                await UniTask.Yield();
                 _canvas.alpha = 1 - totalTime / duration;
-                totalTime += Time.deltaTime;
+                totalTime += Time.deltaTime * 1_000;
+                await UniTask.Yield();
             }
+
+            _canvas.alpha = 0f;
         }
         
-        private async void FadeIn(float duration)
+        private async UniTask FadeInAsync(float duration)
         {
             var totalTime = 0f;
             while (totalTime <= duration)
             {
-                await UniTask.Yield();
                 _canvas.alpha = totalTime / duration;
-                totalTime += Time.deltaTime;
+                totalTime += Time.deltaTime * 1_000;
+                await UniTask.Yield();
             }
+
+            _canvas.alpha = 1f;
         }
 
         #endregion
