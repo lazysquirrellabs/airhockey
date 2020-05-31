@@ -1,4 +1,5 @@
 using AirHockey.Movement;
+using UniRx.Async;
 using UnityEngine;
 
 namespace AirHockey.Match
@@ -44,9 +45,21 @@ namespace AirHockey.Match
             _movementController.CanMove = false;
         }
 
-        public void Regroup(Vector2 position)
+        public void MoveTo(Vector3 position)
         {
             _transform.position = position;
+        }
+        
+        public async UniTask MoveToAsync(Vector3 position, float duration)
+        {
+            var totalTime = 0f;
+            var initialPosition = _transform.position;
+            while (totalTime <= duration)
+            {
+                await UniTask.Yield();
+                _transform.position = Vector3.Lerp(initialPosition, position, totalTime/duration);
+                totalTime += Time.deltaTime * 1_000;
+            }
         }
 
         #endregion

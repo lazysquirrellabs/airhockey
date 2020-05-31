@@ -1,5 +1,4 @@
 using AirHockey.Match;
-using UniRx.Async;
 using UnityEngine;
 
 namespace AirHockey.Managers
@@ -12,8 +11,11 @@ namespace AirHockey.Managers
         [SerializeField] private PlayerController _rightPlayer;
         [SerializeField] private ScoreManager _scoreManager;
         [SerializeField] private PlacementManager _placementManager;
+        [SerializeField] private AnnouncementBoard _announcementBoard;
+        [SerializeField, Range(0, 10)] private int _matchStartDelay;
+        [SerializeField, Range(0, 10)] private int _celebrationDuration;
         [SerializeField, Range(0, 10)] private int _resetDuration;
-        [SerializeField, Range(0, 10)] private int _regroupDuration;
+        [SerializeField, Range(0, 10)] private int _preparationDuration;
 
         #endregion
 
@@ -43,12 +45,10 @@ namespace AirHockey.Managers
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
-            Debug.Log($"{player} scored.");
-            await UniTask.Delay(_resetDuration * 1_000);
-            _placementManager.Regroup(player);
-            Debug.Log("On your marks...");
-            await UniTask.Delay(_regroupDuration * 1_000);
-            Debug.Log("GO!");
+            await _announcementBoard.AnnouncePlayerScoredAsync(player, _celebrationDuration * 1_000);
+            await _placementManager.ResetPlayersAsync(_resetDuration * 1_000);
+            _placementManager.PlacePuck(player);
+            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000);
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
         }
@@ -59,12 +59,11 @@ namespace AirHockey.Managers
 
         private async void StartMatch()
         {
-            Debug.Log("Starting match...");
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
             _placementManager.StartMatch();
-            await UniTask.Delay(_regroupDuration * 1_000);
-            Debug.Log("GO!");
+            await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay);
+            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000);
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
         }
