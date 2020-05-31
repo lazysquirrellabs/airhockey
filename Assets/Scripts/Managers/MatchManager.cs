@@ -12,8 +12,16 @@ namespace AirHockey.Managers
         [SerializeField] private PlayerController _rightPlayer;
         [SerializeField] private ScoreManager _scoreManager;
         [SerializeField] private PlacementManager _placementManager;
-        [SerializeField, Range(0, 10)] private int _resetDuration;
+        [SerializeField] private AnnouncementBoard _announcementBoard;
+        [SerializeField, Range(0, 10)] private int _matchStartDelay;
+        [SerializeField, Range(0, 10)] private int _goalCelebrationDuration;
         [SerializeField, Range(0, 10)] private int _regroupDuration;
+
+        #endregion
+
+        #region Private
+
+
 
         #endregion
 
@@ -43,12 +51,11 @@ namespace AirHockey.Managers
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
-            Debug.Log($"{player} scored.");
-            await UniTask.Delay(_resetDuration * 1_000);
+            var playerID = player == Player.LeftPlayer ? 1 : 2;
+            await _announcementBoard.AnnouncePlayerScored(playerID, _goalCelebrationDuration);
+            await UniTask.Delay(_goalCelebrationDuration * 1_000);
             _placementManager.Regroup(player);
-            Debug.Log("On your marks...");
-            await UniTask.Delay(_regroupDuration * 1_000);
-            Debug.Log("GO!");
+            await _announcementBoard.AnnounceGetReadyAsync(_regroupDuration);
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
         }
@@ -59,12 +66,11 @@ namespace AirHockey.Managers
 
         private async void StartMatch()
         {
-            Debug.Log("Starting match...");
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
             _placementManager.StartMatch();
-            await UniTask.Delay(_regroupDuration * 1_000);
-            Debug.Log("GO!");
+            await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay);
+            await _announcementBoard.AnnounceGetReadyAsync(_regroupDuration);
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
         }
