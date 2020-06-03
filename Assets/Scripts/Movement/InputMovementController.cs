@@ -26,7 +26,7 @@ namespace AirHockey.Movement
         #region Properties
 
         /// <summary> Fetches the current mouse world position, abstracting the implementation. </summary>
-        public Func<Vector2> GetMousePosition { private get; set; }
+        public Func<Vector2,Vector2> GetMousePosition { private get; set; }
 
         public bool CanMove
         {
@@ -58,7 +58,7 @@ namespace AirHockey.Movement
         public void OnDrag(PointerEventData eventData)
         {
             if (_canMove)
-                _position = GetMousePosition();
+                _position = GetMousePosition(eventData.position);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
