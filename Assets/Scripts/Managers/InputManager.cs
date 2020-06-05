@@ -10,7 +10,7 @@ namespace AirHockey.Managers
     {
         #region Serialized fields
 
-        [SerializeField] private Camera _camera;
+        [SerializeField] private UnityEngine.Camera _camera;
         [SerializeField] private InputMovementController[] _mousePositionListeners;
 
         #endregion
