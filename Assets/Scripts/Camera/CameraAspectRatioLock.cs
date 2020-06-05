@@ -16,9 +16,8 @@ namespace AirHockey.Camera
         private void Start()
         {
             var screenRatio = (float) Screen.width / Screen.height;
-            var minimumRatio = _maximumRatio.Value;
-            if (screenRatio < minimumRatio)
-                _camera.orthographicSize = minimumRatio / screenRatio * _camera.orthographicSize;
+            if (screenRatio < _maximumRatio)
+                _camera.orthographicSize = _maximumRatio / screenRatio * _camera.orthographicSize;
         }
 
         #endregion
