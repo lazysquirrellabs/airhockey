@@ -24,25 +24,25 @@ namespace AirHockey.Match.Managers
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Landscape;
-            _scoreManager.OnScore += HandleScore;
+            _scoreManager.OnScore += HandleScoreAsync;
         }
         
         private void Start()
         {
             // TODO: Remove this once the basic game loop is implemented
-            StartMatch();
+            StartMatchAsync();
         }
 
         private void OnDestroy()
         {
-            _scoreManager.OnScore -= HandleScore;
+            _scoreManager.OnScore -= HandleScoreAsync;
         }
 
         #endregion
 
         #region Event handlers
 
-        private async void HandleScore(Player player)
+        private async void HandleScoreAsync(Player player)
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
@@ -58,7 +58,7 @@ namespace AirHockey.Match.Managers
 
         #region Private
 
-        private async void StartMatch()
+        private async void StartMatchAsync()
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();

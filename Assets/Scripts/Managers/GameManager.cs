@@ -30,26 +30,27 @@ namespace AirHockey.Managers
 
         private void Start()
         {
-            LoadMenu();
+            LoadMenuAsync();
         }
 
         #endregion
 
         #region Private
 
-        private async void LoadMenu()
+        private async void LoadMenuAsync()
         {
-            _menuManager = await LoadManagedScene<MenuManager>(_menuScene);
-            _menuManager.OnStartMatch += LoadMatch;
+            _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
+            _menuManager.OnStartMatch += LoadMatchAsync;
         }
 
-        private async void LoadMatch()
+        private async void LoadMatchAsync()
         {
-            _menuManager.OnStartMatch -= LoadMatch;
-            _matchManager = await LoadManagedScene<MatchManager>(_matchScene);
+            _menuManager.OnStartMatch -= LoadMatchAsync;
+            _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
         }
 
-        private async UniTask<TManager> LoadManagedScene<TManager>(SceneReference scene) where TManager : MonoBehaviour
+        private async UniTask<TManager> LoadManagedSceneAsync<TManager>(SceneReference scene) 
+            where TManager : MonoBehaviour
         {
             if (_scene != null)
                 await SceneManager.UnloadSceneAsync(_scene.Value);
