@@ -1,9 +1,8 @@
 using System;
-using AirHockey.Match;
 using UniRx.Async;
 using UnityEngine;
 
-namespace AirHockey.Managers
+namespace AirHockey.Match.Managers
 {
     public class PlacementManager : MonoBehaviour
     {

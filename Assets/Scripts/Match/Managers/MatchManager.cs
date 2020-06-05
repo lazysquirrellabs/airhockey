@@ -1,7 +1,7 @@
 using AirHockey.Match;
 using UnityEngine;
 
-namespace AirHockey.Managers
+namespace AirHockey.Match.Managers
 {
     public class MatchManager : MonoBehaviour
     {
