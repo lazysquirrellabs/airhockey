@@ -2,6 +2,7 @@ using System;
 using AirHockey.Match.Managers;
 using AirHockey.Menu;
 using AirHockey.SceneManagement;
+using AirHockey.UI;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,6 +15,7 @@ namespace AirHockey.Managers
 
         [SerializeField] private SceneReference _menuScene;
         [SerializeField] private SceneReference _matchScene;
+        [SerializeField] private CanvasFader _transition;
 
         #endregion
 
@@ -52,6 +54,7 @@ namespace AirHockey.Managers
         private async UniTask<TManager> LoadManagedSceneAsync<TManager>(SceneReference scene) 
             where TManager : MonoBehaviour
         {
+            await _transition.FadeInAsync();
             if (_scene != null)
                 await SceneManager.UnloadSceneAsync(_scene.Value);
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -60,7 +63,10 @@ namespace AirHockey.Managers
                 throw new Exception($"Managed scene wasn't loaded ({typeof(TManager)}).");
             
             SceneManager.SetActiveScene(_scene.Value);
-            return FindObjectOfType<TManager>();
+            var manager = FindObjectOfType<TManager>();
+            await _transition.FadeOutAsync();
+            
+            return manager;
         }
 
         #endregion
