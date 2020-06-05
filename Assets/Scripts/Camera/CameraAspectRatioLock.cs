@@ -13,7 +13,7 @@ namespace AirHockey.Camera
 
         #region Setup
 
-        private void Awake()
+        private void Start()
         {
             var screenRatio = (float) Screen.width / Screen.height;
             var minimumRatio = _maximumRatio.Value;

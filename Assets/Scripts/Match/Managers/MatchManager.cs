@@ -23,6 +23,7 @@ namespace AirHockey.Match.Managers
 
         private void Awake()
         {
+            Screen.orientation = ScreenOrientation.Landscape;
             _scoreManager.OnScore += HandleScore;
         }
         
