@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using AspectRatio = AirHockey.Camera.AspectRatio;
 
-namespace Editor.Camera
+namespace AirHockey.Editor.Camera
 {
     [CustomPropertyDrawer(typeof(AspectRatio))]
     public class AspectRatioDrawer : PropertyDrawer
@@ -15,9 +15,13 @@ namespace Editor.Camera
         private const int SeparatorWidth = 5;
 
         #endregion
-        
+
+        #region Update
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            EditorGUI.BeginProperty(position, label, property);
+            
             var heightFieldWidth = EditorGUIUtility.labelWidth + FieldWidth;
             
             var heightProperty = property.FindPropertyRelative(HeightName);
@@ -31,6 +35,10 @@ namespace Editor.Camera
             var widthProperty = property.FindPropertyRelative(WidthName);
             var widthPos = new Rect(separatorPos.xMax, position.y, FieldWidth, position.height);
             widthProperty.intValue = EditorGUI.IntField(widthPos, widthProperty.intValue);
+            
+            EditorGUI.EndProperty();
         }
+        
+        #endregion
     }
 }

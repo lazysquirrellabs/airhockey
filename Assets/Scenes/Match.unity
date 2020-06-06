@@ -147,7 +147,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 13723698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9d8a377c4236430c9c6dea06ec046f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c37d5cbc38b34ebd8072e22a04bcaa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _player1Goal: {fileID: 800636274}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 328197367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb350eb7002f438198041f4c28f716c, type: 3}
+  m_Script: {fileID: 11500000, guid: 44b906ab87dff4b329246bf240f17f0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
@@ -450,7 +450,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 788955956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0d38fb2fbf034cc48c3c78525b023a5, type: 3}
+  m_Script: {fileID: 11500000, guid: d62ea6412d7a34ee093504f679f68ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 995669663}
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1276399970}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7620a57e33e6e41ed92cf44f44a95274, type: 3}
+  m_Script: {fileID: 11500000, guid: 7df58e4d80e1d4b51909f6c5f99e18a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 995669663}

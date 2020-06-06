@@ -15,7 +15,7 @@ namespace AirHockey.Camera
 
         #region Properties
 
-        public float Value => (float) _height / _width;
+        public static implicit operator float(AspectRatio ratio) => (float) ratio._height / ratio._width;
 
         #endregion
     }

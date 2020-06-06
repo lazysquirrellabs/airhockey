@@ -1,9 +1,8 @@
 using System;
-using AirHockey.Match;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.Managers
+namespace AirHockey.Match.Managers
 {
     public class ScoreManager : MonoBehaviour
     {

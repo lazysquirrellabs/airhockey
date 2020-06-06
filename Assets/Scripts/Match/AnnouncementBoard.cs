@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UniRx.Async;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,62 +28,63 @@ namespace AirHockey.Match
 
         #region Public
 
-        public async UniTask AnnounceMatchStartAsync(int seconds)
+        public async UniTask AnnounceMatchStartAsync(int seconds, CancellationToken token)
         {
             SetTexts(seconds);
-            await FadeInAsync(500f);
+            await FadeInAsync(500f, token);
             _canvas.alpha = 1f;
             while (seconds > 0)
             {
                 SetTexts(seconds);
-                await UniTask.Delay(1_000);
+                await UniTask.Delay(1_000, false, PlayerLoopTiming.Update, token);
                 seconds--;
             }
-            await FadeOutAsync(500f);
+            await FadeOutAsync(500f, token);
 
             void SetTexts(int s)
             {
-                _leftText.text = String.Format(MatchStartText, s);
-                _rightText.text = String.Format(MatchStartText, s);
+                _leftText.text = string.Format(MatchStartText, s);
+                _rightText.text = string.Format(MatchStartText, s);
             }
         }
-
-        public async UniTask AnnouncePlayerScoredAsync(Player player, int duration)
+        
+        public async UniTask AnnounceGoalAsync(Player player, int duration, CancellationToken token)
         {
             switch (player)
             {
                 case Player.LeftPlayer:
                     _leftText.text = ScoredText;
-                    _rightText.text = String.Format(OtherScoreText, 1);
+                    _rightText.text = string.Format(OtherScoreText, 1);
                     break;
                 case Player.RightPlayer:
-                    _leftText.text = String.Format(OtherScoreText, 2);
+                    _leftText.text = string.Format(OtherScoreText, 2);
                     _rightText.text = ScoredText;
                     break;
                 default:
                     throw new NotImplementedException($"Player not valid: {player}");
             }
             
-            await FadeInAsync(duration * 0.1f);
-            await UniTask.Delay((int) (duration * 0.8f));
-            await FadeOutAsync(duration * 0.1f);
+            await FadeInAsync(duration * 0.1f, token);
+            await UniTask.Delay((int) (duration * 0.8f), false, PlayerLoopTiming.Update, token);
+            await FadeOutAsync(duration * 0.1f, token);
         }
 
-        public async UniTask AnnounceGetReadyAsync(int duration)
+        public async UniTask AnnounceGetReadyAsync(int duration, CancellationToken token)
         {
             _leftText.text = GetReadyText;
             _rightText.text = GetReadyText;
-            await FadeInAsync(duration * 0.1f);
-            await UniTask.Delay((int) (duration * 0.9f));
+            await FadeInAsync(duration * 0.1f, token);
+            await UniTask.Delay((int) (duration * 0.9f), false, PlayerLoopTiming.Update, token);
             _leftText.text = GoText;
             _rightText.text = GoText;
-            FadeOutAsync(1_000).Forget();
+            FadeOutAsync(1_000, token).Forget();
         }
 
         #endregion
 
         #region Private
-        private async UniTask FadeOutAsync(float duration)
+        
+        private async UniTask FadeOutAsync(float duration, CancellationToken token)
         {
             var totalTime = 0f;
             while (totalTime <= duration)
@@ -90,12 +92,13 @@ namespace AirHockey.Match
                 _canvas.alpha = 1 - totalTime / duration;
                 totalTime += Time.deltaTime * 1_000;
                 await UniTask.Yield();
+                token.ThrowIfCancellationRequested();
             }
 
             _canvas.alpha = 0f;
         }
         
-        private async UniTask FadeInAsync(float duration)
+        private async UniTask FadeInAsync(float duration, CancellationToken token)
         {
             var totalTime = 0f;
             while (totalTime <= duration)
@@ -103,6 +106,7 @@ namespace AirHockey.Match
                 _canvas.alpha = totalTime / duration;
                 totalTime += Time.deltaTime * 1_000;
                 await UniTask.Yield();
+                token.ThrowIfCancellationRequested();
             }
 
             _canvas.alpha = 1f;
