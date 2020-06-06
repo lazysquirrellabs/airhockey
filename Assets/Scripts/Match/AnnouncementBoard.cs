@@ -30,6 +30,9 @@ namespace AirHockey.Match
 
         public async UniTask AnnounceMatchStartAsync(int seconds, CancellationToken token)
         {
+            if (seconds < 0)
+                throw new ArgumentOutOfRangeException(nameof(seconds), seconds, "Duration must be positive.");
+            
             SetTexts(seconds);
             await FadeInAsync(500f, token);
             _canvas.alpha = 1f;
@@ -50,6 +53,9 @@ namespace AirHockey.Match
         
         public async UniTask AnnounceGoalAsync(Player player, int duration, CancellationToken token)
         {
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
+            
             switch (player)
             {
                 case Player.LeftPlayer:
@@ -71,6 +77,9 @@ namespace AirHockey.Match
 
         public async UniTask AnnounceGetReadyAsync(int duration, CancellationToken token)
         {
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
+            
             _leftText.text = GetReadyText;
             _rightText.text = GetReadyText;
             await FadeInAsync(duration * 0.1f, token);

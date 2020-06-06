@@ -8,8 +8,8 @@ namespace AirHockey.Camera
     {
         #region Serialized fields
 
-        [SerializeField] private int _height;
-        [SerializeField] private int _width;
+        [SerializeField] private uint _height;
+        [SerializeField] private uint _width;
 
         #endregion
 

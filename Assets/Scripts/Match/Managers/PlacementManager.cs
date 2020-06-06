@@ -31,6 +31,9 @@ namespace AirHockey.Match.Managers
 
         public async UniTask ResetPlayersAsync(float duration, CancellationToken token)
         {
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
+            
             var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration, token);
             var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration, token);
             await UniTask.WhenAll(leftWait, rightWait);
