@@ -8,7 +8,7 @@ namespace AirHockey.Match.Referees
     {
         #region Setup
 
-        public BestOfScoreReferee(Action pause, Action<Player> resume, Action end, ScoreManager scoreManager, uint score) 
+        public BestOfScoreReferee(Action pause, Resumer resume, Action end, ScoreManager scoreManager, uint score) 
             : base(pause, resume, end, IsOver(score), scoreManager)
         {
         }

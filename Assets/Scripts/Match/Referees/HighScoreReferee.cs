@@ -7,7 +7,7 @@ namespace AirHockey.Match.Referees
     {
         #region Setup
 
-        public HighScoreReferee(Action pause, Action<Player> resume, Action end, ScoreManager scoreManager, uint score) 
+        public HighScoreReferee(Action pause, Resumer resume, Action end, ScoreManager scoreManager, uint score) 
             : base(pause, resume, end, IsOver(score), scoreManager)
         {
         }

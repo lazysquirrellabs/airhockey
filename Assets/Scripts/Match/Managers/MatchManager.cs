@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using AirHockey.Match.Referees;
+using UniRx.Async;
 using UnityEngine;
 
 namespace AirHockey.Match.Managers
@@ -50,18 +51,6 @@ namespace AirHockey.Match.Managers
 
         public async void StartMatch(MatchSettings setting)
         {
-            switch (setting.Mode)
-            {
-                case Mode.HighScore:
-                    _referee = new HighScoreReferee(Pause, Resume, End, _scoreManager, setting.Value);
-                    break;
-                case Mode.BestOfScore:
-                    _referee = new BestOfScoreReferee(Pause, Resume, End, _scoreManager, setting.Value);
-                    break;
-                default:
-                    throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
-            }
-            
             try
             {
                 _leftPlayer.StopMoving();
@@ -76,6 +65,21 @@ namespace AirHockey.Match.Managers
             {
                 Debug.Log("Match start cancelled because the match is over");
             }
+            
+            switch (setting.Mode)
+            {
+                case Mode.HighScore:
+                    _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                    break;
+                case Mode.BestOfScore:
+                    _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                    break;
+                case Mode.Time:
+                    _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                    break;
+                default:
+                    throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
+            }
         }
 
         #endregion
@@ -88,7 +92,7 @@ namespace AirHockey.Match.Managers
             _rightPlayer.StopMoving();
         }
 
-        private async void Resume(Player player)
+        private async UniTask ResumeAsync(Player player)
         {
             await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration * 1_000, _cancellationToken);
             await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
@@ -100,7 +104,8 @@ namespace AirHockey.Match.Managers
 
         private void End()
         {
-            Debug.Log("Game ended");
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
         }
 
         #endregion
