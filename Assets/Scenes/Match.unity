@@ -401,8 +401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 519420031}
   _maximumRatio:
-    _height: 16
-    _width: 9
+    _height: 9
+    _width: 16
 --- !u!114 &677338202 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4561477261208788645, guid: 833fcaba5865e42399c4f9e9746f0ac3,
