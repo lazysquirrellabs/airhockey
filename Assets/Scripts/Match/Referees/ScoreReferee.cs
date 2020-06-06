@@ -15,7 +15,6 @@ namespace AirHockey.Match.Referees
         #region Fields
 
         private readonly uint _highScore;
-        private readonly Action _stopListening;
         private readonly ScoreCheck _isOver;
 
         #endregion
@@ -23,33 +22,22 @@ namespace AirHockey.Match.Referees
         #region Setup
         
         protected ScoreReferee(Action pause, Resumer resume, Action end, ScoreCheck isOver, ScoreManager manager) 
-            : base(pause, resume, end)
+            : base(pause, resume, end, manager)
         {
-            _stopListening = () => manager.OnScore -= HandleScore;
             _isOver = isOver;
-            manager.OnScore += HandleScore;
         }
         
         #endregion
         
         #region Event hanlders
 
-        private void HandleScore(Player player, Score score)
+        protected override void HandleScore(Player player, Score score)
         {
             Pause();
             if (_isOver(score)) 
                 End();
             else
                 Resume(player).Forget();
-        }
-
-        #endregion
-
-        #region Public
-
-        public override void CancelMatch()
-        {
-            _stopListening?.Invoke();
         }
 
         #endregion

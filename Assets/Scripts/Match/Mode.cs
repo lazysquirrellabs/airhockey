@@ -4,6 +4,7 @@ namespace AirHockey.Match
     {
         HighScore,
         BestOfScore,
-        Time
+        Time,
+        Endless
     }
 }

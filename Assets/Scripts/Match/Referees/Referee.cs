@@ -1,4 +1,5 @@
 using System;
+using AirHockey.Match.Managers;
 using UniRx.Async;
 
 namespace AirHockey.Match.Referees
@@ -19,22 +20,40 @@ namespace AirHockey.Match.Referees
 
         #endregion
 
+        #region Fields
+
+        private readonly Action _stopListening;
+
+        #endregion
+
         #region Setup
 
-        protected Referee(Action pause, Resumer resume, Action end)
+        protected Referee(Action pause, Resumer resume, Action end, ScoreManager manager)
         {
             Pause = pause;
             Resume = resume;
             End = end;
+            
+            _stopListening = () => manager.OnScore -= HandleScore;
+            manager.OnScore += HandleScore;
         }
+
+        #endregion
+
+        #region Event handlers
+
+        protected abstract void HandleScore(Player player, Score score);
 
         #endregion
 
         #region Public
 
         public virtual void StartMatch() {}
-        
-        public abstract void CancelMatch();
+
+        public virtual void CancelMatch()
+        {
+            _stopListening?.Invoke();
+        }
 
         #endregion
     }

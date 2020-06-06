@@ -12,19 +12,16 @@ namespace AirHockey.Match.Referees
         private uint _elapsed;
         private readonly Timer _timer;
         private readonly uint _duration;
-        private readonly Action _stopListening;
 
         #endregion
         
         #region Setup
 
         public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint duration) 
-            : base(pause, resume, end)
+            : base(pause, resume, end, manager)
         {
             _duration = duration * 1_000;
-            manager.OnScore += HandleScoreAsync;
-            _stopListening = () => manager.OnScore -= HandleScoreAsync;
-            _timer = new Timer(1000);
+            _timer = new Timer(1_000);
             _timer.Elapsed += HandleTimerElapsed;
         }
         
@@ -45,7 +42,7 @@ namespace AirHockey.Match.Referees
             }
         }
 
-        private async void HandleScoreAsync(Player player, Score _)
+        protected override async void HandleScore(Player player, Score _)
         {
             _timer.Stop();
             _running = false;
@@ -67,6 +64,7 @@ namespace AirHockey.Match.Referees
 
         public override void CancelMatch()
         {
+            base.CancelMatch();
             Stop();
         }
 
@@ -79,7 +77,6 @@ namespace AirHockey.Match.Referees
             _running = false;
             _timer.Stop();
             _timer.Elapsed -= HandleTimerElapsed;
-            _stopListening?.Invoke();
         }
 
         #endregion

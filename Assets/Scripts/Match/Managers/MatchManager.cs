@@ -62,6 +62,9 @@ namespace AirHockey.Match.Managers
                 case Mode.Time:
                     _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
                     break;
+                case Mode.Endless:
+                    _referee = new EndlessReferee(Pause, ResumeAsync, End, _scoreManager);
+                    break;
                 default:
                     throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
             }
@@ -81,8 +84,6 @@ namespace AirHockey.Match.Managers
             {
                 Debug.Log("Match start cancelled because the match is over");
             }
-            
-            
         }
 
         #endregion
