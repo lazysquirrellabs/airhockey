@@ -8,7 +8,7 @@ namespace AirHockey.Match.Managers
     {
         #region Events
 
-        public event Action<Player> OnScore;
+        public event Action<Player,Score> OnScore;
 
         #endregion
         
@@ -22,8 +22,7 @@ namespace AirHockey.Match.Managers
 
         #region Fields
 
-        private uint _player1Score;
-        private uint _player2Score;
+        private Score _score;
 
         #endregion
 
@@ -33,6 +32,7 @@ namespace AirHockey.Match.Managers
         {
             _player1Goal.OnScore += ScoreRight;
             _player2Goal.OnScore += ScoreLeft;
+            _score = new Score();
         }
         
         private void OnDestroy()
@@ -45,18 +45,19 @@ namespace AirHockey.Match.Managers
 
         #region Event handlers
 
+        
         private void ScoreLeft()
         {
-            _player2Score++;
+            _score.ScoreGoal(Player.LeftPlayer);
             UpdateScore();
-            OnScore?.Invoke(Player.LeftPlayer);
+            OnScore?.Invoke(Player.LeftPlayer, _score);
         }
         
         private void ScoreRight()
         {
-            _player1Score++;
+            _score.ScoreGoal(Player.RightPlayer);
             UpdateScore();
-            OnScore?.Invoke(Player.RightPlayer);
+            OnScore?.Invoke(Player.RightPlayer, _score);
         }
 
         #endregion
@@ -65,7 +66,7 @@ namespace AirHockey.Match.Managers
 
         private void UpdateScore()
         {
-            _scoreText.text = $"{_player1Score}-{_player2Score}";
+            _scoreText.text = $"{_score.LeftPlayer}-{_score.RightPlayer}";
         }
 
         #endregion

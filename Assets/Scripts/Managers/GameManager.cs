@@ -1,4 +1,5 @@
 using System;
+using AirHockey.Match;
 using AirHockey.Match.Managers;
 using AirHockey.Menu;
 using AirHockey.SceneManagement;
@@ -89,6 +90,7 @@ namespace AirHockey.Managers
         {
             _menuManager.OnStartMatch -= LoadMatchAsync;
             _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
+            _matchManager.StartMatch(new MatchSettings(Mode.HighScore, 3));
             _part = GamePart.Match;
         }
 
