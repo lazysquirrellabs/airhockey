@@ -11,7 +11,7 @@ namespace AirHockey.SceneManagement
         #region Serialized fields
 
         [SerializeField, UsedImplicitly] private Object _scene;
-        [SerializeField] private string _scenePath = "";
+        [SerializeField] private string _scenePath;
 
         #endregion
 

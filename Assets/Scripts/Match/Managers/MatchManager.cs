@@ -1,4 +1,5 @@
-using AirHockey.Match;
+using System;
+using System.Threading;
 using UnityEngine;
 
 namespace AirHockey.Match.Managers
@@ -19,12 +20,21 @@ namespace AirHockey.Match.Managers
 
         #endregion
 
+        #region Fields
+
+        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationToken _cancellationToken;
+
+        #endregion
+
         #region Setup
 
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Landscape;
             _scoreManager.OnScore += HandleScoreAsync;
+            _cancellationTokenSource = new CancellationTokenSource();
+            _cancellationToken = _cancellationTokenSource.Token;
         }
         
         private void Start()
@@ -36,6 +46,7 @@ namespace AirHockey.Match.Managers
         private void OnDestroy()
         {
             _scoreManager.OnScore -= HandleScoreAsync;
+            _cancellationTokenSource.Cancel();
         }
 
         #endregion
@@ -44,14 +55,21 @@ namespace AirHockey.Match.Managers
 
         private async void HandleScoreAsync(Player player)
         {
-            _leftPlayer.StopMoving();
-            _rightPlayer.StopMoving();
-            await _announcementBoard.AnnouncePlayerScoredAsync(player, _celebrationDuration * 1_000);
-            await _placementManager.ResetPlayersAsync(_resetDuration * 1_000);
-            _placementManager.PlacePuck(player);
-            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000);
-            _leftPlayer.StartMoving();
-            _rightPlayer.StartMoving();
+            try
+            {
+                _leftPlayer.StopMoving();
+                _rightPlayer.StopMoving();
+                await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration * 1_000, _cancellationToken);
+                await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
+                _placementManager.PlacePuck(player);
+                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                _leftPlayer.StartMoving();
+                _rightPlayer.StartMoving();
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Score handling cancelled because the match is over");
+            }
         }
 
         #endregion
@@ -60,13 +78,20 @@ namespace AirHockey.Match.Managers
 
         private async void StartMatchAsync()
         {
-            _leftPlayer.StopMoving();
-            _rightPlayer.StopMoving();
-            _placementManager.StartMatch();
-            await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay);
-            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000);
-            _leftPlayer.StartMoving();
-            _rightPlayer.StartMoving();
+            try
+            {
+                _leftPlayer.StopMoving();
+                _rightPlayer.StopMoving();
+                _placementManager.StartMatch();
+                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
+                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                _leftPlayer.StartMoving();
+                _rightPlayer.StartMoving();
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Match start cancelled because the match is over");
+            }
         }
 
         #endregion

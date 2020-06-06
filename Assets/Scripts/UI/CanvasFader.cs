@@ -16,19 +16,19 @@ namespace AirHockey.UI
 
         public async UniTask FadeInAsync()
         {
-            await Fade(0f, 1f);
+            await FadeAsync(0f, 1f);
         }
         
         public async UniTask FadeOutAsync()
         {
-            await Fade(1f, 0f);
+            await FadeAsync(1f, 0f);
         }
 
         #endregion
 
         #region Private
 
-        private async UniTask Fade(float from, float to)
+        private async UniTask FadeAsync(float from, float to)
         {
             var startTime = Time.time;
             var delta = 0f;

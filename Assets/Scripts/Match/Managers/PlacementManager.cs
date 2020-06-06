@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using UniRx.Async;
 using UnityEngine;
 
@@ -28,10 +29,10 @@ namespace AirHockey.Match.Managers
             _rightPlayer.MoveTo(_rightPlayerStart.position);
         }
 
-        public async UniTask ResetPlayersAsync(float duration)
+        public async UniTask ResetPlayersAsync(float duration, CancellationToken token)
         {
-            var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration);
-            var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration);
+            var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration, token);
+            var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration, token);
             await UniTask.WhenAll(leftWait, rightWait);
         }
 
