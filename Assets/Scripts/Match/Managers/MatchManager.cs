@@ -51,21 +51,6 @@ namespace AirHockey.Match.Managers
 
         public async void StartMatch(MatchSettings setting)
         {
-            try
-            {
-                _leftPlayer.StopMoving();
-                _rightPlayer.StopMoving();
-                _placementManager.StartMatch();
-                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
-                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
-                _leftPlayer.StartMoving();
-                _rightPlayer.StartMoving();
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("Match start cancelled because the match is over");
-            }
-            
             switch (setting.Mode)
             {
                 case Mode.HighScore:
@@ -80,6 +65,24 @@ namespace AirHockey.Match.Managers
                 default:
                     throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
             }
+            
+            try
+            {
+                _leftPlayer.StopMoving();
+                _rightPlayer.StopMoving();
+                _placementManager.StartMatch();
+                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
+                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                _leftPlayer.StartMoving();
+                _rightPlayer.StartMoving();
+                _referee.StartMatch();
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Match start cancelled because the match is over");
+            }
+            
+            
         }
 
         #endregion

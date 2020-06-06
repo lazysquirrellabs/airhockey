@@ -26,8 +26,6 @@ namespace AirHockey.Match.Referees
             _stopListening = () => manager.OnScore -= HandleScoreAsync;
             _timer = new Timer(1000);
             _timer.Elapsed += HandleTimerElapsed;
-            _timer.Start();
-            _running = true;
         }
         
         #endregion
@@ -60,6 +58,12 @@ namespace AirHockey.Match.Referees
         #endregion
 
         #region Public
+
+        public override void StartMatch()
+        {
+            _timer.Start();
+            _running = true;
+        }
 
         public override void CancelMatch()
         {

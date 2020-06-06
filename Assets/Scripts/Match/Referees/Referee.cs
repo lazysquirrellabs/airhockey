@@ -32,6 +32,8 @@ namespace AirHockey.Match.Referees
 
         #region Public
 
+        public virtual void StartMatch() {}
+        
         public abstract void CancelMatch();
 
         #endregion
