@@ -55,6 +55,9 @@ namespace AirHockey.Match.Managers
                 case Mode.HighScore:
                     _referee = new HighScoreReferee(Pause, Resume, End, _scoreManager, setting.Value);
                     break;
+                case Mode.BestOfScore:
+                    _referee = new BestOfScoreReferee(Pause, Resume, End, _scoreManager, setting.Value);
+                    break;
                 default:
                     throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
             }

@@ -2,6 +2,7 @@ namespace AirHockey.Match
 {
     public enum Mode
     {
-        HighScore
+        HighScore,
+        BestOfScore
     }
 }

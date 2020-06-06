@@ -90,7 +90,7 @@ namespace AirHockey.Managers
         {
             _menuManager.OnStartMatch -= LoadMatchAsync;
             _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
-            _matchManager.StartMatch(new MatchSettings(Mode.HighScore, 3));
+            _matchManager.StartMatch(new MatchSettings(Mode.BestOfScore, 5));
             _part = GamePart.Match;
         }
 
