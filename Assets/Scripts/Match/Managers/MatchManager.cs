@@ -1,5 +1,7 @@
 using System;
 using System.Threading;
+using AirHockey.Match.Referees;
+using UniRx.Async;
 using UnityEngine;
 
 namespace AirHockey.Match.Managers
@@ -24,6 +26,7 @@ namespace AirHockey.Match.Managers
 
         private CancellationTokenSource _cancellationTokenSource;
         private CancellationToken _cancellationToken;
+        private Referee _referee;
 
         #endregion
 
@@ -32,52 +35,40 @@ namespace AirHockey.Match.Managers
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Landscape;
-            _scoreManager.OnScore += HandleScoreAsync;
             _cancellationTokenSource = new CancellationTokenSource();
             _cancellationToken = _cancellationTokenSource.Token;
         }
         
-        private void Start()
-        {
-            // TODO: Remove this once the basic game loop is implemented
-            StartMatchAsync();
-        }
-
         private void OnDestroy()
         {
-            _scoreManager.OnScore -= HandleScoreAsync;
             _cancellationTokenSource.Cancel();
+            _referee.CancelMatch();
         }
 
         #endregion
 
-        #region Event handlers
+        #region Public
 
-        private async void HandleScoreAsync(Player player)
+        public async void StartMatch(MatchSettings setting)
         {
-            try
+            switch (setting.Mode)
             {
-                _leftPlayer.StopMoving();
-                _rightPlayer.StopMoving();
-                await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration * 1_000, _cancellationToken);
-                await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
-                _placementManager.PlacePuck(player);
-                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
-                _leftPlayer.StartMoving();
-                _rightPlayer.StartMoving();
+                case Mode.HighScore:
+                    _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                    break;
+                case Mode.BestOfScore:
+                    _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                    break;
+                case Mode.Time:
+                    _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                    break;
+                case Mode.Endless:
+                    _referee = new EndlessReferee(Pause, ResumeAsync, End, _scoreManager);
+                    break;
+                default:
+                    throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
             }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("Score handling cancelled because the match is over");
-            }
-        }
-
-        #endregion
-
-        #region Private
-
-        private async void StartMatchAsync()
-        {
+            
             try
             {
                 _leftPlayer.StopMoving();
@@ -87,11 +78,38 @@ namespace AirHockey.Match.Managers
                 await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
                 _leftPlayer.StartMoving();
                 _rightPlayer.StartMoving();
+                _referee.StartMatch();
             }
             catch (OperationCanceledException)
             {
                 Debug.Log("Match start cancelled because the match is over");
             }
+        }
+
+        #endregion
+
+        #region Private
+
+        private void Pause()
+        {
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
+        }
+
+        private async UniTask ResumeAsync(Player player)
+        {
+            await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration * 1_000, _cancellationToken);
+            await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
+            _placementManager.PlacePuck(player);
+            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+            _leftPlayer.StartMoving();
+            _rightPlayer.StartMoving();
+        }
+
+        private void End()
+        {
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
         }
 
         #endregion

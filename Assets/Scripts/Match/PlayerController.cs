@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using AirHockey.Movement;
 using UniRx.Async;
@@ -53,6 +54,9 @@ namespace AirHockey.Match
         
         public async UniTask MoveToAsync(Vector3 position, float duration, CancellationToken token)
         {
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
+            
             var totalTime = 0f;
             var initialPosition = _transform.position;
             while (totalTime <= duration)
