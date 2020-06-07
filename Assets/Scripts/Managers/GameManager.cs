@@ -86,11 +86,11 @@ namespace AirHockey.Managers
             _part = GamePart.Menu;
         }
 
-        private async void LoadMatchAsync()
+        private async void LoadMatchAsync(MatchSettings settings)
         {
             _menuManager.OnStartMatch -= LoadMatchAsync;
             _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
-            _matchManager.StartMatch(new MatchSettings(Mode.BestOfScore, 5));
+            _matchManager.StartMatch(settings);
             _part = GamePart.Match;
         }
 
