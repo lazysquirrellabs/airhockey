@@ -19,6 +19,7 @@ namespace AirHockey.Match.Referees
 
         protected override void HandleScore(Player player, Score score)
         {
+            Pause();
             Resume(player).Forget();
         }
 
