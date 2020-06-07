@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,12 @@ namespace AirHockey.UI.Generic
 {
     public class GenericToggleGroup<T,TU> : ToggleGroup where T : GenericToggle<TU>
     {
+        #region Events
+
+        public event Action<TU> OnSelect; 
+
+        #endregion
+        
         #region Serialized fields
 
         [SerializeField] private T[] _toggles;
@@ -27,14 +34,13 @@ namespace AirHockey.UI.Generic
                 toggle.OnSelect += SelectToggle;
             }
             _toggles[0].Select();
+            OnSelect?.Invoke(_toggles[0].Value);
         }
         
         protected override void OnDestroy()
         {
             foreach (var toggle in _toggles)
-            {
                 toggle.OnSelect -= SelectToggle;
-            }
         }
 
         protected override void Reset()
@@ -54,7 +60,7 @@ namespace AirHockey.UI.Generic
                     toggle.Deselect();
             }
 
-            Selected = selectedToggle.Value;
+            OnSelect?.Invoke(selectedToggle.Value);
         }
 
         #endregion
