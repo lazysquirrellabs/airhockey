@@ -1,5 +1,7 @@
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using NUnit.Framework;
 using AspectRatio = AirHockey.Camera.AspectRatio;
 
 namespace AirHockey.Editor.Camera
@@ -39,6 +41,20 @@ namespace AirHockey.Editor.Camera
             EditorGUI.EndProperty();
         }
         
+        #endregion
+
+        #region Tests
+
+        [Test]
+        public void TestFields()
+        {
+            var type = typeof(AspectRatio);
+            var heightField = type.GetField(HeightName, BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(heightField, "Height field exists.");
+            var widthField = type.GetField(WidthName, BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(widthField, "Width field exists.");
+        }
+
         #endregion
     }
 }

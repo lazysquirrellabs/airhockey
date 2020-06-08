@@ -1,4 +1,6 @@
+using System.Reflection;
 using AirHockey.SceneManagement;
+using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,6 +35,20 @@ namespace AirHockey.Editor.SceneManagement
             EditorGUI.EndProperty();
         }
     
+        #endregion
+        
+        #region Tests
+
+        [Test]
+        public void TestFields()
+        {
+            var type = typeof(SceneReference);
+            var sceneField = type.GetField(SceneName, BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(sceneField, "Scene field exists.");
+            var scenePathField = type.GetField(ScenePathName, BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(scenePathField, "Scene patch field exists.");
+        }
+
         #endregion
     }
 }
