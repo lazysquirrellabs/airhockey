@@ -18,12 +18,6 @@ namespace AirHockey.UI.Generic
 
         #endregion
 
-        #region Properties
-        
-        public TU Selected { get; private set; }
-
-        #endregion
-
         #region Setup
 
         protected override void Awake()

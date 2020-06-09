@@ -44,7 +44,6 @@ namespace AirHockey.Match.Managers
         #endregion
 
         #region Event handlers
-
         
         private void ScoreLeft()
         {

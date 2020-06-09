@@ -65,9 +65,9 @@ namespace AirHockey.Menu
             
             MatchSettings settings;
             if (_needsExtraInfo)
-                settings = new MatchSettings(_modeSelector.Selected, _extraInfo);
+                settings = new MatchSettings(_mode, _extraInfo);
             else
-                settings = new MatchSettings(_modeSelector.Selected);
+                settings = new MatchSettings(_mode);
             OnStartMatch?.Invoke(settings);
 
             bool TryGetExtraInfo()

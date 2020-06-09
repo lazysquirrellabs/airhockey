@@ -48,8 +48,6 @@ namespace AirHockey.Match.Referees
 
         #region Public
 
-        public virtual void StartMatch() {}
-
         public virtual void CancelMatch()
         {
             _stopListening?.Invoke();

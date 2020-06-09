@@ -51,24 +51,6 @@ namespace AirHockey.Match.Managers
 
         public async void StartMatch(MatchSettings setting)
         {
-            switch (setting.Mode)
-            {
-                case Mode.HighScore:
-                    _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
-                    break;
-                case Mode.BestOfScore:
-                    _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
-                    break;
-                case Mode.Time:
-                    _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
-                    break;
-                case Mode.Endless:
-                    _referee = new EndlessReferee(Pause, ResumeAsync, End, _scoreManager);
-                    break;
-                default:
-                    throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
-            }
-            
             try
             {
                 _leftPlayer.StopMoving();
@@ -76,9 +58,25 @@ namespace AirHockey.Match.Managers
                 _placementManager.StartMatch();
                 await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
                 await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                switch (setting.Mode)
+                {
+                    case Mode.HighScore:
+                        _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                        break;
+                    case Mode.BestOfScore:
+                        _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                        break;
+                    case Mode.Time:
+                        _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                        break;
+                    case Mode.Endless:
+                        _referee = new EndlessReferee(Pause, ResumeAsync, End, _scoreManager);
+                        break;
+                    default:
+                        throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
+                }
                 _leftPlayer.StartMoving();
                 _rightPlayer.StartMoving();
-                _referee.StartMatch();
             }
             catch (OperationCanceledException)
             {
@@ -108,6 +106,7 @@ namespace AirHockey.Match.Managers
 
         private void End()
         {
+            Debug.Log("Match is over");
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
         }

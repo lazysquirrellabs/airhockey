@@ -1,6 +1,7 @@
 using System;
-using System.Timers;
+using System.Threading;
 using AirHockey.Match.Managers;
+using UniRx.Async;
 
 namespace AirHockey.Match.Referees
 {
@@ -10,57 +11,35 @@ namespace AirHockey.Match.Referees
 
         private bool _running;
         private uint _elapsed;
-        private readonly Timer _timer;
-        private readonly uint _duration;
+        private readonly CancellationTokenSource _tokenSource;
 
         #endregion
         
         #region Setup
 
-        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint duration) 
+        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint minutes) 
             : base(pause, resume, end, manager)
         {
-            _duration = duration * 1_000;
-            _timer = new Timer(1_000);
-            _timer.Elapsed += HandleTimerElapsed;
+            _tokenSource = new CancellationTokenSource();
+            _running = true;
+            StartTimer((int) minutes * 60).Forget();
         }
         
         #endregion
 
         #region Event handlers
 
-        private void HandleTimerElapsed(object source, ElapsedEventArgs e)
-        {
-            if (!_running) return;
-            
-            _elapsed += 1_000;
-
-            if (_elapsed >= _duration)
-            {
-                Stop();
-                End();
-            }
-        }
-
         protected override async void HandleScore(Player player, Score _)
         {
-            _timer.Stop();
             _running = false;
             Pause();
             await Resume(player);
             _running = true;
-            _timer.Start();
         }
 
         #endregion
 
         #region Public
-
-        public override void StartMatch()
-        {
-            _timer.Start();
-            _running = true;
-        }
 
         public override void CancelMatch()
         {
@@ -72,11 +51,35 @@ namespace AirHockey.Match.Referees
 
         #region Private
 
+        private async UniTaskVoid StartTimer(int seconds)
+        {
+            var milliseconds = seconds * 1000;
+            var token = _tokenSource.Token;
+            while (true)
+            {
+                var waitRunning = UniTask.WaitUntil(IsRunning, PlayerLoopTiming.Update, token);
+                var waitDelay =  UniTask.Delay(1_000, false, PlayerLoopTiming.Update, token);
+                await UniTask.WhenAll(waitRunning, waitDelay);
+
+                if (!_running) continue;
+                
+                _elapsed += 1_000;
+
+                if (_elapsed >= milliseconds)
+                {
+                    Stop();
+                    End();
+                    return;
+                }
+            }
+
+            bool IsRunning() => _running;
+        }
+        
         private void Stop()
         {
             _running = false;
-            _timer.Stop();
-            _timer.Elapsed -= HandleTimerElapsed;
+            _tokenSource.Cancel();
         }
 
         #endregion
