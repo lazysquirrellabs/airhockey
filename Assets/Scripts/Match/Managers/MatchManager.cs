@@ -15,6 +15,7 @@ namespace AirHockey.Match.Managers
         [SerializeField] private ScoreManager _scoreManager;
         [SerializeField] private PlacementManager _placementManager;
         [SerializeField] private AnnouncementBoard _announcementBoard;
+        [SerializeField] private Timer _timer;
         [SerializeField, Range(0, 10)] private int _matchStartDelay;
         [SerializeField, Range(0, 10)] private int _celebrationDuration;
         [SerializeField, Range(0, 10)] private int _resetDuration;
@@ -60,24 +61,27 @@ namespace AirHockey.Match.Managers
 
         public async void StartMatch(MatchSettings setting)
         {
-            Debug.Log($"Starting match on {setting.Mode}, value: {setting.Value}");
+            var info = setting.Value;
+            Debug.Log($"Starting match on {setting.Mode}, value: {info}");
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
+            _placementManager.StartMatch();
+            
             try
             {
-                _leftPlayer.StopMoving();
-                _rightPlayer.StopMoving();
-                _placementManager.StartMatch();
                 await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
                 await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
                 switch (setting.Mode)
                 {
                     case Mode.HighScore:
-                        _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                        _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, info);
                         break;
                     case Mode.BestOfScore:
-                        _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                        _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, info);
                         break;
                     case Mode.Time:
-                        _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, setting.Value);
+                        _timer.Show(info);
+                        _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, info, _timer.SetTime);
                         break;
                     case Mode.Endless:
                         _referee = new EndlessReferee(Pause, ResumeAsync, End, _scoreManager);

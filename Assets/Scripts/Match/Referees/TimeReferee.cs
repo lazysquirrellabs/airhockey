@@ -12,17 +12,19 @@ namespace AirHockey.Match.Referees
         private bool _running;
         private uint _elapsed;
         private readonly CancellationTokenSource _tokenSource;
+        private readonly Action<uint> _onTick;
 
         #endregion
         
         #region Setup
 
-        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint minutes) 
+        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint min, Action<uint> onTick) 
             : base(pause, resume, end, manager)
         {
             _tokenSource = new CancellationTokenSource();
             _running = true;
-            StartTimer((int) minutes * 60).Forget();
+            _onTick = onTick;
+            StartTimer(min * 60).Forget();
         }
         
         #endregion
@@ -51,7 +53,7 @@ namespace AirHockey.Match.Referees
 
         #region Private
 
-        private async UniTaskVoid StartTimer(int seconds)
+        private async UniTaskVoid StartTimer(uint seconds)
         {
             var milliseconds = seconds * 1000;
             var token = _tokenSource.Token;
@@ -64,6 +66,7 @@ namespace AirHockey.Match.Referees
                 if (!_running) continue;
                 
                 _elapsed += 1_000;
+                _onTick?.Invoke(seconds - _elapsed / 1000);
 
                 if (_elapsed >= milliseconds)
                 {
