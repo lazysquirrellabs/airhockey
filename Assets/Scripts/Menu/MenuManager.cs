@@ -1,4 +1,6 @@
 using System;
+using AirHockey.Match;
+using AirHockey.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,13 +9,20 @@ namespace AirHockey.Menu {
     {
         #region Events
 
-        public event Action OnStartMatch;
+        public event Action<MatchSettings> OnStartMatch;
 
         #endregion
         
         #region Serialized fields
 
-        [SerializeField] private Button _startButton;
+        [SerializeField] private Button _newMatchButton;
+        [SerializeField] private NewMatchScreen _newMatchScreen;
+
+        #endregion
+
+        #region Fields
+
+        private IDisplayable _currentScreen;
 
         #endregion
 
@@ -22,21 +31,39 @@ namespace AirHockey.Menu {
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Portrait;
-            _startButton.onClick.AddListener(StartMatch);
+            _newMatchButton.onClick.AddListener(ShowNewMatchScreen);
+            _newMatchScreen.OnStartMatch += StartMatch;
         }
 
         private void OnDestroy()
         {
-            _startButton.onClick.RemoveListener(StartMatch);
+            _newMatchButton.onClick.RemoveListener(ShowNewMatchScreen);
+            _newMatchScreen.OnStartMatch += StartMatch;
         }
 
         #endregion
 
         #region Event handlers
 
-        private void StartMatch()
+        private void ShowNewMatchScreen()
         {
-            OnStartMatch?.Invoke();
+            _newMatchScreen.Show();
+            _currentScreen = _newMatchScreen;
+        }
+        
+        private void StartMatch(MatchSettings settings)
+        {
+            OnStartMatch?.Invoke(settings);
+        }
+
+        #endregion
+
+        #region Public
+
+        public void Return()
+        {
+            _currentScreen?.Hide();
+            _currentScreen = null;
         }
 
         #endregion

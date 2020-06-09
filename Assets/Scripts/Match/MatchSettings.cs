@@ -17,6 +17,12 @@ namespace AirHockey.Match
             Value = value;
         }
 
+        public MatchSettings(Mode mode)
+        {
+            Mode = mode;
+            Value = 0;
+        }
+
         #endregion
     }
 }

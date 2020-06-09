@@ -65,7 +65,7 @@ namespace AirHockey.Managers
                     Debug.Log("Can't return when the application is loading.");
                     break;
                 case GamePart.Menu:
-                    // TODO: Handle menu return
+                    _menuManager.Return();
                     break;
                 case GamePart.Match:
                     LoadMenuAsync();
@@ -86,11 +86,11 @@ namespace AirHockey.Managers
             _part = GamePart.Menu;
         }
 
-        private async void LoadMatchAsync()
+        private async void LoadMatchAsync(MatchSettings settings)
         {
             _menuManager.OnStartMatch -= LoadMatchAsync;
             _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
-            _matchManager.StartMatch(new MatchSettings(Mode.BestOfScore, 5));
+            _matchManager.StartMatch(settings);
             _part = GamePart.Match;
         }
 
