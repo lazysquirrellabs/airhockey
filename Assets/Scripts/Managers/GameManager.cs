@@ -65,7 +65,7 @@ namespace AirHockey.Managers
                     Debug.Log("Can't return when the application is loading.");
                     break;
                 case GamePart.Menu:
-                    // TODO: Handle menu return
+                    _menuManager.Return();
                     break;
                 case GamePart.Match:
                     LoadMenuAsync();

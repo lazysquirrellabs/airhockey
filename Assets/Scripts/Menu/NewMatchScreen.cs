@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace AirHockey.Menu
 {
-    public class NewMatchScreen : MonoBehaviour
+    public class NewMatchScreen : MonoBehaviour, IDisplayable
     {
         #region Events
 
@@ -58,7 +58,8 @@ namespace AirHockey.Menu
         {
             if (_needsExtraInfo && !TryGetExtraInfo())
             {
-                _popup.Show($"Provide the mode {_mode.InfoName()} before starting a match.");
+                _popup.Message = $"Provide the mode {_mode.InfoName()} before starting a match.";
+                _popup.Show();
                 return;
             }
             
@@ -118,6 +119,7 @@ namespace AirHockey.Menu
         public void Hide()
         {
             gameObject.SetActive(false);
+            _popup.Hide();
         }
 
         #endregion

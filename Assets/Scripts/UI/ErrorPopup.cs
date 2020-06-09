@@ -3,12 +3,21 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI
 {
-    public class ErrorPopup : MonoBehaviour
+    public class ErrorPopup : MonoBehaviour, IDisplayable
     {
         #region Serialized fields
 
         [SerializeField] private Text _text;
         [SerializeField] private Button _button;
+
+        #endregion
+
+        #region Properties
+
+        public string Message
+        {
+            set => _text.text = value;
+        }
 
         #endregion
 
@@ -26,21 +35,16 @@ namespace AirHockey.UI
 
         #endregion
 
-        #region Event handlers
-
-        private void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        #endregion
-
         #region Public
 
-        public void Show(string message)
+        public void Show()
         {
-            _text.text = message;
             gameObject.SetActive(true);
+        }
+        
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
 
         #endregion
