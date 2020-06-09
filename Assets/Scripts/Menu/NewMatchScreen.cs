@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using AirHockey.Match;
+using AirHockey.UI;
 using AirHockey.UI.Menu;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ namespace AirHockey.Menu
         [SerializeField] private InputField _extraInfoInput;
         [SerializeField] private Text _extraFieldLabel;
         [SerializeField] private Text _extraInfoUnit;
+        [SerializeField] private ErrorPopup _popup;
 
         #endregion
 
@@ -56,11 +58,10 @@ namespace AirHockey.Menu
         {
             if (_needsExtraInfo && !TryGetExtraInfo())
             {
-                Debug.LogError("Can't start match because the mode doesn't have a value");
+                _popup.Show($"Provide the mode {_mode.InfoName()} before starting a match.");
                 return;
             }
             
-            // TODO: replace by value toggle
             MatchSettings settings;
             if (_needsExtraInfo)
                 settings = new MatchSettings(_modeSelector.Selected, _extraInfo);
