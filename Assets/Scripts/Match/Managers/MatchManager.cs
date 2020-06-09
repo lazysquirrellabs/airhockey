@@ -27,6 +27,7 @@ namespace AirHockey.Match.Managers
         private CancellationTokenSource _cancellationTokenSource;
         private CancellationToken _cancellationToken;
         private Referee _referee;
+        private Score _score;
 
         #endregion
 
@@ -37,13 +38,21 @@ namespace AirHockey.Match.Managers
             Screen.orientation = ScreenOrientation.Landscape;
             _cancellationTokenSource = new CancellationTokenSource();
             _cancellationToken = _cancellationTokenSource.Token;
+            _scoreManager.OnScore += HandleScore;
         }
         
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
             _referee.CancelMatch();
+            _scoreManager.OnScore -= HandleScore;
         }
+
+        #endregion
+
+        #region Event handlers
+
+        private void HandleScore(Player _, Score score) => _score = score;
 
         #endregion
 
@@ -51,6 +60,7 @@ namespace AirHockey.Match.Managers
 
         public async void StartMatch(MatchSettings setting)
         {
+            Debug.Log($"Starting match on {setting.Mode}, value: {setting.Value}");
             try
             {
                 _leftPlayer.StopMoving();
@@ -109,6 +119,7 @@ namespace AirHockey.Match.Managers
             Debug.Log("Match is over");
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
+            _announcementBoard.AnnounceEndOfMatch(_score.FinalResult, _cancellationToken);
         }
 
         #endregion

@@ -23,6 +23,9 @@ namespace AirHockey.Match
         private const string OtherScoreText = "Player {0} scored";
         private const string GetReadyText = "On your marks...";
         private const string GoText = "GO!";
+        private const string YouWinText = "You win!!!";
+        private const string YouLoseText = "You lose.";
+        private const string TieText = "It's a tie.";
 
         #endregion
 
@@ -87,6 +90,29 @@ namespace AirHockey.Match
             _leftText.text = GoText;
             _rightText.text = GoText;
             FadeOutAsync(1_000, token).Forget();
+        }
+
+        public async void AnnounceEndOfMatch(Score.Result result, CancellationToken token)
+        {
+            switch (result)
+            {
+                case Score.Result.Tie:
+                    _leftText.text = TieText;
+                    _rightText.text = TieText;
+                    break;
+                case Score.Result.LeftPlayerWin:
+                    _leftText.text = YouWinText;
+                    _rightText.text = YouLoseText;
+                    break;
+                case Score.Result.RightPlayerWin:
+                    _leftText.text = YouLoseText;
+                    _rightText.text = YouWinText;
+                    break;
+                default:
+                    throw new NotImplementedException($"Result not valid: {result}");
+            }
+            
+            await FadeInAsync(0.5f, token);
         }
 
         #endregion
