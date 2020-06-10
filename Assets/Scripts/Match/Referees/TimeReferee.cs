@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using AirHockey.Match.Managers;
 using UniRx.Async;
+using UnityEngine;
 
 namespace AirHockey.Match.Referees
 {
@@ -10,21 +11,20 @@ namespace AirHockey.Match.Referees
         #region Fields
 
         private bool _running;
-        private uint _elapsed;
         private readonly CancellationTokenSource _tokenSource;
-        private readonly Action<uint> _onTick;
+        private readonly Action<uint> _onUpdate;
 
         #endregion
         
         #region Setup
 
-        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint min, Action<uint> onTick) 
+        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint min, Action<uint> onUpdate) 
             : base(pause, resume, end, manager)
         {
             _tokenSource = new CancellationTokenSource();
             _running = true;
-            _onTick = onTick;
-            StartTimer(min * 60).Forget();
+            _onUpdate = onUpdate;
+            StartTimer(min * 60, _tokenSource.Token).Forget();
         }
         
         #endregion
@@ -53,22 +53,42 @@ namespace AirHockey.Match.Referees
 
         #region Private
 
-        private async UniTaskVoid StartTimer(uint seconds)
+        /// <summary>
+        /// Starts a timer with the provided amount of  <paramref name="seconds"/> in it. This async method should not
+        /// be awaited, just fire it and forget.
+        /// </summary>
+        /// <param name="seconds">The duration of the timer.</param>
+        /// <param name="token">The cancellation token used to stop the timer.</param>
+        /// <returns>The required <see cref="UniTaskVoid"/> to forget the task.</returns>
+        private async UniTaskVoid StartTimer(uint seconds, CancellationToken token)
         {
-            var milliseconds = seconds * 1000;
-            var token = _tokenSource.Token;
-            while (true)
+            const int ticksPerSecond = 10;
+            const int tickInterval = 1_000 / ticksPerSecond;
+            var milliseconds = seconds * 1_000;
+            // Counter that keeps track of how many times the timer ticked this second.
+            var ticks = 0;
+            // Elapsed time in milliseconds since the timer started.
+            uint elapsed = 0;
+            while (!token.IsCancellationRequested)
             {
-                var waitRunning = UniTask.WaitUntil(IsRunning, PlayerLoopTiming.Update, token);
-                var waitDelay =  UniTask.Delay(1_000, false, PlayerLoopTiming.Update, token);
-                await UniTask.WhenAll(waitRunning, waitDelay);
+                await TryToTick();
 
+                // If the timer is paused, don't tick.
                 if (!_running) continue;
                 
-                _elapsed += 1_000;
-                _onTick?.Invoke(seconds - _elapsed / 1000);
+                elapsed += tickInterval;
+                ticks++;
+                
+                // If the number of ticks within this second is enough,
+                // invoke the onUpdate and restart the counter.
+                if (ticks >= ticksPerSecond)
+                {
+                    _onUpdate?.Invoke(seconds - elapsed / 1_000);
+                    ticks = 0;
+                }
 
-                if (_elapsed >= milliseconds)
+                // If the timer ran to completion, stop it, call the end delegate and return.
+                if (elapsed >= milliseconds)
                 {
                     Stop();
                     End();
@@ -77,6 +97,21 @@ namespace AirHockey.Match.Referees
             }
 
             bool IsRunning() => _running;
+            
+            async UniTask TryToTick()
+            {
+                // If the token is cancelled, an OperationCanceledException is thrown.
+                try
+                {
+                    var waitRunning = UniTask.WaitUntil(IsRunning, PlayerLoopTiming.Update, token);
+                    var waitDelay = UniTask.Delay(tickInterval, false, PlayerLoopTiming.Update, token);
+                    await UniTask.WhenAll(waitRunning, waitDelay);
+                }
+                catch (OperationCanceledException)
+                {
+                    Debug.Log("The timer stopped because the token was cancelled.");
+                }
+            }
         }
         
         private void Stop()
