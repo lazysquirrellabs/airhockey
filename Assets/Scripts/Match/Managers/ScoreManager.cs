@@ -65,7 +65,7 @@ namespace AirHockey.Match.Managers
 
         private void UpdateScore()
         {
-            _scoreText.text = $"{_score.LeftPlayer}-{_score.RightPlayer}";
+            _scoreText.text = $"{_score.LeftPlayer} {_score.RightPlayer}";
         }
 
         #endregion

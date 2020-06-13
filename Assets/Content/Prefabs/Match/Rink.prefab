@@ -318,7 +318,7 @@ SpriteRenderer:
   m_SortingLayerID: -669521005
   m_SortingLayer: -1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 473211041bddf434783ef62e53848fb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e0e13efb01c5c4e3f8adfd2d60976969, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -800,7 +800,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.441, y: 0.0072293095}
-  m_AnchorMax: {x: 0.55850387, y: 0.1392205}
+  m_AnchorMax: {x: 0.55850387, y: 0.09887201}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -833,18 +833,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 0
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 264
+    m_MaxSize: 300
     m_Alignment: 7
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0-0
+  m_Text: 0   0
 --- !u!1 &3901682833800446083
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,7 +920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1626249463121108371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -935,8 +935,8 @@ RectTransform:
   m_Father: {fileID: 2162933974690708660}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.441, y: 0.9092918}
-  m_AnchorMax: {x: 0.55850387, y: 1}
+  m_AnchorMin: {x: 0.4391671, y: 0.9041397}
+  m_AnchorMax: {x: 0.556671, y: 0.9957824}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1247,6 +1247,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right Goal
       objectReference: {fileID: 0}
+    - target: {fileID: 4399298793533207016, guid: 28c51234675e04382bebb01ee4149cdb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6967561077276117594, guid: 28c51234675e04382bebb01ee4149cdb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1321,6 +1326,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Left Goal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4399298793533207016, guid: 28c51234675e04382bebb01ee4149cdb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6967561077276117594, guid: 28c51234675e04382bebb01ee4149cdb,
         type: 3}
