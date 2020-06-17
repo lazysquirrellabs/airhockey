@@ -1,5 +1,4 @@
 using System;
-using AirHockey.Match.Managers;
 using UniRx.Async;
 
 namespace AirHockey.Match.Referees
@@ -21,8 +20,8 @@ namespace AirHockey.Match.Referees
 
         #region Setup
         
-        protected ScoreReferee(Action pause, Resumer resume, Action end, ScoreCheck isOver, ScoreManager manager) 
-            : base(pause, resume, end, manager)
+        protected ScoreReferee(Pauser pause, Action end, ScoreCheck isOver, Action<Scorer> subscribe) 
+            : base(pause, end, subscribe)
         {
             _isOver = isOver;
         }
@@ -33,11 +32,10 @@ namespace AirHockey.Match.Referees
 
         protected override void HandleScore(Player player, Score score)
         {
-            Pause();
             if (_isOver(score)) 
                 End();
             else
-                Resume(player).Forget();
+                Pause(player).Forget();
         }
 
         #endregion

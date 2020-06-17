@@ -1,5 +1,4 @@
 using System;
-using AirHockey.Match.Managers;
 using UniRx.Async;
 
 namespace AirHockey.Match.Referees
@@ -8,8 +7,8 @@ namespace AirHockey.Match.Referees
     {
         #region Setup
 
-        public EndlessReferee(Action pause, Resumer resume, Action end, ScoreManager manager) 
-            : base(pause, resume, end, manager)
+        public EndlessReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore) 
+            : base(pause, end, subscribeToScore)
         {
         }
 
@@ -19,8 +18,7 @@ namespace AirHockey.Match.Referees
 
         protected override void HandleScore(Player player, Score score)
         {
-            Pause();
-            Resume(player).Forget();
+            Pause(player).Forget();
         }
 
         #endregion

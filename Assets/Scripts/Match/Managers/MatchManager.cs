@@ -45,8 +45,10 @@ namespace AirHockey.Match.Managers
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
-            _referee.CancelMatch();
-            _scoreManager.OnScore -= HandleScore;
+            _referee.CancelMatch(UnsubscribeToScore);
+            UnsubscribeToScore(HandleScore);
+            
+            void UnsubscribeToScore(Scorer scorer) => _scoreManager.OnScore -= scorer;
         }
 
         #endregion
@@ -74,17 +76,17 @@ namespace AirHockey.Match.Managers
                 switch (setting.Mode)
                 {
                     case Mode.HighScore:
-                        _referee = new HighScoreReferee(Pause, ResumeAsync, End, _scoreManager, info);
+                        _referee = new HighScoreReferee(PauseAsync, End, SubscribeToScore, info);
                         break;
                     case Mode.BestOfScore:
-                        _referee = new BestOfScoreReferee(Pause, ResumeAsync, End, _scoreManager, info);
+                        _referee = new BestOfScoreReferee(PauseAsync, End, SubscribeToScore, info);
                         break;
                     case Mode.Time:
                         _timer.Show(info);
-                        _referee = new TimeReferee(Pause, ResumeAsync, End, _scoreManager, info, _timer.SetTime);
+                        _referee = new TimeReferee(PauseAsync, End, SubscribeToScore, info, _timer.SetTime);
                         break;
                     case Mode.Endless:
-                        _referee = new EndlessReferee(Pause, ResumeAsync, End, _scoreManager);
+                        _referee = new EndlessReferee(PauseAsync, End, SubscribeToScore);
                         break;
                     default:
                         throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
@@ -96,20 +98,18 @@ namespace AirHockey.Match.Managers
             {
                 Debug.Log("Match start cancelled because the match is over");
             }
+
+            void SubscribeToScore(Scorer scorer) => _scoreManager.OnScore += scorer;
         }
 
         #endregion
 
         #region Private
 
-        private void Pause()
+        private async UniTask PauseAsync(Player player)
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
-        }
-
-        private async UniTask ResumeAsync(Player player)
-        {
             await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration * 1_000, _cancellationToken);
             await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
             _placementManager.PlacePuck(player);

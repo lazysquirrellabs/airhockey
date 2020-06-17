@@ -1,5 +1,4 @@
 using System;
-using AirHockey.Match.Managers;
 using UnityEngine;
 
 namespace AirHockey.Match.Referees
@@ -8,8 +7,8 @@ namespace AirHockey.Match.Referees
     {
         #region Setup
 
-        public BestOfScoreReferee(Action pause, Resumer resume, Action end, ScoreManager scoreManager, uint score) 
-            : base(pause, resume, end, IsOver(score), scoreManager)
+        public BestOfScoreReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore, uint score) 
+            : base(pause, end, IsOver(score), subscribeToScore)
         {
         }
 

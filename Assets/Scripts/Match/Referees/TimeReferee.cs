@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using AirHockey.Match.Managers;
 using UniRx.Async;
 using UnityEngine;
 
@@ -18,8 +17,8 @@ namespace AirHockey.Match.Referees
         
         #region Setup
 
-        public TimeReferee(Action pause, Resumer resume, Action end, ScoreManager manager, uint min, Action<uint> onUpdate) 
-            : base(pause, resume, end, manager)
+        public TimeReferee(Pauser pause, Action end, Action<Scorer> subscribe, uint min, Action<uint> onUpdate) 
+            : base(pause, end, subscribe)
         {
             _tokenSource = new CancellationTokenSource();
             _running = true;
@@ -34,8 +33,7 @@ namespace AirHockey.Match.Referees
         protected override async void HandleScore(Player player, Score _)
         {
             _running = false;
-            Pause();
-            await Resume(player);
+            await Pause(player);
             _running = true;
         }
 
@@ -43,9 +41,9 @@ namespace AirHockey.Match.Referees
 
         #region Public
 
-        public override void CancelMatch()
+        public override void CancelMatch(Action<Scorer> unsubscribeToScore)
         {
-            base.CancelMatch();
+            base.CancelMatch(unsubscribeToScore);
             Stop();
         }
 

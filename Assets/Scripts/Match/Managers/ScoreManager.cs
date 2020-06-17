@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +7,7 @@ namespace AirHockey.Match.Managers
     {
         #region Events
 
-        public event Action<Player,Score> OnScore;
+        public event Scorer OnScore;
 
         #endregion
         
