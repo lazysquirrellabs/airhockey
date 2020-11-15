@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI.Generic
 {
-    public class GenericToggle<T> : MonoBehaviour, IPointerClickHandler
+    public abstract class GenericToggle<T> : MonoBehaviour, IPointerClickHandler
     {
         #region Events
 
-        public event Action<GenericToggle<T>> OnSelect; 
+        public event Action<GenericToggle<T>> OnSelect;
 
         #endregion
         

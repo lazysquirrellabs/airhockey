@@ -1,5 +1,4 @@
-﻿#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 using UnityEngine;
 using UnityEditor;
@@ -8,9 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System;
 using UnityEditor.IMGUI.Controls;
-using UniRx.Async.Internal;
+using Cysharp.Threading.Tasks.Internal;
 
-namespace UniRx.Async.Editor
+namespace Cysharp.Threading.Tasks.Editor
 {
     public class UniTaskTrackerWindow : EditorWindow
     {
@@ -174,7 +173,7 @@ namespace UniRx.Async.Editor
         {
             if (detailsStyle == null)
             {
-                detailsStyle = new GUIStyle(EditorStyles.wordWrappedLabel);
+                detailsStyle = new GUIStyle("CN Message");
                 detailsStyle.wordWrap = false;
                 detailsStyle.stretchHeight = true;
                 detailsStyle.margin.right = 15;
@@ -208,4 +207,3 @@ namespace UniRx.Async.Editor
     }
 }
 
-#endif

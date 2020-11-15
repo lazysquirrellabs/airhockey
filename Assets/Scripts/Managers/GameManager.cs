@@ -4,7 +4,7 @@ using AirHockey.Match.Managers;
 using AirHockey.Menu;
 using AirHockey.SceneManagement;
 using AirHockey.UI;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

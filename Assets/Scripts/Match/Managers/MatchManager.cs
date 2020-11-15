@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using AirHockey.Match.Referees;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace AirHockey.Match.Managers
