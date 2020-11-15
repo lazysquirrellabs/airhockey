@@ -1,5 +1,5 @@
 using System;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 
 namespace AirHockey.Match.Referees
 {

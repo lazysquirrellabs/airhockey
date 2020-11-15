@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using AirHockey.Movement;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace AirHockey.Match

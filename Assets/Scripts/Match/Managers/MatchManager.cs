@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using AirHockey.Match.Referees;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace AirHockey.Match.Managers
@@ -14,6 +14,7 @@ namespace AirHockey.Match.Managers
         [SerializeField] private PlayerController _rightPlayer;
         [SerializeField] private ScoreManager _scoreManager;
         [SerializeField] private PlacementManager _placementManager;
+        [SerializeField] private AudioManager _audioManager;
         [SerializeField] private AnnouncementBoard _announcementBoard;
         [SerializeField] private Timer _timer;
         [SerializeField, Range(0, 10)] private int _matchStartDelay;
@@ -44,7 +45,8 @@ namespace AirHockey.Match.Managers
         
         private void OnDestroy()
         {
-            _cancellationTokenSource.Cancel();
+            if (!_cancellationToken.IsCancellationRequested)
+                _cancellationTokenSource.Cancel();
             _referee.CancelMatch(UnsubscribeToScore);
             UnsubscribeToScore(HandleScore);
             
@@ -55,7 +57,11 @@ namespace AirHockey.Match.Managers
 
         #region Event handlers
 
-        private void HandleScore(Player _, Score score) => _score = score;
+        private void HandleScore(Player _, Score score)
+        {
+            _score = score;
+            _audioManager.PlayGoal();
+        }
 
         #endregion
 
@@ -71,8 +77,6 @@ namespace AirHockey.Match.Managers
             
             try
             {
-                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
-                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
                 switch (setting.Mode)
                 {
                     case Mode.HighScore:
@@ -91,6 +95,9 @@ namespace AirHockey.Match.Managers
                     default:
                         throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
                 }
+                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
+                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                _audioManager.PlayBuzz();
                 _leftPlayer.StartMoving();
                 _rightPlayer.StartMoving();
             }
@@ -100,6 +107,15 @@ namespace AirHockey.Match.Managers
             }
 
             void SubscribeToScore(Scorer scorer) => _scoreManager.OnScore += scorer;
+        }
+
+        public async UniTask StopMatchAsync(float fadeOutDuration)
+        {
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
+            _audioManager.PlayBuzz();
+            _cancellationTokenSource.Cancel();
+            await _audioManager.FadeOutAllAsync(fadeOutDuration);
         }
 
         #endregion
@@ -114,6 +130,7 @@ namespace AirHockey.Match.Managers
             await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
             _placementManager.PlacePuck(player);
             await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+            _audioManager.PlayBuzz();
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
         }
@@ -123,6 +140,7 @@ namespace AirHockey.Match.Managers
             Debug.Log("Match is over");
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
+            _audioManager.PlayBuzz();
             _announcementBoard.AnnounceEndOfMatch(_score.FinalResult, _cancellationToken);
         }
 

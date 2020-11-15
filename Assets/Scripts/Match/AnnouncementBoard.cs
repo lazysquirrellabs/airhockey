@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using UniRx.Async;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -92,7 +92,7 @@ namespace AirHockey.Match
             FadeOutAsync(1_000, token).Forget();
         }
 
-        public async void AnnounceEndOfMatch(Score.Result result, CancellationToken token)
+        public void AnnounceEndOfMatch(Score.Result result, CancellationToken token)
         {
             switch (result)
             {
@@ -112,7 +112,7 @@ namespace AirHockey.Match
                     throw new NotImplementedException($"Result not valid: {result}");
             }
             
-            await FadeInAsync(0.5f, token);
+            FadeInAsync(0.5f, token).Forget();
         }
 
         #endregion
