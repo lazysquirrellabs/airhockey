@@ -30,6 +30,11 @@ namespace AirHockey.Match.Managers
             await _loop.FadeIn(1f, 3f, _cancellationTokenSource.Token);
         }
 
+        private void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
+        }
+
         #endregion
 
         #region Public
