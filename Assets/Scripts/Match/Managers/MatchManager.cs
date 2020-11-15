@@ -79,6 +79,7 @@ namespace AirHockey.Match.Managers
             {
                 await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
                 await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                _audioManager.PlayBuzz();
                 switch (setting.Mode)
                 {
                     case Mode.HighScore:
@@ -112,6 +113,7 @@ namespace AirHockey.Match.Managers
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
+            _audioManager.PlayBuzz();
             _cancellationTokenSource.Cancel();
             await _audioManager.FadeOutAllAsync(fadeOutDuration);
         }
@@ -128,6 +130,7 @@ namespace AirHockey.Match.Managers
             await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
             _placementManager.PlacePuck(player);
             await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+            _audioManager.PlayBuzz();
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
         }
@@ -137,6 +140,7 @@ namespace AirHockey.Match.Managers
             Debug.Log("Match is over");
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
+            _audioManager.PlayBuzz();
             _announcementBoard.AnnounceEndOfMatch(_score.FinalResult, _cancellationToken);
         }
 

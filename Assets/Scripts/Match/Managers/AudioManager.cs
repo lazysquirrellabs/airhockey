@@ -12,6 +12,7 @@ namespace AirHockey.Match.Managers
         [SerializeField] private AudioSource _loop;
         [SerializeField] private AudioSource _goalCrowd;
         [SerializeField] private AudioSource _goalHorn;
+        [SerializeField] private AudioSource _buzz;
 
         #endregion
 
@@ -45,6 +46,11 @@ namespace AirHockey.Match.Managers
         {
             _goalCrowd.Play();
             _goalHorn.Play();
+        }
+
+        public void PlayBuzz()
+        {
+            _buzz.Play();
         }
 
         #endregion
