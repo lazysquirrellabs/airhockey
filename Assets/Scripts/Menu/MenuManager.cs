@@ -54,6 +54,7 @@ namespace AirHockey.Menu {
         private void StartMatch(MatchSettings settings)
         {
             OnStartMatch?.Invoke(settings);
+            _currentScreen = null;
         }
 
         #endregion
