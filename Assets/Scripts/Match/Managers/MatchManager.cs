@@ -14,6 +14,7 @@ namespace AirHockey.Match.Managers
         [SerializeField] private PlayerController _rightPlayer;
         [SerializeField] private ScoreManager _scoreManager;
         [SerializeField] private PlacementManager _placementManager;
+        [SerializeField] private AudioManager _audioManager;
         [SerializeField] private AnnouncementBoard _announcementBoard;
         [SerializeField] private Timer _timer;
         [SerializeField, Range(0, 10)] private int _matchStartDelay;
@@ -44,7 +45,8 @@ namespace AirHockey.Match.Managers
         
         private void OnDestroy()
         {
-            _cancellationTokenSource.Cancel();
+            if (!_cancellationToken.IsCancellationRequested)
+                _cancellationTokenSource.Cancel();
             _referee.CancelMatch(UnsubscribeToScore);
             UnsubscribeToScore(HandleScore);
             
@@ -100,6 +102,14 @@ namespace AirHockey.Match.Managers
             }
 
             void SubscribeToScore(Scorer scorer) => _scoreManager.OnScore += scorer;
+        }
+
+        public async UniTask StopMatchAsync(float fadeOutDuration)
+        {
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
+            _cancellationTokenSource.Cancel();
+            await _audioManager.FadeOutAllAsync(fadeOutDuration);
         }
 
         #endregion

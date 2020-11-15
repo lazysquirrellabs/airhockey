@@ -29,7 +29,8 @@ namespace AirHockey.Managers
         #endregion
 
         #region Fields
-        
+
+        private const float TransitionDuration = 1f;
         private Scene? _scene;
         private MenuManager _menuManager;
         private MatchManager _matchManager;
@@ -40,9 +41,9 @@ namespace AirHockey.Managers
 
         #region Setup
 
-        private void Start()
+        private async void Start()
         {
-            LoadMenuAsync();
+            await LoadMenuAsync();
             _inputManager.OnReturn += HandleReturn;
         }
 
@@ -55,9 +56,10 @@ namespace AirHockey.Managers
 
         #region Event handlers
 
-        private void HandleReturn()
+        private async void HandleReturn()
         {
-            if (_loading) return;
+            if (_loading) 
+                return;
             
             switch (_part)
             {
@@ -68,7 +70,9 @@ namespace AirHockey.Managers
                     _menuManager.Return();
                     break;
                 case GamePart.Match:
-                    LoadMenuAsync();
+                    var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f);
+                    var loadMenu = LoadMenuAsync();
+                    await UniTask.WhenAll(matchEnd, loadMenu);
                     break;
                 default:
                     throw new NotImplementedException($"Game part not implemented: {_part}");
@@ -79,7 +83,7 @@ namespace AirHockey.Managers
 
         #region Private
 
-        private async void LoadMenuAsync()
+        private async UniTask LoadMenuAsync()
         {
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += LoadMatchAsync;
@@ -98,7 +102,7 @@ namespace AirHockey.Managers
             where TManager : MonoBehaviour
         {
             _loading = true;
-            await _transition.FadeInAsync();
+            await _transition.FadeInAsync(TransitionDuration);
             if (_scene != null)
                 await SceneManager.UnloadSceneAsync(_scene.Value);
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -108,7 +112,7 @@ namespace AirHockey.Managers
             
             SceneManager.SetActiveScene(_scene.Value);
             var manager = FindObjectOfType<TManager>();
-            await _transition.FadeOutAsync();
+            await _transition.FadeOutAsync(TransitionDuration);
             _loading = false;
             
             return manager;

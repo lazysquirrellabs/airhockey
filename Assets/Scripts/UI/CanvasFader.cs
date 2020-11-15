@@ -10,7 +10,6 @@ namespace AirHockey.UI
         #region Serialized fields
 
         [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField, Range(0,10)] private float _duration;
 
         #endregion
 
@@ -36,23 +35,23 @@ namespace AirHockey.UI
 
         #region Public
 
-        public async UniTask FadeInAsync()
+        public async UniTask FadeInAsync(float duration)
         {
-            await FadeAsync(0f, 1f);
+            await FadeAsync(0f, 1f, duration);
         }
         
-        public async UniTask FadeOutAsync()
+        public async UniTask FadeOutAsync(float duration)
         {
-            await FadeAsync(1f, 0f);
+            await FadeAsync(1f, 0f, duration);
         }
 
         #endregion
 
         #region Private
 
-        private async UniTask FadeAsync(float from, float to)
+        private async UniTask FadeAsync(float from, float to, float duration)
         {
-            await UniTaskExtensions.ProgressAsync(SetAlpha, from, to, _duration, _cancellationTokenSource.Token);
+            await UniTaskExtensions.ProgressAsync(SetAlpha, from, to, duration, _cancellationTokenSource.Token);
             
             void SetAlpha(float alpha) => _canvasGroup.alpha = alpha;
         }
