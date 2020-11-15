@@ -10,6 +10,8 @@ namespace AirHockey.Match.Managers
         #region Serialized fields
 
         [SerializeField] private AudioSource _loop;
+        [SerializeField] private AudioSource _goalCrowd;
+        [SerializeField] private AudioSource _goalHorn;
 
         #endregion
 
@@ -24,7 +26,7 @@ namespace AirHockey.Match.Managers
         private async void Awake()
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            await UniTaskExtensions.ProgressAsync(SetVolume, 0f, 1f, 3f, _cancellationTokenSource.Token);
+            await _loop.FadeIn(1f, 3f, _cancellationTokenSource.Token);
         }
 
         #endregion
@@ -33,14 +35,17 @@ namespace AirHockey.Match.Managers
 
         public async UniTask FadeOutAllAsync(float duration)
         {
-            await UniTaskExtensions.ProgressAsync(SetVolume, 1f, 0f, duration, _cancellationTokenSource.Token);
+            var goalHorn = _goalHorn.FadeOut(duration, _cancellationTokenSource.Token);
+            var goalCrowd = _goalCrowd.FadeOut(duration, _cancellationTokenSource.Token);
+            var loop = _loop.FadeOut(duration, _cancellationTokenSource.Token);
+            await UniTask.WhenAll(goalHorn, goalCrowd, loop);
         }
 
-        #endregion
-
-        #region Private
-
-        private void SetVolume(float volume) => _loop.volume = volume;
+        public void PlayGoal()
+        {
+            _goalCrowd.Play();
+            _goalHorn.Play();
+        }
 
         #endregion
     }

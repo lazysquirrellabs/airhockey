@@ -57,7 +57,11 @@ namespace AirHockey.Match.Managers
 
         #region Event handlers
 
-        private void HandleScore(Player _, Score score) => _score = score;
+        private void HandleScore(Player _, Score score)
+        {
+            _score = score;
+            _audioManager.PlayGoal();
+        }
 
         #endregion
 
