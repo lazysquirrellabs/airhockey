@@ -24,6 +24,8 @@ namespace AirHockey.Match.Managers
 
         public void StartMatch()
         {
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
             _puck.Regroup(_puckNeutralStart.position);
             _leftPlayer.MoveTo(_leftPlayerStart.position);
             _rightPlayer.MoveTo(_rightPlayerStart.position);
@@ -37,6 +39,13 @@ namespace AirHockey.Match.Managers
             var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration, token);
             var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration, token);
             await UniTask.WhenAll(leftWait, rightWait);
+        }
+
+        public void StopAll()
+        {
+            _leftPlayer.StopMoving();
+            _rightPlayer.StopMoving();
+            _puck.StopMoving();
         }
 
         public void PlacePuck(Player player)

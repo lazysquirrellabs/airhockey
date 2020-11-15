@@ -71,8 +71,6 @@ namespace AirHockey.Match.Managers
         {
             var info = setting.Value;
             Debug.Log($"Starting match on {setting.Mode}, value: {info}");
-            _leftPlayer.StopMoving();
-            _rightPlayer.StopMoving();
             _placementManager.StartMatch();
             
             try
@@ -113,8 +111,7 @@ namespace AirHockey.Match.Managers
 
         public async UniTask StopMatchAsync(float fadeOutDuration)
         {
-            _leftPlayer.StopMoving();
-            _rightPlayer.StopMoving();
+            _placementManager.StopAll();
             _audioManager.PlayBuzz();
             _cancellationTokenSource.Cancel();
             await _audioManager.FadeOutAllAsync(fadeOutDuration);
@@ -140,8 +137,7 @@ namespace AirHockey.Match.Managers
         private void End()
         {
             Debug.Log("Match is over");
-            _leftPlayer.StopMoving();
-            _rightPlayer.StopMoving();
+            _placementManager.StopAll();
             _audioManager.PlayBuzz();
             _announcementBoard.AnnounceEndOfMatch(_score.FinalResult, _cancellationToken);
         }
