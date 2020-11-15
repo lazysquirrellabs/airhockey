@@ -37,11 +37,6 @@ namespace AirHockey.UI.Generic
                 toggle.OnSelect -= SelectToggle;
         }
 
-        protected override void Reset()
-        {
-            _toggles = GetComponentsInChildren<T>();
-        }
-
         #endregion
 
         #region Event handlers
