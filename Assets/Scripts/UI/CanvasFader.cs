@@ -1,5 +1,7 @@
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UniTaskExtensions = AirHockey.Utils.UniTaskExtensions;
 
 namespace AirHockey.UI
 {
@@ -9,6 +11,26 @@ namespace AirHockey.UI
 
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField, Range(0,10)] private float _duration;
+
+        #endregion
+
+        #region Fields
+
+        private CancellationTokenSource _cancellationTokenSource;
+
+        #endregion
+
+        #region Setup
+
+        private void Awake()
+        {
+            _cancellationTokenSource = new CancellationTokenSource();
+        }
+
+        private void OnDestroy()
+        {
+            _cancellationTokenSource.Cancel();
+        }
 
         #endregion
 
@@ -30,17 +52,9 @@ namespace AirHockey.UI
 
         private async UniTask FadeAsync(float from, float to)
         {
-            var startTime = Time.time;
-            var delta = 0f;
+            await UniTaskExtensions.ProgressAsync(SetAlpha, from, to, _duration, _cancellationTokenSource.Token);
             
-            while (delta <= _duration)
-            {
-                await UniTask.Yield();
-                _canvasGroup.alpha = Mathf.Lerp(from, to, delta / _duration);
-                delta = Time.time - startTime;
-            }
-
-            _canvasGroup.alpha = to;
+            void SetAlpha(float alpha) => _canvasGroup.alpha = alpha;
         }
 
         #endregion
