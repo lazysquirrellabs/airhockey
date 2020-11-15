@@ -1371,6 +1371,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rink
       objectReference: {fileID: 0}
+    - target: {fileID: 4048559841680387040, guid: c972f906cf0c24e678e4001819b18332,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c972f906cf0c24e678e4001819b18332, type: 3}
 --- !u!114 &401402693148849658 stripped

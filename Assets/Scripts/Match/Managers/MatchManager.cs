@@ -47,7 +47,7 @@ namespace AirHockey.Match.Managers
         {
             if (!_cancellationToken.IsCancellationRequested)
                 _cancellationTokenSource.Cancel();
-            _referee.CancelMatch(UnsubscribeToScore);
+            _referee?.CancelMatch(UnsubscribeToScore);
             UnsubscribeToScore(HandleScore);
             
             void UnsubscribeToScore(Scorer scorer) => _scoreManager.OnScore -= scorer;
@@ -77,6 +77,9 @@ namespace AirHockey.Match.Managers
             
             try
             {
+                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
+                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                
                 switch (setting.Mode)
                 {
                     case Mode.HighScore:
@@ -95,8 +98,7 @@ namespace AirHockey.Match.Managers
                     default:
                         throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
                 }
-                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
-                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+                
                 _audioManager.PlayBuzz();
                 _leftPlayer.StartMoving();
                 _rightPlayer.StartMoving();

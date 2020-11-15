@@ -33,8 +33,16 @@ namespace AirHockey.Match.Referees
         protected override async void HandleScore(Player player, Score _)
         {
             _running = false;
-            await Pause(player);
-            _running = true;
+            try
+            {
+                await Pause(player);
+                _running = true;
+
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Timed referee stopped because the operation was cancelled.");
+            }
         }
 
         #endregion
