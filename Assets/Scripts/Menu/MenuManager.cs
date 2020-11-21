@@ -4,7 +4,8 @@ using AirHockey.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.Menu {
+namespace AirHockey.Menu 
+{
     public class MenuManager : MonoBehaviour
     {
         #region Events
@@ -15,7 +16,7 @@ namespace AirHockey.Menu {
         
         #region Serialized fields
 
-        [SerializeField] private Button _newMatchButton;
+        [SerializeField] private Button _playButton;
         [SerializeField] private NewMatchScreen _newMatchScreen;
 
         #endregion
@@ -31,13 +32,13 @@ namespace AirHockey.Menu {
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Portrait;
-            _newMatchButton.onClick.AddListener(ShowNewMatchScreen);
+            _playButton.onClick.AddListener(ShowNewMatchScreen);
             _newMatchScreen.OnStartMatch += StartMatch;
         }
 
         private void OnDestroy()
         {
-            _newMatchButton.onClick.RemoveListener(ShowNewMatchScreen);
+            _playButton.onClick.RemoveListener(ShowNewMatchScreen);
             _newMatchScreen.OnStartMatch += StartMatch;
         }
 

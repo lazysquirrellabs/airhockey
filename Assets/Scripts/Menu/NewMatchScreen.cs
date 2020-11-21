@@ -58,7 +58,7 @@ namespace AirHockey.Menu
         {
             if (_needsExtraInfo && !TryGetExtraInfo())
             {
-                _popup.Message = $"Provide the mode {_mode.InfoName()} before starting a match.";
+                _popup.Message = $"PROVIDE THE MODE {_mode.InfoName().ToUpper()} BEFORE STARTING A MATCH..";
                 _popup.Show();
                 return;
             }
@@ -92,9 +92,9 @@ namespace AirHockey.Menu
                 case Mode.BestOfScore:
                 case Mode.Time:
                     _extraInfoInput.gameObject.SetActive(true);
-                    _extraFieldLabel.text = $"Insert {_mode.InfoName()} here";
+                    _extraFieldLabel.text = $"INSERT {_mode.InfoName().ToUpper()} HERE";
                     _extraInfoInput.text = "";
-                    _extraInfoUnit.text = _mode.InfoUnitName();
+                    _extraInfoUnit.text = _mode.InfoUnitName().ToUpper();
                     _needsExtraInfo = true;
                     break;
                 case Mode.Endless:
