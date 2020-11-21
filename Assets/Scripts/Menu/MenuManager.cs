@@ -17,8 +17,10 @@ namespace AirHockey.Menu
         #region Serialized fields
 
         [SerializeField] private Button _playButton;
+        [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _creditsButton;
         [SerializeField] private NewMatchScreen _newMatchScreen;
+        [SerializeField] private SettingsScreen _settingsScreen;
         [SerializeField] private Displayable _creditsScreen;
 
         #endregion
@@ -35,13 +37,16 @@ namespace AirHockey.Menu
         {
             Screen.orientation = ScreenOrientation.Portrait;
             _playButton.onClick.AddListener(HandleShowStartScreen);
+            _settingsButton.onClick.AddListener(HandleShowSettingsScreen);
             _creditsButton.onClick.AddListener(HandleShowCreditsScreen);
             _newMatchScreen.OnStartMatch += StartMatch;
+            _settingsScreen.LoadAudioLevels();
         }
 
         private void OnDestroy()
         {
             _playButton.onClick.RemoveListener(HandleShowStartScreen);
+            _settingsButton.onClick.RemoveListener(HandleShowSettingsScreen);
             _creditsButton.onClick.RemoveListener(HandleShowCreditsScreen);
             _newMatchScreen.OnStartMatch -= StartMatch;
         }
@@ -53,6 +58,11 @@ namespace AirHockey.Menu
         private void HandleShowStartScreen()
         {
             ShowScreen(_newMatchScreen);
+        }
+        
+        private void HandleShowSettingsScreen()
+        {
+            ShowScreen(_settingsScreen);
         }
         
         private void HandleShowCreditsScreen()
