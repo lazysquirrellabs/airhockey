@@ -1,5 +1,5 @@
 using System;
-using Physics;
+using AirHockey.Physics;
 using UnityEngine;
 
 namespace AirHockey.Match

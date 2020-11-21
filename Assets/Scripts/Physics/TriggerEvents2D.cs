@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Physics
+namespace AirHockey.Physics
 {
     public class TriggerEvents2D : MonoBehaviour
     {

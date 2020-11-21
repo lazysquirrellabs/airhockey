@@ -12,7 +12,7 @@ namespace AirHockey.Match.Referees
         
         #region Properties    
 
-        protected Pauser Pause { get; }
+        protected Pauser PauseAsync { get; }
         protected Action End { get; }
 
         #endregion
@@ -21,7 +21,7 @@ namespace AirHockey.Match.Referees
 
         protected Referee(Pauser pause, Action end, Action<Scorer> subscribeToScore)
         {
-            Pause = pause;
+            PauseAsync = pause;
             End = end;
             subscribeToScore(HandleScore);
         }

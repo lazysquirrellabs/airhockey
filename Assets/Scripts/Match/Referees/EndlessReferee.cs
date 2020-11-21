@@ -1,5 +1,5 @@
 using System;
-using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace AirHockey.Match.Referees
 {
@@ -16,9 +16,16 @@ namespace AirHockey.Match.Referees
 
         #region Event handlers
 
-        protected override void HandleScore(Player player, Score score)
+        protected override async void HandleScore(Player player, Score score)
         {
-            Pause(player).Forget();
+            try
+            {
+                await PauseAsync(player);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log($"{typeof(EndlessReferee)} failed to handle score because the operation was cancelled.");
+            }
         }
 
         #endregion

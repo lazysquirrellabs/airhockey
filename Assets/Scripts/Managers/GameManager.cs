@@ -78,6 +78,21 @@ namespace AirHockey.Managers
                     throw new NotImplementedException($"Game part not implemented: {_part}");
             }
         }
+        
+        private async void LoadMatchAsync(MatchSettings settings)
+        {
+            _menuManager.OnStartMatch -= LoadMatchAsync;
+            _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
+            try
+            {
+                _part = GamePart.Match;
+                await _matchManager.StartMatch(settings);
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Match start was cancelled.");
+            }
+        }
 
         #endregion
 
@@ -88,14 +103,6 @@ namespace AirHockey.Managers
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += LoadMatchAsync;
             _part = GamePart.Menu;
-        }
-
-        private async void LoadMatchAsync(MatchSettings settings)
-        {
-            _menuManager.OnStartMatch -= LoadMatchAsync;
-            _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
-            _matchManager.StartMatch(settings);
-            _part = GamePart.Match;
         }
 
         private async UniTask<TManager> LoadManagedSceneAsync<TManager>(SceneReference scene) 

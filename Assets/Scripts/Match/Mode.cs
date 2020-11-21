@@ -12,6 +12,8 @@ namespace AirHockey.Match
 
     public static class ModeUtils
     {
+        #region Public
+        
         public static string InfoName(this Mode mode)
         {
             switch (mode)
@@ -44,5 +46,7 @@ namespace AirHockey.Match
                     throw new NotImplementedException($"Mode not implemented: {mode}.");
             }
         }
+        
+        #endregion
     }
 }

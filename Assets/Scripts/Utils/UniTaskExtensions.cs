@@ -33,6 +33,7 @@ namespace AirHockey.Utils
             }
             catch (OperationCanceledException)
             {
+                Debug.Log("Stopped progressing because the operation got cancelled");
             }
         }
 

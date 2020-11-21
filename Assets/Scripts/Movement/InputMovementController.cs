@@ -32,7 +32,8 @@ namespace AirHockey.Movement
         {
             set
             {
-                if (value == _canMove) return;
+                if (value == _canMove) 
+                    return;
 
                 _canMove = value;
                 _position = _rigidBody.position;
@@ -46,7 +47,8 @@ namespace AirHockey.Movement
 
         private void FixedUpdate()
         {
-            if (!_dragging || !_canMove) return;
+            if (!_dragging || !_canMove) 
+                return;
             
             _rigidBody.MovePosition(_position);
         }
