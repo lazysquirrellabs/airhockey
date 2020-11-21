@@ -23,14 +23,14 @@ namespace AirHockey.Match
         private const float FadeOutDuration = 1f;
         private const float MatchStartFadeDuration = 0.5f;
         private const float MatchEndFadeDuration = 0.5f;
-        private const string MatchStartText = "The match starts in {0}...";
-        private const string ScoredText = "Goal!!!";
-        private const string OtherScoreText = "Player {0} scored";
-        private const string GetReadyText = "On your marks...";
+        private const string MatchStartText = "MATCH STARTS IN {0}...";
+        private const string ScoredText = "GOAL!!!";
+        private const string OtherScoreText = "PLAYER {0} SCORED";
+        private const string GetReadyText = "ON YOUR MARKS...";
         private const string GoText = "GO!";
-        private const string YouWinText = "You win!!!";
-        private const string YouLoseText = "You lose.";
-        private const string TieText = "It's a tie.";
+        private const string YouWinText = "YOU WIN!!";
+        private const string YouLoseText = "UOU LOSE";
+        private const string TieText = "IT'' A TIE";
 
         #endregion
 
