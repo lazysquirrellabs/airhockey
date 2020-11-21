@@ -17,13 +17,15 @@ namespace AirHockey.Menu
         #region Serialized fields
 
         [SerializeField] private Button _playButton;
+        [SerializeField] private Button _creditsButton;
         [SerializeField] private NewMatchScreen _newMatchScreen;
+        [SerializeField] private Displayable _creditsScreen;
 
         #endregion
 
         #region Fields
 
-        private IDisplayable _currentScreen;
+        private Displayable _currentScreen;
 
         #endregion
 
@@ -32,24 +34,30 @@ namespace AirHockey.Menu
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Portrait;
-            _playButton.onClick.AddListener(ShowNewMatchScreen);
+            _playButton.onClick.AddListener(HandleShowStartScreen);
+            _creditsButton.onClick.AddListener(HandleShowCreditsScreen);
             _newMatchScreen.OnStartMatch += StartMatch;
         }
 
         private void OnDestroy()
         {
-            _playButton.onClick.RemoveListener(ShowNewMatchScreen);
-            _newMatchScreen.OnStartMatch += StartMatch;
+            _playButton.onClick.RemoveListener(HandleShowStartScreen);
+            _creditsButton.onClick.RemoveListener(HandleShowCreditsScreen);
+            _newMatchScreen.OnStartMatch -= StartMatch;
         }
 
         #endregion
 
         #region Event handlers
 
-        private void ShowNewMatchScreen()
+        private void HandleShowStartScreen()
         {
-            _newMatchScreen.Show();
-            _currentScreen = _newMatchScreen;
+            ShowScreen(_newMatchScreen);
+        }
+        
+        private void HandleShowCreditsScreen()
+        {
+            ShowScreen(_creditsScreen);
         }
         
         private void StartMatch(MatchSettings settings)
@@ -64,8 +72,21 @@ namespace AirHockey.Menu
 
         public void Return()
         {
-            _currentScreen?.Hide();
+            if (_currentScreen != null)
+                _currentScreen.Hide();
             _currentScreen = null;
+        }
+
+        #endregion
+
+        #region Private
+        
+        private void ShowScreen(Displayable screen)
+        {
+            if (_currentScreen != null)
+                _currentScreen.Hide();
+            _currentScreen = screen;
+            _currentScreen.Show();
         }
 
         #endregion

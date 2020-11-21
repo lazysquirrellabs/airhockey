@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI
 {
-    public class ErrorPopup : MonoBehaviour, IDisplayable
+    public class ErrorPopup : Displayable
     {
         #region Serialized fields
 
@@ -31,20 +31,6 @@ namespace AirHockey.UI
         private void OnDestroy()
         {
             _button.onClick.RemoveListener(Hide);
-        }
-
-        #endregion
-
-        #region Public
-
-        public void Show()
-        {
-            gameObject.SetActive(true);
-        }
-        
-        public void Hide()
-        {
-            gameObject.SetActive(false);
         }
 
         #endregion
