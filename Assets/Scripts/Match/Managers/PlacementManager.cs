@@ -31,6 +31,14 @@ namespace AirHockey.Match.Managers
             _rightPlayer.MoveTo(_rightPlayerStart.position);
         }
 
+        /// <summary>
+        /// Resets the <see cref="Player"/>s position, asynchronously.
+        /// </summary>
+        /// <param name="duration">The duration of the position placement, in seconds.</param>
+        /// <param name="token">The token for operation cancellation.</param>
+        /// <returns>The awaitable task.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
+        /// is negative.</exception>
         public async UniTask ResetPlayersAsync(float duration, CancellationToken token)
         {
             if (duration < 0)

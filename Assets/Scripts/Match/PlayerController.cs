@@ -52,6 +52,15 @@ namespace AirHockey.Match
             _transform.position = position;
         }
         
+        /// <summary>
+        /// Moves the <see cref="Player"/> asynchronously.
+        /// </summary>
+        /// <param name="position">The position to move to.</param>
+        /// <param name="duration">The duration of the movement, in seconds.</param>
+        /// <param name="token">The token for operation cancellation.</param>
+        /// <returns>The awaitable task.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
+        /// is negative.</exception>
         public async UniTask MoveToAsync(Vector3 position, float duration, CancellationToken token)
         {
             if (duration < 0)
