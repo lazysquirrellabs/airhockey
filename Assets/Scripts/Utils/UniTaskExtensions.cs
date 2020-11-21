@@ -12,6 +12,9 @@ namespace AirHockey.Utils
         public static async UniTask ProgressAsync(Action<float> update, float start, float end, float duration, 
                                                   CancellationToken token)
         {
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
+            
             try
             {
                 var startTime = Time.time;

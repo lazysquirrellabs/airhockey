@@ -67,48 +67,49 @@ namespace AirHockey.Match.Managers
 
         #region Public
 
-        public async void StartMatch(MatchSettings setting)
+        public async UniTask StartMatch(MatchSettings setting)
         {
             var info = setting.Value;
-            Debug.Log($"Starting match on {setting.Mode}, value: {info}");
             _placementManager.StartMatch();
+            await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
+            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration, _cancellationToken);
+            Debug.Log($"Starting match on {setting.Mode}, value: {info}");
             
-            try
+            switch (setting.Mode)
             {
-                await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
-                await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
-                
-                switch (setting.Mode)
-                {
-                    case Mode.HighScore:
-                        _referee = new HighScoreReferee(PauseAsync, End, SubscribeToScore, info);
-                        break;
-                    case Mode.BestOfScore:
-                        _referee = new BestOfScoreReferee(PauseAsync, End, SubscribeToScore, info);
-                        break;
-                    case Mode.Time:
-                        _timer.Show(info);
-                        _referee = new TimeReferee(PauseAsync, End, SubscribeToScore, info, _timer.SetTime);
-                        break;
-                    case Mode.Endless:
-                        _referee = new EndlessReferee(PauseAsync, End, SubscribeToScore);
-                        break;
-                    default:
-                        throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
-                }
-                
-                _audioManager.PlayBuzz();
-                _leftPlayer.StartMoving();
-                _rightPlayer.StartMoving();
+                case Mode.HighScore:
+                    _referee = new HighScoreReferee(PauseAsync, End, SubscribeToScore, info);
+                    break;
+                case Mode.BestOfScore:
+                    _referee = new BestOfScoreReferee(PauseAsync, End, SubscribeToScore, info);
+                    break;
+                case Mode.Time:
+                    _timer.Show(info);
+                    var seconds = info * 60;
+                    var timedReferee = new TimeReferee(PauseAsync, End, SubscribeToScore, seconds, _timer.SetTime);
+                    timedReferee.StartTimer().Forget();
+                    _referee = timedReferee;
+                    break;
+                case Mode.Endless:
+                    _referee = new EndlessReferee(PauseAsync, End, SubscribeToScore);
+                    break;
+                default:
+                    throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
             }
-            catch (OperationCanceledException)
-            {
-                Debug.Log("Match start cancelled because the match is over");
-            }
+            
+            _audioManager.PlayBuzz();
+            _leftPlayer.StartMoving();
+            _rightPlayer.StartMoving();
+            await _announcementBoard.FadeOutAsync(_cancellationToken);
 
             void SubscribeToScore(Scorer scorer) => _scoreManager.OnScore += scorer;
         }
 
+        /// <summary>
+        /// Stops the match, forcefully.
+        /// </summary>
+        /// <param name="fadeOutDuration">How long the stopping should take, in seconds.</param>
+        /// <returns>The awaitable task.</returns>
         public async UniTask StopMatchAsync(float fadeOutDuration)
         {
             _placementManager.StopAll();
@@ -125,13 +126,14 @@ namespace AirHockey.Match.Managers
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
-            await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration * 1_000, _cancellationToken);
-            await _placementManager.ResetPlayersAsync(_resetDuration * 1_000, _cancellationToken);
+            await _announcementBoard.AnnounceGoalAsync(player, _celebrationDuration, _cancellationToken);
+            await _placementManager.ResetPlayersAsync(_resetDuration, _cancellationToken);
             _placementManager.PlacePuck(player);
-            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration * 1_000, _cancellationToken);
+            await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration, _cancellationToken);
             _audioManager.PlayBuzz();
             _leftPlayer.StartMoving();
             _rightPlayer.StartMoving();
+            await _announcementBoard.FadeOutAsync(_cancellationToken);
         }
 
         private void End()

@@ -61,10 +61,9 @@ namespace AirHockey.Match
             var initialPosition = _transform.position;
             while (totalTime <= duration)
             {
-                await UniTask.Yield();
-                token.ThrowIfCancellationRequested();
+                await UniTask.Yield(PlayerLoopTiming.Update, token);
                 _transform.position = Vector3.Lerp(initialPosition, position, totalTime/duration);
-                totalTime += Time.deltaTime * 1_000;
+                totalTime += Time.deltaTime;
             }
         }
 
