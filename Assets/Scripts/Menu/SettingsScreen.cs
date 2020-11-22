@@ -1,9 +1,10 @@
 using AirHockey.UI;
 using UnityEngine;
+using Screen = AirHockey.UI.Screen;
 
 namespace AirHockey.Menu
 {
-    public class SettingsScreen : Displayable
+    public class SettingsScreen : Screen
     {
         #region Serialized fields
 

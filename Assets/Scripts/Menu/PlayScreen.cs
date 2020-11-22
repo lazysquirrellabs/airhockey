@@ -5,10 +5,11 @@ using AirHockey.UI;
 using AirHockey.UI.Menu;
 using UnityEngine;
 using UnityEngine.UI;
+using Screen = AirHockey.UI.Screen;
 
 namespace AirHockey.Menu
 {
-    public class NewMatchScreen : Displayable
+    public class PlayScreen : Screen
     {
         #region Events
 

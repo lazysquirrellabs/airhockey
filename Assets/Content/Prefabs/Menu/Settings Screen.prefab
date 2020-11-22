@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ab6878de4764c10bc3d5ef291cc3e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dismissButton: {fileID: 2262235609375435390}
+  _backButton: {fileID: 2262235609375435390}
   _sliders:
   - {fileID: 7689413604564288200}
   - {fileID: 450935678194247422}

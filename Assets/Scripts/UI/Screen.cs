@@ -1,13 +1,20 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace AirHockey.UI
 {
-    public class Displayable : MonoBehaviour
+    public class Screen : MonoBehaviour
     {
+        #region Events
+
+        public event Action OnGoBack;
+
+        #endregion
+        
         #region Serialized fields
 
-        [SerializeField] private Button _dismissButton;
+        [SerializeField] private Button _backButton;
 
         #endregion
 
@@ -15,13 +22,19 @@ namespace AirHockey.UI
 
         protected virtual void Awake()
         {
-            _dismissButton.onClick.AddListener(Hide);
+            _backButton.onClick.AddListener(HandleDismiss);
         }
 
         protected virtual void OnDestroy()
         {
-            _dismissButton.onClick.RemoveListener(Hide);
+            _backButton.onClick.RemoveListener(HandleDismiss);
         }
+
+        #endregion
+
+        #region Event handlers
+
+        private void HandleDismiss() => OnGoBack?.Invoke();
 
         #endregion
 

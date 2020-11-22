@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI
 {
-    public class ErrorPopup : Displayable
+    public class ErrorPopup : Screen
     {
         #region Serialized fields
 

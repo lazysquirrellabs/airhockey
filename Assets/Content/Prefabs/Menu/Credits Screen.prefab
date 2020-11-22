@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 346840202147323918}
-  - component: {fileID: 7689873774774651143}
+  - component: {fileID: 6701803420656461364}
   m_Layer: 5
   m_Name: Credits Screen
   m_TagString: Untagged
@@ -159,7 +159,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7689873774774651143
+--- !u!114 &6701803420656461364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,10 +168,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 346840202147323917}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06186a2bb5cb7463f8e490d836432ebd, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b237c59007354203bc5699cf90edc13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dismissButton: {fileID: 5670667009273108335}
+  _backButton: {fileID: 5670667009273108335}
 --- !u!1 &346840203317367235
 GameObject:
   m_ObjectHideFlags: 0
@@ -834,7 +834,7 @@ PrefabInstance:
     - target: {fileID: 1721818760151007053, guid: 3f3df85d10604446d83be833434f1d38,
         type: 3}
       propertyPath: m_Name
-      value: Dismiss Button
+      value: Back Button
       objectReference: {fileID: 0}
     - target: {fileID: 1721818760151007054, guid: 3f3df85d10604446d83be833434f1d38,
         type: 3}
