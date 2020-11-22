@@ -9,9 +9,24 @@ namespace AirHockey.Utils
     {
         #region Public
         
+
+        /// <summary>
+        /// Asynchronously progresses an <paramref name="update"/> function through a range.
+        /// </summary>
+        /// <param name="update">The function to be invoked during progression.</param>
+        /// <param name="start">The start value of the progression.</param>
+        /// <param name="end">The end value of the progression.</param>
+        /// <param name="duration">The duration of the progression in seconds.</param>
+        /// <param name="token">The token used for cancellation.</param>
+        /// <returns>The awaitable task.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
+        /// is negative.</exception>
         public static async UniTask ProgressAsync(Action<float> update, float start, float end, float duration, 
                                                   CancellationToken token)
         {
+            if (duration < 0)
+                throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
+            
             try
             {
                 var startTime = Time.time;
@@ -30,6 +45,7 @@ namespace AirHockey.Utils
             }
             catch (OperationCanceledException)
             {
+                Debug.Log("Stopped progressing because the operation got cancelled");
             }
         }
 

@@ -5,10 +5,11 @@ using AirHockey.UI;
 using AirHockey.UI.Menu;
 using UnityEngine;
 using UnityEngine.UI;
+using Screen = AirHockey.UI.Screen;
 
 namespace AirHockey.Menu
 {
-    public class NewMatchScreen : MonoBehaviour, IDisplayable
+    public class PlayScreen : Screen
     {
         #region Events
 
@@ -38,14 +39,16 @@ namespace AirHockey.Menu
 
         #region Setup
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _startButton.onClick.AddListener(HandleStart);
             _modeSelector.OnSelect += HandleModeSelect;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             _startButton.onClick.RemoveListener(HandleStart);
             _modeSelector.OnSelect -= HandleModeSelect;
         }
@@ -58,7 +61,7 @@ namespace AirHockey.Menu
         {
             if (_needsExtraInfo && !TryGetExtraInfo())
             {
-                _popup.Message = $"Provide the mode {_mode.InfoName()} before starting a match.";
+                _popup.Message = $"PROVIDE THE MODE {_mode.InfoName().ToUpper()} BEFORE STARTING A MATCH";
                 _popup.Show();
                 return;
             }
@@ -92,9 +95,9 @@ namespace AirHockey.Menu
                 case Mode.BestOfScore:
                 case Mode.Time:
                     _extraInfoInput.gameObject.SetActive(true);
-                    _extraFieldLabel.text = $"Insert {_mode.InfoName()} here";
+                    _extraFieldLabel.text = $"INSERT {_mode.InfoName().ToUpper()} HERE";
                     _extraInfoInput.text = "";
-                    _extraInfoUnit.text = _mode.InfoUnitName();
+                    _extraInfoUnit.text = _mode.InfoUnitName().ToUpper();
                     _needsExtraInfo = true;
                     break;
                 case Mode.Endless:
@@ -111,15 +114,11 @@ namespace AirHockey.Menu
 
         #region Public
 
-        public void Show()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void Hide()
+        public override void Hide()
         {
             gameObject.SetActive(false);
             _popup.Hide();
+            base.Hide();
         }
 
         #endregion

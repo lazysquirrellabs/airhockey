@@ -38,7 +38,8 @@ namespace AirHockey.UI.Generic
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (_selected) return;
+            if (_selected) 
+                return;
 
             Select();
             OnSelect?.Invoke(this);

@@ -1,7 +1,7 @@
 using AirHockey.Match;
 using NUnit.Framework;
 
-namespace AirHockey.Core.Tests
+namespace AirHockey.Test
 {
     public class ScoreTests
     {
