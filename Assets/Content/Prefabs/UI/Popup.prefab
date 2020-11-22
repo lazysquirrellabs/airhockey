@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bc6203028554d98bf48e49fb84fc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dismissButton: {fileID: 0}
+  _backButton: {fileID: 5625650575858229743}
   _text: {fileID: 6138585140422627029}
 --- !u!1001 &661901798041800018
 PrefabInstance:
@@ -335,3 +335,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 661901798041800018}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5625650575858229743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5133504655451040957, guid: 14d8a9637b52f4a09851e85a04d5d150,
+    type: 3}
+  m_PrefabInstance: {fileID: 661901798041800018}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
