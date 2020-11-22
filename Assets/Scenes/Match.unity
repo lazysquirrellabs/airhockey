@@ -1387,7 +1387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &401402693148849660 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7128992495996721153, guid: c972f906cf0c24e678e4001819b18332,
+  m_CorrespondingSourceObject: {fileID: 6231167879596832430, guid: c972f906cf0c24e678e4001819b18332,
     type: 3}
   m_PrefabInstance: {fileID: 401402693148849657}
   m_PrefabAsset: {fileID: 0}
