@@ -38,14 +38,16 @@ namespace AirHockey.Menu
 
         #region Setup
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _startButton.onClick.AddListener(HandleStart);
             _modeSelector.OnSelect += HandleModeSelect;
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             _startButton.onClick.RemoveListener(HandleStart);
             _modeSelector.OnSelect -= HandleModeSelect;
         }

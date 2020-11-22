@@ -8,7 +8,6 @@ namespace AirHockey.UI
         #region Serialized fields
 
         [SerializeField] private Text _text;
-        [SerializeField] private Button _button;
 
         #endregion
 
@@ -17,20 +16,6 @@ namespace AirHockey.UI
         public string Message
         {
             set => _text.text = value;
-        }
-
-        #endregion
-
-        #region Setup
-
-        private void Awake()
-        {
-            _button.onClick.AddListener(Hide);
-        }
-
-        private void OnDestroy()
-        {
-            _button.onClick.RemoveListener(Hide);
         }
 
         #endregion

@@ -36,18 +36,18 @@ namespace AirHockey.Menu
         private void Awake()
         {
             Screen.orientation = ScreenOrientation.Portrait;
-            _playButton.onClick.AddListener(HandleShowStartScreen);
-            _settingsButton.onClick.AddListener(HandleShowSettingsScreen);
-            _creditsButton.onClick.AddListener(HandleShowCreditsScreen);
+            _playButton.onClick.AddListener(_newMatchScreen.Show);
+            _settingsButton.onClick.AddListener(_settingsScreen.Show);
+            _creditsButton.onClick.AddListener(_creditsScreen.Show);
             _newMatchScreen.OnStartMatch += StartMatch;
             _settingsScreen.LoadAudioLevels();
         }
 
         private void OnDestroy()
         {
-            _playButton.onClick.RemoveListener(HandleShowStartScreen);
-            _settingsButton.onClick.RemoveListener(HandleShowSettingsScreen);
-            _creditsButton.onClick.RemoveListener(HandleShowCreditsScreen);
+            _playButton.onClick.RemoveListener(_newMatchScreen.Show);
+            _settingsButton.onClick.RemoveListener(_settingsScreen.Show);
+            _creditsButton.onClick.RemoveListener(_creditsScreen.Show);
             _newMatchScreen.OnStartMatch -= StartMatch;
         }
 
@@ -55,21 +55,6 @@ namespace AirHockey.Menu
 
         #region Event handlers
 
-        private void HandleShowStartScreen()
-        {
-            ShowScreen(_newMatchScreen);
-        }
-        
-        private void HandleShowSettingsScreen()
-        {
-            ShowScreen(_settingsScreen);
-        }
-        
-        private void HandleShowCreditsScreen()
-        {
-            ShowScreen(_creditsScreen);
-        }
-        
         private void StartMatch(MatchSettings settings)
         {
             OnStartMatch?.Invoke(settings);
@@ -85,18 +70,6 @@ namespace AirHockey.Menu
             if (_currentScreen != null)
                 _currentScreen.Hide();
             _currentScreen = null;
-        }
-
-        #endregion
-
-        #region Private
-        
-        private void ShowScreen(Displayable screen)
-        {
-            if (_currentScreen != null)
-                _currentScreen.Hide();
-            _currentScreen = screen;
-            _currentScreen.Show();
         }
 
         #endregion
