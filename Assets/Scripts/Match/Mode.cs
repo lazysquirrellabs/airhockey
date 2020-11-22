@@ -19,9 +19,8 @@ namespace AirHockey.Match
             switch (mode)
             {
                 case Mode.HighScore:
-                    return "score";
                 case Mode.BestOfScore:
-                    return "scores";
+                    return "score";
                 case Mode.Time:
                     return "duration";
                 case Mode.Endless:

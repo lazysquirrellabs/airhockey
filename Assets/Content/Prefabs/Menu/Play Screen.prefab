@@ -59,7 +59,7 @@ MonoBehaviour:
   _modeSelector: {fileID: 114256635447891288}
   _startButton: {fileID: 6030338728526523019}
   _extraInfoInput: {fileID: 2521832660103405372}
-  _extraFieldLabel: {fileID: 8560370823885535697}
+  _extraFieldLabel: {fileID: 1735175171040810459}
   _extraInfoUnit: {fileID: 2250931389318955830}
   _popup: {fileID: 3126856790456739607}
 --- !u!1 &1474403449602885100
