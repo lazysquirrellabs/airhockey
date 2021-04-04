@@ -170,7 +170,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.sneakysquirrellabs.airhockey
   buildNumber: {}
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 2
   AndroidMinSdkVersion: 21
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
