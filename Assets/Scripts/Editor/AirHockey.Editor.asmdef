@@ -1,0 +1,19 @@
+{
+    "name": "AirHockey.Editor",
+    "references": [
+        "GUID:eebb3d589821d489a9467aa73d6ea03f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
