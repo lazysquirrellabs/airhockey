@@ -32,7 +32,7 @@ namespace AirHockey.Match
         private const string GetReadyText = "ON YOUR MARKS...";
         private const string GoText = "GO!";
         private const string YouWinText = "YOU WIN!!";
-        private const string YouLoseText = "UOU LOSE";
+        private const string YouLoseText = "YOU LOSE";
         private const string TieText = "IT'' A TIE";
 
         #endregion
