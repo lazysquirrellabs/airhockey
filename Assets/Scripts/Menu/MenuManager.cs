@@ -8,10 +8,16 @@ using Screen = AirHockey.UI.Screen;
 
 namespace AirHockey.Menu 
 {
+    /// <summary>
+    /// Manages the game's main menu.
+    /// </summary>
     public class MenuManager : MonoBehaviour
     {
         #region Events
 
+        /// <summary>
+        /// Invoked whenever a new match starts.
+        /// </summary>
         public event Action<MatchSettings> OnStartMatch;
 
         #endregion
@@ -67,17 +73,17 @@ namespace AirHockey.Menu
 
         private async void HandleSelectNewMatch()
         {
-            await TransitionTo(_playScreen);
+            await TransitionToAsync(_playScreen);
         }
         
         private async void HandleSelectSettings()
         {
-            await TransitionTo(_settingsScreen);
+            await TransitionToAsync(_settingsScreen);
         }
         
         private async void HandleSelectCredits()
         {
-            await TransitionTo(_creditsScreen);
+            await TransitionToAsync(_creditsScreen);
         }
         
         private void StartMatch(MatchSettings settings)
@@ -88,14 +94,14 @@ namespace AirHockey.Menu
 
         private async void HandleReturn()
         {
-            await Return();
+            await ReturnAsync();
         }
 
         #endregion
 
         #region Public
-
-        public async UniTask Return()
+        
+        public async UniTask ReturnAsync()
         {
             await _transition.FadeInAsync(_transitionDuration / 2f);
            
@@ -111,7 +117,12 @@ namespace AirHockey.Menu
 
         #region Private
 
-        private async UniTask TransitionTo(Screen screen)
+        /// <summary>
+        /// Transitions to the given <paramref name="screen"/> asynchronously.
+        /// </summary>
+        /// <param name="screen">The screen to transition to.</param>
+        /// <returns>A task to be awaited representing the fade transition.</returns>
+        private async UniTask TransitionToAsync(Screen screen)
         {
             await _transition.FadeInAsync(_transitionDuration / 2f);
            

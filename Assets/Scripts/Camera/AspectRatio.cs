@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace AirHockey.Camera
 {
+    /// <summary>
+    /// A screen/camera aspect ratio represented by its width and height.
+    /// </summary>
     [Serializable]
     public struct AspectRatio
     {

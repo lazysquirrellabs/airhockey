@@ -3,10 +3,16 @@ using UnityEngine.UI;
 
 namespace AirHockey.Match.Managers
 {
+    /// <summary>
+    /// Manages all the scoring in a <see cref="Match"/>.
+    /// </summary>
     public class ScoreManager : MonoBehaviour
     {
         #region Events
 
+        /// <summary>
+        /// Invoked whenever a player scores.
+        /// </summary>
         public event Scorer OnScore;
 
         #endregion
@@ -21,6 +27,9 @@ namespace AirHockey.Match.Managers
 
         #region Fields
 
+        /// <summary>
+        ///  The current score.
+        /// </summary>
         private Score _score;
 
         #endregion
@@ -44,17 +53,23 @@ namespace AirHockey.Match.Managers
 
         #region Event handlers
         
+        /// <summary>
+        /// Scores for the player on the left side of the rink.
+        /// </summary>
         private void ScoreLeft()
         {
             _score.ScoreGoal(Player.LeftPlayer);
-            UpdateScore();
+            UpdateScoreVisuals();
             OnScore?.Invoke(Player.LeftPlayer, _score);
         }
         
+        /// <summary>
+        /// Scores for the player on the right side of the rink.
+        /// </summary>
         private void ScoreRight()
         {
             _score.ScoreGoal(Player.RightPlayer);
-            UpdateScore();
+            UpdateScoreVisuals();
             OnScore?.Invoke(Player.RightPlayer, _score);
         }
 
@@ -62,7 +77,10 @@ namespace AirHockey.Match.Managers
 
         #region Private
 
-        private void UpdateScore()
+        /// <summary>
+        /// Updates the visuals that represent the match score.
+        /// </summary>
+        private void UpdateScoreVisuals()
         {
             _scoreText.text = $"{_score.LeftPlayer} {_score.RightPlayer}";
         }

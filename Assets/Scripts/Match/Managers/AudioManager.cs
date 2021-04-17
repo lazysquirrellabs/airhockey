@@ -5,6 +5,9 @@ using UniTask = Cysharp.Threading.Tasks.UniTask;
 
 namespace AirHockey.Match.Managers
 {
+    /// <summary>
+    /// A match's audio manager.
+    /// </summary>
     public class AudioManager : MonoBehaviour
     {
         #region Serialized fields
@@ -52,12 +55,18 @@ namespace AirHockey.Match.Managers
             await UniTask.WhenAll(goalHorn, goalCrowd, loop);
         }
 
+        /// <summary>
+        /// Plays the sound effects for when a player scores. 
+        /// </summary>
         public void PlayGoal()
         {
             _goalCrowd.Play();
             _goalHorn.Play();
         }
 
+        /// <summary>
+        /// Plays a buzz sound.
+        /// </summary>
         public void PlayBuzz()
         {
             _buzz.Play();

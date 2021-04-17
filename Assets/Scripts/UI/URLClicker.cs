@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 namespace AirHockey.UI
 {
+    /// <summary>
+    /// Opens a URL whenever the pointer clicks on this component. 
+    /// </summary>
     public class URLClicker : MonoBehaviour, IPointerClickHandler
     {
         #region Serialized fields

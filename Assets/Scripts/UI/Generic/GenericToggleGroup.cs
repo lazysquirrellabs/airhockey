@@ -4,10 +4,18 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI.Generic
 {
+    /// <summary>
+    /// A generic toggle group that can hold any value.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TU"></typeparam>
     public class GenericToggleGroup<T,TU> : ToggleGroup where T : GenericToggle<TU>
     {
         #region Events
 
+        /// <summary>
+        /// Event invoked whenever one of the values is selected.
+        /// </summary>
         public event Action<TU> OnSelect; 
 
         #endregion
@@ -18,38 +26,45 @@ namespace AirHockey.UI.Generic
 
         #endregion
 
+        #region Fields
+
+        private GenericToggle<TU> _selectedToggle;
+
+        #endregion
+
         #region Setup
 
         protected override void Awake()
         {
             foreach (var toggle in _toggles)
             {
-                toggle.Deselect();
-                toggle.OnSelect += SelectToggle;
+                toggle.ForceDeselection();
+                toggle.OnSelect += HandleToggleSelection;
             }
-            _toggles[0].Select();
-            OnSelect?.Invoke(_toggles[0].Value);
+            
+            // Select the first toggle
+            _toggles[0].ForceSelection();
         }
         
         protected override void OnDestroy()
         {
             foreach (var toggle in _toggles)
-                toggle.OnSelect -= SelectToggle;
+                toggle.OnSelect -= HandleToggleSelection;
         }
 
         #endregion
 
         #region Event handlers
 
-        private void SelectToggle(GenericToggle<TU> selectedToggle)
+        private void HandleToggleSelection(GenericToggle<TU> selectedToggle)
         {
-            foreach (var toggle in _toggles)
-            {
-                if (toggle != selectedToggle)
-                    toggle.Deselect();
-            }
+            // Unselect the previously selected toggle, if there is one
+            if (_selectedToggle != null)
+                _selectedToggle.ForceDeselection();
 
-            OnSelect?.Invoke(selectedToggle.Value);
+            _selectedToggle = selectedToggle;
+
+            OnSelect?.Invoke(_selectedToggle.Value);
         }
 
         #endregion

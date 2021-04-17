@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace AirHockey.Match.Referees
 {
+    /// <summary>
+    /// A <see cref="Referee"/> which controls the <see cref="Match"/> lifetime based on a timer.
+    /// </summary>
     public class TimeReferee : Referee
     {
         #region Fields
@@ -18,6 +21,14 @@ namespace AirHockey.Match.Referees
         
         #region Setup
 
+        /// <summary>
+        /// <see cref="TimeReferee"/>'s constructor.
+        /// </summary>
+        /// <param name="pause">How to pause the game whenever a player scores.</param>
+        /// <param name="end">How to end the game.</param>
+        /// <param name="subscribe">How to subscribe to the match scoring.</param>
+        /// <param name="duration">The desired duration of the match in seconds.</param>
+        /// <param name="onUpdate">Callback to be invoked every time the timer ticks.</param>
         public TimeReferee(Pauser pause, Action end, Action<Scorer> subscribe, uint duration, Action<uint> onUpdate) 
             : base(pause, end, subscribe)
         {
@@ -50,9 +61,9 @@ namespace AirHockey.Match.Referees
 
         #region Public
 
-        public override void CancelMatch(Action<Scorer> unsubscribeToScore)
+        public override void LeaveMatch(Action<Scorer> unsubscribeToScore)
         {
-            base.CancelMatch(unsubscribeToScore);
+            base.LeaveMatch(unsubscribeToScore);
             Stop();
         }
         
@@ -114,6 +125,9 @@ namespace AirHockey.Match.Referees
 
         #region Private
         
+        /// <summary>
+        /// Stops the match timer.
+        /// </summary>
         private void Stop()
         {
             _running = false;

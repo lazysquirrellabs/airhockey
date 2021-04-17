@@ -9,10 +9,16 @@ using Screen = AirHockey.UI.Screen;
 
 namespace AirHockey.Menu
 {
+    /// <summary>
+    /// The play/start match screen in the main menu.
+    /// </summary>
     public class PlayScreen : Screen
     {
         #region Events
 
+        /// <summary>
+        /// Invoked whenever the play/start match button has been successfully invoked.
+        /// </summary>
         public event Action<MatchSettings> OnStartMatch;
 
         #endregion
@@ -30,7 +36,7 @@ namespace AirHockey.Menu
 
         #region Fields
 
-        private Mode _mode;
+        private MatchMode _matchMode;
         private uint _extraInfo;
         private bool _needsExtraInfo;
         private bool _validExtraInfo;
@@ -59,20 +65,23 @@ namespace AirHockey.Menu
 
         #region Event handlers
 
+        /// <summary>
+        /// Handles a click on the "Start" button.
+        /// </summary>
         private void HandleStart()
         {
             if (_needsExtraInfo && !TryGetExtraInfo())
             {
-                _popup.Message = $"PROVIDE THE MODE {_mode.InfoName().ToUpper()} BEFORE STARTING A MATCH";
+                _popup.Message = $"PROVIDE THE MODE {_matchMode.InfoName().ToUpper()} BEFORE STARTING A MATCH";
                 _popup.Show();
                 return;
             }
             
             MatchSettings settings;
             if (_needsExtraInfo)
-                settings = new MatchSettings(_mode, _extraInfo);
+                settings = new MatchSettings(_matchMode, _extraInfo);
             else
-                settings = new MatchSettings(_mode);
+                settings = new MatchSettings(_matchMode);
             OnStartMatch?.Invoke(settings);
 
             bool TryGetExtraInfo()
@@ -87,35 +96,42 @@ namespace AirHockey.Menu
             }
         }
 
-        private void HandleModeSelect(Mode mode)
+        /// <summary>
+        /// Handles the selection of a <see cref="MatchMode"/>. Invoked whenever a mode toggle is selected.
+        /// </summary>
+        /// <param name="matchMode">The selected mode.</param>
+        /// <exception cref="NotImplementedException">Thrown whenever the given <paramref name="matchMode"/> has not
+        /// implemented yet.</exception>
+        private void HandleModeSelect(MatchMode matchMode)
         {
-            _mode = mode;
+            _matchMode = matchMode;
 
-            switch (mode)
+            switch (matchMode)
             {
-                case Mode.HighScore:
-                case Mode.BestOfScore:
-                case Mode.Time:
+                case MatchMode.HighScore:
+                case MatchMode.BestOfScore:
+                case MatchMode.Time:
                     _extraInfoInput.gameObject.SetActive(true);
-                    _extraFieldLabel.text = $"INSERT {_mode.InfoName().ToUpper()} HERE";
+                    _extraFieldLabel.text = $"INSERT {_matchMode.InfoName().ToUpper()} HERE";
                     _extraInfoInput.text = "";
-                    _extraInfoUnit.text = _mode.InfoUnitName().ToUpper();
+                    _extraInfoUnit.text = _matchMode.InfoUnitName().ToUpper();
                     _needsExtraInfo = true;
                     break;
-                case Mode.Endless:
+                case MatchMode.Endless:
                     _extraInfoInput.gameObject.SetActive(false);
                     _needsExtraInfo = false;
                     _extraInfoUnit.text = "";
                     break;
                 default:
-                    throw new NotImplementedException($"Match mode not implemented: {_mode}");
+                    throw new NotImplementedException($"Match mode not implemented: {_matchMode}");
             }
         }
 
         #endregion
 
         #region Public
-
+        
+        /// <inheritdoc />
         public override void Hide()
         {
             gameObject.SetActive(false);

@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI
 {
+    /// <summary>
+    /// A UI <see cref="Slider"/> that controls an <see cref="AudioMixerGroup"/> parameter.
+    /// </summary>
     public class AudioGroupSlider : MonoBehaviour
     {
         #region Serialized fields
@@ -14,22 +17,7 @@ namespace AirHockey.UI
 
         #endregion
 
-        #region Fields
-
-        private string _volumeParameter;
-
-        #endregion
-
-        #region Public
-
-        public void Setup()
-        {
-            _group.audioMixer.GetFloat(_parameter, out var volume);
-            volume = PlayerPrefs.GetFloat(_parameter, volume);
-            _group.audioMixer.SetFloat(_parameter, volume);
-            _slider.value = volume;
-            _slider.onValueChanged.AddListener(HandleSliderChange);
-        }
+        #region Setup
 
         private void OnDestroy()
         {
@@ -38,11 +26,30 @@ namespace AirHockey.UI
 
         #endregion
 
+        #region Public
+
+        /// <summary>
+        /// Sets the <see cref="AudioGroupSlider"/> up. Loads audio levels from player prefs and sets them.
+        /// </summary>
+        public void Setup()
+        {
+            // If there is no saved prefs, load the default value from the mixer
+            _group.audioMixer.GetFloat(_parameter, out var value);
+            value = PlayerPrefs.GetFloat(_parameter, value);
+            _group.audioMixer.SetFloat(_parameter, value);
+            _slider.value = value;
+            _slider.onValueChanged.AddListener(HandleSliderChange);
+        }
+
+        #endregion
+
         #region Event handlers
 
         private void HandleSliderChange(float value)
         {
+            // Set the audio level
             _group.audioMixer.SetFloat(_parameter, value);
+            // Store the audio level in the player preferences
             PlayerPrefs.SetFloat(_parameter, value);
         }
 

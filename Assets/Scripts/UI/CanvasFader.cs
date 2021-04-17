@@ -5,6 +5,9 @@ using UniTaskExtensions = AirHockey.Utils.UniTaskExtensions;
 
 namespace AirHockey.UI
 {
+    /// <summary>
+    /// Fades a <see cref="CanvasGroup"/> in out asynchronously.
+    /// </summary>
     public class CanvasFader : MonoBehaviour
     {
         #region Serialized fields

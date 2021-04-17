@@ -2,6 +2,10 @@ using UnityEngine;
 
 namespace AirHockey.Camera
 {
+    /// <summary>
+    /// Locks a <see cref="Camera"/> to a maximum <see cref="AspectRatio"/> so the game screen scales properly on
+    /// different aspect ratios.
+    /// </summary>
     public class CameraAspectRatioLock : MonoBehaviour
     {
         #region Serialized fields

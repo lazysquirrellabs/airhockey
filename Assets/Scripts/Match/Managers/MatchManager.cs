@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace AirHockey.Match.Managers
 {
+    /// <summary>
+    /// A <see cref="Match"/>'s manager.
+    /// </summary>
     public class MatchManager : MonoBehaviour
     {
         #region Serialized fields
@@ -47,7 +50,7 @@ namespace AirHockey.Match.Managers
         {
             if (!_cancellationToken.IsCancellationRequested)
                 _cancellationTokenSource.Cancel();
-            _referee?.CancelMatch(UnsubscribeToScore);
+            _referee?.LeaveMatch(UnsubscribeToScore);
             UnsubscribeToScore(HandleScore);
             
             void UnsubscribeToScore(Scorer scorer) => _scoreManager.OnScore -= scorer;
@@ -67,34 +70,41 @@ namespace AirHockey.Match.Managers
 
         #region Public
 
-        public async UniTask StartMatch(MatchSettings setting)
+        /// <summary>
+        /// Starts a match asynchronously.
+        /// </summary>
+        /// <param name="settings">The match settings to be used.</param>
+        /// <returns>An awaitable task representing the entire match setup process.</returns>
+        /// <exception cref="NotImplementedException">Thrown whenever an invalid match <see cref="MatchMode"/> is provided
+        /// in the <paramref name="settings"/>.</exception>
+        public async UniTask StartMatchAsync(MatchSettings settings)
         {
-            var info = setting.Value;
+            var info = settings.Value;
             _placementManager.StartMatch();
             await _announcementBoard.AnnounceMatchStartAsync(_matchStartDelay, _cancellationToken);
             await _announcementBoard.AnnounceGetReadyAsync(_preparationDuration, _cancellationToken);
-            Debug.Log($"Starting match on {setting.Mode}, value: {info}");
+            Debug.Log($"Starting match on {settings.Mode}, value: {info}");
             
-            switch (setting.Mode)
+            switch (settings.Mode)
             {
-                case Mode.HighScore:
-                    _referee = new HighScoreReferee(PauseAsync, End, SubscribeToScore, info);
+                case MatchMode.HighScore:
+                    _referee = new HighScoreReferee(ScoreAndResetAsync, End, SubscribeToScore, info);
                     break;
-                case Mode.BestOfScore:
-                    _referee = new BestOfScoreReferee(PauseAsync, End, SubscribeToScore, info);
+                case MatchMode.BestOfScore:
+                    _referee = new BestOfScoreReferee(ScoreAndResetAsync, End, SubscribeToScore, info);
                     break;
-                case Mode.Time:
+                case MatchMode.Time:
                     _timer.Show(info);
                     var seconds = info * 60;
-                    var timedReferee = new TimeReferee(PauseAsync, End, SubscribeToScore, seconds, _timer.SetTime);
+                    var timedReferee = new TimeReferee(ScoreAndResetAsync, End, SubscribeToScore, seconds, _timer.SetTime);
                     timedReferee.StartTimer().Forget();
                     _referee = timedReferee;
                     break;
-                case Mode.Endless:
-                    _referee = new EndlessReferee(PauseAsync, End, SubscribeToScore);
+                case MatchMode.Endless:
+                    _referee = new EndlessReferee(ScoreAndResetAsync, End, SubscribeToScore);
                     break;
                 default:
-                    throw new NotImplementedException($"Mode not implemented: {setting.Mode}");
+                    throw new NotImplementedException($"Mode not implemented: {settings.Mode}");
             }
             
             _audioManager.PlayBuzz();
@@ -106,10 +116,10 @@ namespace AirHockey.Match.Managers
         }
 
         /// <summary>
-        /// Stops the match, forcefully.
+        /// Forces the match to stop, asynchronously.
         /// </summary>
         /// <param name="fadeOutDuration">How long the stopping should take, in seconds.</param>
-        /// <returns>The awaitable task.</returns>
+        /// <returns>The awaitable task representing the stop process.</returns>
         public async UniTask StopMatchAsync(float fadeOutDuration)
         {
             _placementManager.StopAll();
@@ -122,7 +132,12 @@ namespace AirHockey.Match.Managers
 
         #region Private
 
-        private async UniTask PauseAsync(Player player)
+        /// <summary>
+        /// Scores a goal and resets the rink for the next point, asynchronously.
+        /// </summary>
+        /// <param name="player">The player who scored</param>
+        /// <returns>An awaitable task representing the score announcement and the rink resetting.</returns>
+        private async UniTask ScoreAndResetAsync(Player player)
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
@@ -136,6 +151,9 @@ namespace AirHockey.Match.Managers
             await _announcementBoard.FadeOutAsync(_cancellationToken);
         }
 
+        /// <summary>
+        /// End the match instantly.
+        /// </summary>
         private void End()
         {
             Debug.Log("Match is over");
