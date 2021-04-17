@@ -16,9 +16,38 @@ namespace AirHockey.Camera
 
         #endregion
 
-        #region Properties
+        #region Setup
 
-        public static implicit operator float(AspectRatio ratio) => (float) ratio._height / ratio._width;
+        /// <summary>
+        /// <see cref="AspectRatio"/> constructor.
+        /// </summary>
+        /// <param name="width">The width of the screen.</param>
+        /// <param name="height">The height of the screen.</param>
+        public AspectRatio(uint width, uint height)
+        {
+            _width = width;
+            _height = height;
+        }
+
+        #endregion
+        
+        #region Public
+
+        public static implicit operator float(AspectRatio ratio) => (float) ratio._width / ratio._height;
+
+        public static bool operator <(AspectRatio aspectRatio1, AspectRatio aspectRatio2)
+        {
+            float ratio1 = aspectRatio1;
+            float ratio2 = aspectRatio2;
+            return ratio1 < ratio2;
+        }
+
+        public static bool operator >(AspectRatio aspectRatio1, AspectRatio aspectRatio2)
+        {
+            float ratio1 = aspectRatio1;
+            float ratio2 = aspectRatio2;
+            return ratio1 > ratio2;
+        }
 
         #endregion
     }

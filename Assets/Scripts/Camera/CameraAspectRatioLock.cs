@@ -11,7 +11,7 @@ namespace AirHockey.Camera
         #region Serialized fields
 
         [SerializeField] private UnityEngine.Camera _camera;
-        [SerializeField] private AspectRatio _maximumRatio;
+        [SerializeField] private AspectRatio _minimumRatio;
         
         #endregion
 
@@ -19,9 +19,9 @@ namespace AirHockey.Camera
 
         private void Start()
         {
-            var screenRatio = (float) Screen.width / Screen.height;
-            if (screenRatio < _maximumRatio)
-                _camera.orthographicSize = _maximumRatio / screenRatio * _camera.orthographicSize;
+            var screenRatio =  new AspectRatio((uint) Screen.width, (uint) Screen.height) ;
+            if (screenRatio < _minimumRatio)
+                _camera.orthographicSize = _minimumRatio / screenRatio * _camera.orthographicSize;
         }
 
         #endregion

@@ -26,17 +26,17 @@ namespace AirHockey.Editor.Camera
             
             var heightFieldWidth = EditorGUIUtility.labelWidth + FieldWidth;
             
-            var heightProperty = property.FindPropertyRelative(HeightName);
-            var heightPos = position;
-            heightPos.width = heightFieldWidth;
-            heightProperty.intValue = EditorGUI.IntField(heightPos, label, heightProperty.intValue);
+            var widthProperty = property.FindPropertyRelative(WidthName);
+            var widthPos = position;
+            widthPos.width = heightFieldWidth;
+            widthProperty.intValue = EditorGUI.IntField(widthPos, label, widthProperty.intValue);
             
-            var separatorPos = new Rect(heightPos.xMax, position.y, SeparatorWidth, position.height);
+            var separatorPos = new Rect(widthPos.xMax, position.y, SeparatorWidth, position.height);
             EditorGUI.LabelField(separatorPos, ":");
             
-            var widthProperty = property.FindPropertyRelative(WidthName);
-            var widthPos = new Rect(separatorPos.xMax, position.y, FieldWidth, position.height);
-            widthProperty.intValue = EditorGUI.IntField(widthPos, widthProperty.intValue);
+            var heightProperty = property.FindPropertyRelative(HeightName);
+            var heightPos = new Rect(separatorPos.xMax, position.y, FieldWidth, position.height);
+            heightProperty.intValue = EditorGUI.IntField(heightPos, heightProperty.intValue);
             
             EditorGUI.EndProperty();
         }
