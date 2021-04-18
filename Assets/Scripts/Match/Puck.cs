@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace AirHockey.Match
 {
+    /// <summary>
+    /// The match puck entity. Controls movement and other scene elements.
+    /// </summary>
     public class Puck : MonoBehaviour
     {
         #region Serialized fields
@@ -23,6 +26,10 @@ namespace AirHockey.Match
 
         #region Public
 
+        /// <summary>
+        /// Resets the <see cref="Puck"/> after some action, for regrouping. Stops it completely.
+        /// </summary>
+        /// <param name="position"></param>
         public void Regroup(Vector2 position)
         {
             _rigidbody2D.velocity = Vector2.zero;
@@ -31,6 +38,9 @@ namespace AirHockey.Match
             _rigidbody2D.rotation = 0f;
         }
 
+        /// <summary>
+        /// Completely and instantly stops the <see cref="Puck"/>. Disables all interactions.
+        /// </summary>
         public void StopMoving()
         {
             _rigidbody2D.isKinematic = true;

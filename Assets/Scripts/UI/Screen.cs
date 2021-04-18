@@ -4,10 +4,16 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI
 {
+    /// <summary>
+    /// Base class for every screen in the game menu.
+    /// </summary>
     public class Screen : MonoBehaviour
     {
         #region Events
 
+        /// <summary>
+        /// Event invoked whenever this screen wants to go back (return) to the previous one.
+        /// </summary>
         public event Action OnGoBack;
 
         #endregion
@@ -40,11 +46,17 @@ namespace AirHockey.UI
 
         #region Public
 
+        /// <summary>
+        ///  Displays the screen. If it's already displayed, nothing happens.
+        /// </summary>
         public void Show()
         {
             gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Hides the screen. If it's already hidden, nothing happens.
+        /// </summary>
         public virtual void Hide()
         {
             gameObject.SetActive(false);

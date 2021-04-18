@@ -8,7 +8,6 @@ namespace AirHockey.Utils
     public static class UniTaskExtensions
     {
         #region Public
-        
 
         /// <summary>
         /// Asynchronously progresses an <paramref name="update"/> function through a range.

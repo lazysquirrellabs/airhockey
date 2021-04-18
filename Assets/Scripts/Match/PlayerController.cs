@@ -6,12 +6,18 @@ using UnityEngine;
 
 namespace AirHockey.Match
 {
+    /// <summary>
+    /// Player in a <see cref="Match"/>
+    /// </summary>
     public enum Player
     {
         LeftPlayer,
         RightPlayer
     }
     
+    /// <summary>
+    /// A <see cref="Player"/> entity in the <see cref="Match"/>. Controls movement and its scene elements. 
+    /// </summary>
     public class PlayerController : MonoBehaviour
     {
         #region Serialized fields
@@ -37,16 +43,26 @@ namespace AirHockey.Match
 
         #region Public
 
+        /// <summary>
+        /// Enables user input to control the player.
+        /// </summary>
         public void StartMoving()
         {
             _movementController.CanMove = true;
         }
 
+        /// <summary>
+        /// Stops the player, ignoring any user input.
+        /// </summary>
         public void StopMoving()
         {
             _movementController.CanMove = false;
         }
 
+        /// <summary>
+        /// Moves the <see cref="Player"/> instantly.
+        /// </summary>
+        /// <param name="position">The position to move to.</param>
         public void MoveTo(Vector3 position)
         {
             _transform.position = position;

@@ -28,6 +28,9 @@ namespace AirHockey.Movement
         /// <summary> Fetches the current mouse world position, abstracting the implementation. </summary>
         public Func<Vector2,Vector2> GetMousePosition { private get; set; }
 
+        /// <summary>
+        /// Whether the game object can be moved via input.
+        /// </summary>
         public bool CanMove
         {
             set

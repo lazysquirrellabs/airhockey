@@ -7,6 +7,9 @@ using UniTaskExtensions = AirHockey.Utils.UniTaskExtensions;
 
 namespace AirHockey.Match
 {
+    /// <summary>
+    /// Board seen in the match which gives general visual announcements (e.g. score, match start and end).
+    /// </summary>
     public class AnnouncementBoard : MonoBehaviour
     {
         #region Serialized fields
@@ -29,7 +32,7 @@ namespace AirHockey.Match
         private const string GetReadyText = "ON YOUR MARKS...";
         private const string GoText = "GO!";
         private const string YouWinText = "YOU WIN!!";
-        private const string YouLoseText = "UOU LOSE";
+        private const string YouLoseText = "YOU LOSE";
         private const string TieText = "IT'' A TIE";
 
         #endregion

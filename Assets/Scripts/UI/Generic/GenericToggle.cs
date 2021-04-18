@@ -5,10 +5,17 @@ using UnityEngine.UI;
 
 namespace AirHockey.UI.Generic
 {
+    /// <summary>
+    /// A generic toggle that stores a value.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class GenericToggle<T> : MonoBehaviour, IPointerClickHandler
     {
         #region Events
 
+        /// <summary>
+        /// Event invoked whenever the toggle is selected.
+        /// </summary>
         public event Action<GenericToggle<T>> OnSelect;
 
         #endregion
@@ -23,13 +30,16 @@ namespace AirHockey.UI.Generic
         #endregion
 
         #region Fields
-
+        
         private bool _selected;
 
         #endregion
 
         #region Properties
 
+        /// <summary>
+        /// The value that this toggle represents.
+        /// </summary>
         public T Value => _value;
 
         #endregion
@@ -42,23 +52,41 @@ namespace AirHockey.UI.Generic
                 return;
 
             Select();
-            OnSelect?.Invoke(this);
         }
 
         #endregion
 
         #region Public
 
-        public void Select()
+        /// <summary>
+        /// Forces toggle selection. Invokes the <see cref="OnSelect"/> event.
+        /// </summary>
+        public void ForceSelection()
         {
-            _selected = true;
-            _text.color = _selectedColor;
+            Select();
         }
 
-        public void Deselect()
+        /// <summary>
+        /// Forces toggle deselection.
+        /// </summary>
+        public void ForceDeselection()
         {
             _selected = false;
             _text.color = _unselectedColor;
+        }
+
+        #endregion
+
+        #region Private
+
+        /// <summary>
+        /// Selects this toggle. Updates the visuals and invokes the <see cref="OnSelect"/> event.
+        /// </summary>
+        private void Select()
+        {
+            _selected = true;
+            _text.color = _selectedColor;
+            OnSelect?.Invoke(this);
         }
 
         #endregion

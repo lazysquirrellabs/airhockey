@@ -3,10 +3,16 @@ using UnityEngine;
 
 namespace AirHockey.Physics
 {
+    /// <summary>
+    /// Propagates trigger event methods as delegate events
+    /// </summary>
     public class TriggerEvents2D : MonoBehaviour
     {
         #region Events
 
+        /// <summary>
+        /// Invoked whenever the <see cref="OnTriggerEnter2D"/> method event is invoked.
+        /// </summary>
         public event Action<Collider2D> OnEnterTrigger;
 
         #endregion

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace AirHockey.Match.Managers
 {
+    /// <summary>
+    /// Manages the placement of <see cref="Match"/> elements (i.e. players and puck).
+    /// </summary>
     public class PlacementManager : MonoBehaviour
     {
         #region Serialized fields
@@ -22,6 +25,9 @@ namespace AirHockey.Match.Managers
 
         #region Public
 
+        /// <summary>
+        /// Places the match elements for a match start.
+        /// </summary>
         public void StartMatch()
         {
             _leftPlayer.StopMoving();
@@ -49,6 +55,9 @@ namespace AirHockey.Match.Managers
             await UniTask.WhenAll(leftWait, rightWait);
         }
 
+        /// <summary>
+        /// Blocks players and puck from moving.
+        /// </summary>
         public void StopAll()
         {
             _leftPlayer.StopMoving();
@@ -56,6 +65,12 @@ namespace AirHockey.Match.Managers
             _puck.StopMoving();
         }
 
+        /// <summary>
+        /// Places the puck on a <paramref name="player"/> initial shot position.
+        /// </summary>
+        /// <param name="player">The players who will receive the puck.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if an invalid <paramref name="player"/>
+        /// is given.</exception>
         public void PlacePuck(Player player)
         {
             switch (player)
