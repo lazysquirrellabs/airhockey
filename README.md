@@ -9,9 +9,9 @@ A 2D local multiplayer air hockey game with four match modes: highest score, bes
 </p></a>
 
 ## Development
-The game is a simple toy project with two purposes: practice 2D game development and kickstart the development of complete games as side projects. I chose a simple game genre intentionally, to ease the development and increase the changes of it making into a complete game. 
+The game is a simple toy project with two purposes: practice 2D game development and kick-start the development of complete games as side projects. I chose a simple game genre intentionally, to ease the development and increase the changes of it making into a complete game. 
 
-The game was developed using the Unity game engine. All code and art assets (with the exception of the audio) were created in-house. You can access the project's [Trello board](https://trello.com/b/4qmWZ7Zt/air-hockey) for the projecet's roadmap and development history.
+The game was developed using the Unity game engine. All code and art assets (except for the audio) were created in-house. You can access the project [Trello board](https://trello.com/b/4qmWZ7Zt/air-hockey) for its road map and development history.
 
 
 ## Bug reporting
