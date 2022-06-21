@@ -14,7 +14,7 @@ namespace AirHockey.Match
         [SerializeField] private AudioSource[] _audioSources;
         [SerializeField] private AudioClip[] _normalHitClips;
         [SerializeField] private AudioClip[] _hardHitClips;
-        [SerializeField, Range(0,100)] private float _hardHitTreshold;
+        [SerializeField, Range(0,100)] private float _hardHitThreshold;
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace AirHockey.Match
             if (_lastAudioSourceIndex == _audioSources.Length)
                 _lastAudioSourceIndex = 0;
 
-            var hardHit = other.relativeVelocity.magnitude >= _hardHitTreshold;
+            var hardHit = other.relativeVelocity.magnitude >= _hardHitThreshold;
             var hitClip = hardHit ? _hardHitClips.Random() : _normalHitClips.Random();
             
             var audioSource = _audioSources[_lastAudioSourceIndex];
