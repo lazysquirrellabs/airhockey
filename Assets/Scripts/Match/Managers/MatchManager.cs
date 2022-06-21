@@ -40,7 +40,7 @@ namespace AirHockey.Match.Managers
 
         private void Awake()
         {
-            Screen.orientation = ScreenOrientation.Landscape;
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
             _cancellationTokenSource = new CancellationTokenSource();
             _cancellationToken = _cancellationTokenSource.Token;
             _scoreManager.OnScore += HandleScore;
