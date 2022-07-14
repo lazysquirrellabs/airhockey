@@ -12,6 +12,7 @@ namespace AirHockey.Movement
         #region Serialized fields
 
         [SerializeField] private Rigidbody2D _rigidBody;
+        [SerializeField, Range(1, 200)] private float _maximumSpeed;
 
         #endregion
 
@@ -52,8 +53,15 @@ namespace AirHockey.Movement
         {
             if (!_dragging || !_canMove) 
                 return;
-            
-            _rigidBody.MovePosition(_position);
+
+            // Ensure that the applied translation doesn't exceed the maximum speed
+            var currentPosition = _rigidBody.position;
+            var distance = Vector2.Distance(_position, currentPosition);
+            var desiredSpeed = distance / Time.fixedDeltaTime;
+            var deltaSpeed = Time.fixedDeltaTime * Mathf.Min(desiredSpeed, _maximumSpeed);
+            var direction = (_position - currentPosition).normalized;
+            var position = currentPosition + deltaSpeed * direction;
+            _rigidBody.MovePosition(position);
         }
 
         #endregion
