@@ -7,15 +7,6 @@ using UnityEngine;
 namespace AirHockey.Match
 {
     /// <summary>
-    /// Player in a <see cref="Match"/>
-    /// </summary>
-    public enum Player
-    {
-        LeftPlayer,
-        RightPlayer
-    }
-    
-    /// <summary>
     /// A <see cref="Player"/> entity in the <see cref="Match"/>. Controls movement and its scene elements. 
     /// </summary>
     public class PlayerController : MonoBehaviour

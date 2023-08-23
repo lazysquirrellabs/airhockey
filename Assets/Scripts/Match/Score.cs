@@ -7,16 +7,6 @@ namespace AirHockey.Match
     /// </summary>
     public struct Score
     {
-        /// <summary>
-        /// Possible outcomes of a finished <see cref="Match"/>.
-        /// </summary>
-        public enum Result
-        {
-            Tie,
-            LeftPlayerWin,
-            RightPlayerWin
-        }
-        
         #region Properties    
 
         /// <summary>

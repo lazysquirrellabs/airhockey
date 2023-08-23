@@ -140,15 +140,15 @@ namespace AirHockey.Match
         {
             switch (result)
             {
-                case Score.Result.Tie:
+                case Result.Tie:
                     _leftText.text = TieText;
                     _rightText.text = TieText;
                     break;
-                case Score.Result.LeftPlayerWin:
+                case Result.LeftPlayerWin:
                     _leftText.text = YouWinText;
                     _rightText.text = YouLoseText;
                     break;
-                case Score.Result.RightPlayerWin:
+                case Result.RightPlayerWin:
                     _leftText.text = YouLoseText;
                     _rightText.text = YouWinText;
                     break;
