@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using AirHockey.Match.Scoring;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -136,24 +137,24 @@ namespace AirHockey.Match
             await FadeOutAsync(FadeOutDuration, token);
         }
 
-        internal void AnnounceEndOfMatch(Result result, CancellationToken token)
+        internal void AnnounceEndOfMatch(MatchResult matchResult, CancellationToken token)
         {
-            switch (result)
+            switch (matchResult)
             {
-                case Result.Tie:
+                case MatchResult.Tie:
                     _leftText.text = TieText;
                     _rightText.text = TieText;
                     break;
-                case Result.LeftPlayerWin:
+                case MatchResult.LeftPlayerWin:
                     _leftText.text = YouWinText;
                     _rightText.text = YouLoseText;
                     break;
-                case Result.RightPlayerWin:
+                case MatchResult.RightPlayerWin:
                     _leftText.text = YouLoseText;
                     _rightText.text = YouWinText;
                     break;
                 default:
-                    throw new NotImplementedException($"Result not valid: {result}");
+                    throw new NotImplementedException($"Result not valid: {matchResult}");
             }
             
             FadeInAsync(MatchEndFadeDuration, token).Forget();

@@ -1,4 +1,5 @@
 using System;
+using AirHockey.Match.Scoring;
 using UnityEngine;
 
 namespace AirHockey.Match.Referees

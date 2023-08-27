@@ -1,6 +1,6 @@
 using System;
 
-namespace AirHockey.Match
+namespace AirHockey.Match.Scoring
 {
     /// <summary>
     /// A <see cref="Match"/> score.
@@ -21,15 +21,15 @@ namespace AirHockey.Match
         /// <summary>
         /// The final result of the <see cref="Match"/> if this was its final score.
         /// </summary>
-        internal Result FinalResult
+        internal MatchResult FinalResult
         {
             get
             {
                 if (LeftPlayer == RightPlayer)
-                    return Result.Tie;
+                    return MatchResult.Tie;
                 if (LeftPlayer > RightPlayer)
-                    return Result.LeftPlayerWin;
-                return Result.RightPlayerWin;
+                    return MatchResult.LeftPlayerWin;
+                return MatchResult.RightPlayerWin;
             }
         }
 

@@ -1,4 +1,5 @@
 using System;
+using AirHockey.Match.Scoring;
 using Cysharp.Threading.Tasks;
 
 namespace AirHockey.Match.Referees

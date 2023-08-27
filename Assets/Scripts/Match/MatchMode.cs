@@ -75,7 +75,7 @@ namespace AirHockey.Match
                 case MatchMode.Time:
                     return "minutes";
                 case MatchMode.Endless:
-                    var message = "Endless mode doesn't require info.";
+                    const string message = "Endless mode doesn't require info.";
                     throw new ArgumentOutOfRangeException(nameof(matchMode), matchMode, message);
                 default:
                     throw new NotImplementedException($"Mode not implemented: {matchMode}.");
