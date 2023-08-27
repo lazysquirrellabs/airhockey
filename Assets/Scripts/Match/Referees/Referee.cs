@@ -7,14 +7,14 @@ namespace AirHockey.Match.Referees
     /// Base class for all match <see cref="Referee"/>s. A <see cref="Referee"/> is responsible for implementing the
     /// rules that reflect a match <see cref="MatchMode"/>. It has some capabilities like pausing and ending the match.
     /// </summary>
-    public abstract class Referee
+    internal abstract class Referee
     {
         #region Delegates
         
         /// <summary>
         /// Encapsulates an asynchronous method which can be used to pause the match whenever the given player scores.
         /// </summary>
-        public delegate UniTask Pauser(Player p);
+        internal delegate UniTask Pauser(Player p);
 
         #endregion
         
@@ -59,13 +59,13 @@ namespace AirHockey.Match.Referees
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Removes the referee from the match.
         /// </summary>
         /// <param name="unsubscribeToScore">Delegate used to unsubscribe from the match scoring.</param>
-        public virtual void LeaveMatch(Action<Scorer> unsubscribeToScore)
+        internal virtual void LeaveMatch(Action<Scorer> unsubscribeToScore)
         {
             unsubscribeToScore(HandleScore);
         }

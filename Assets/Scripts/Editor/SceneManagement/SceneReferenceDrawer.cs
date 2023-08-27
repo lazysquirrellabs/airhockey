@@ -7,7 +7,7 @@ using UnityEngine;
 namespace AirHockey.Editor.SceneManagement
 {
     [CustomPropertyDrawer(typeof(SceneReference))]
-    public class SceneReferenceDrawer : PropertyDrawer
+    internal class SceneReferenceDrawer : PropertyDrawer
     {
         #region Fields
     

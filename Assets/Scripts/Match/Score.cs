@@ -5,23 +5,23 @@ namespace AirHockey.Match
     /// <summary>
     /// A <see cref="Match"/> score.
     /// </summary>
-    public struct Score
+    internal struct Score
     {
         #region Properties    
 
         /// <summary>
         /// How many goals the left player has scored
         /// </summary>
-        public uint LeftPlayer { get; private set; }
+        internal uint LeftPlayer { get; private set; }
         /// <summary>
         /// How many goals the right player has scored
         /// </summary>
-        public uint RightPlayer { get; private set; }
+        internal uint RightPlayer { get; private set; }
 
         /// <summary>
         /// The final result of the <see cref="Match"/> if this was its final score.
         /// </summary>
-        public Result FinalResult
+        internal Result FinalResult
         {
             get
             {
@@ -35,7 +35,7 @@ namespace AirHockey.Match
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Register a goal scored by the given <paramref name="player"/>.
@@ -43,7 +43,7 @@ namespace AirHockey.Match
         /// <param name="player">The player who scored the goal.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown whenever the given <see cref="Player"/> is out of
         /// range. </exception>
-        public void ScoreGoal(Player player)
+        internal void ScoreGoal(Player player)
         {
             switch (player)
             {

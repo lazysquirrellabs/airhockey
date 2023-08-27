@@ -13,8 +13,10 @@ namespace AirHockey.Managers
     /// <summary>
     /// The top-most manager int he entire application.
     /// </summary>
-    public class GameManager : MonoBehaviour
+    internal class GameManager : MonoBehaviour
     {
+	    #region Entities
+
         /// <summary>
         /// Application state.
         /// </summary>
@@ -27,6 +29,8 @@ namespace AirHockey.Managers
             Menu,
             Match
         }
+        
+        #endregion
         
         #region Serialized fields
 

@@ -7,7 +7,7 @@ namespace AirHockey.Menu
     /// <summary>
     /// The settings/options screen in the main menu.
     /// </summary>
-    public class SettingsScreen : Screen
+    internal class SettingsScreen : Screen
     {
         #region Serialized fields
 
@@ -15,12 +15,12 @@ namespace AirHockey.Menu
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Loads the audio levels for all audio sliders.
         /// </summary>
-        public void LoadAudioLevels()
+        internal void LoadAudioLevels()
         {
             foreach (var slider in _sliders)
                 slider.Setup();

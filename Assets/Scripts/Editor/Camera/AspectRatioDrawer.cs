@@ -7,7 +7,7 @@ using AspectRatio = AirHockey.Camera.AspectRatio;
 namespace AirHockey.Editor.Camera
 {
     [CustomPropertyDrawer(typeof(AspectRatio))]
-    public class AspectRatioDrawer : PropertyDrawer
+    internal class AspectRatioDrawer : PropertyDrawer
     {
         #region Fields
 

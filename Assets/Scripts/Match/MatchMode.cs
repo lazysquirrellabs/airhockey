@@ -5,7 +5,7 @@ namespace AirHockey.Match
     /// <summary>
     /// The modes that a <see cref="Match"/> can be.
     /// </summary>
-    public enum MatchMode
+    internal enum MatchMode
     {
         /// <summary>
         /// The first player to score a given number of goals wins. The match might NOT end in a tie.
@@ -26,9 +26,9 @@ namespace AirHockey.Match
         Endless
     }
 
-    public static class ModeUtils
+    internal static class MatchModeExtensions
     {
-        #region Public
+        #region Internal
         
         /// <summary>
         /// Fetches the name of the extra information needed by a <paramref name="matchMode"/> to be valid.
@@ -39,7 +39,7 @@ namespace AirHockey.Match
         /// does not require extra information.</exception>
         /// <exception cref="NotImplementedException">Thrown whenever the given <paramref name="matchMode"/> has not
         /// been implemented yet.</exception>
-        public static string InfoName(this MatchMode matchMode)
+        internal static string InfoName(this MatchMode matchMode)
         {
             switch (matchMode)
             {
@@ -65,7 +65,7 @@ namespace AirHockey.Match
         /// does not require extra information.</exception>
         /// <exception cref="NotImplementedException">Thrown whenever the given <paramref name="matchMode"/> has not
         /// been implemented yet.</exception>
-        public static string InfoUnitName(this MatchMode matchMode)
+        internal static string InfoUnitName(this MatchMode matchMode)
         {
             switch (matchMode)
             {

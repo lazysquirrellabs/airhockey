@@ -7,7 +7,7 @@ namespace AirHockey.Movement
     /// <summary>
     /// Moves a 2D object around based on pointer drag movement.
     /// </summary>
-    public class InputMovementController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+    internal class InputMovementController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         #region Serialized fields
 
@@ -27,12 +27,12 @@ namespace AirHockey.Movement
         #region Properties
 
         /// <summary> Fetches the current mouse world position, abstracting the implementation. </summary>
-        public Func<Vector2,Vector2> GetMousePosition { private get; set; }
+        internal Func<Vector2,Vector2> GetMousePosition { private get; set; }
 
         /// <summary>
         /// Whether the game object can be moved via input.
         /// </summary>
-        public bool CanMove
+        internal bool CanMove
         {
             set
             {

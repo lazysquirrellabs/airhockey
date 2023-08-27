@@ -6,8 +6,7 @@ namespace AirHockey.Match.Referees
     /// <summary>
     /// <see cref="Referee"/> which never ends the match and lets the players play endlessly.
     /// </summary>
-    public class 
-    EndlessReferee : Referee
+    internal class EndlessReferee : Referee
     {
         #region Setup
 
@@ -18,7 +17,7 @@ namespace AirHockey.Match.Referees
         /// <param name="end">How to end the match. Although this <see cref="Referee"/> never ends the match
         /// automatically, it can be done via player input. </param>
         /// <param name="subscribeToScore">How to subscribe to the match scoring.</param>
-        public EndlessReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore) 
+        internal EndlessReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore) 
             : base(pause, end, subscribeToScore)
         {
         }

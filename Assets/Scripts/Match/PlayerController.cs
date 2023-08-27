@@ -9,7 +9,7 @@ namespace AirHockey.Match
     /// <summary>
     /// A <see cref="Player"/> entity in the <see cref="Match"/>. Controls movement and its scene elements. 
     /// </summary>
-    public class PlayerController : MonoBehaviour
+    internal class PlayerController : MonoBehaviour
     {
         #region Serialized fields
 
@@ -32,12 +32,12 @@ namespace AirHockey.Match
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Enables user input to control the player.
         /// </summary>
-        public void StartMoving()
+        internal void StartMoving()
         {
             _movementController.CanMove = true;
         }
@@ -45,7 +45,7 @@ namespace AirHockey.Match
         /// <summary>
         /// Stops the player, ignoring any user input.
         /// </summary>
-        public void StopMoving()
+        internal void StopMoving()
         {
             _movementController.CanMove = false;
         }
@@ -54,7 +54,7 @@ namespace AirHockey.Match
         /// Moves the <see cref="Player"/> instantly.
         /// </summary>
         /// <param name="position">The position to move to.</param>
-        public void MoveTo(Vector3 position)
+        internal void MoveTo(Vector3 position)
         {
             _transform.position = position;
         }
@@ -68,7 +68,7 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public async UniTask MoveToAsync(Vector3 position, float duration, CancellationToken token)
+        internal async UniTask MoveToAsync(Vector3 position, float duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");

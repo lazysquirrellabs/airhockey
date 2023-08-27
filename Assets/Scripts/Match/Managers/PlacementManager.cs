@@ -8,7 +8,7 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// Manages the placement of <see cref="Match"/> elements (i.e. players and puck).
     /// </summary>
-    public class PlacementManager : MonoBehaviour
+    internal class PlacementManager : MonoBehaviour
     {
         #region Serialized fields
 
@@ -23,12 +23,12 @@ namespace AirHockey.Match.Managers
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Places the match elements for a match start.
         /// </summary>
-        public void StartMatch()
+        internal void StartMatch()
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
@@ -45,7 +45,7 @@ namespace AirHockey.Match.Managers
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public async UniTask ResetPlayersAsync(float duration, CancellationToken token)
+        internal async UniTask ResetPlayersAsync(float duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
@@ -58,7 +58,7 @@ namespace AirHockey.Match.Managers
         /// <summary>
         /// Blocks players and puck from moving.
         /// </summary>
-        public void StopAll()
+        internal void StopAll()
         {
             _leftPlayer.StopMoving();
             _rightPlayer.StopMoving();
@@ -71,7 +71,7 @@ namespace AirHockey.Match.Managers
         /// <param name="player">The players who will receive the puck.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if an invalid <paramref name="player"/>
         /// is given.</exception>
-        public void PlacePuck(Player player)
+        internal void PlacePuck(Player player)
         {
             switch (player)
             {

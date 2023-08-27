@@ -8,7 +8,7 @@ namespace AirHockey.Match.Referees
     /// <summary>
     /// A <see cref="Referee"/> which controls the <see cref="Match"/> lifetime based on a timer.
     /// </summary>
-    public class TimeReferee : Referee
+    internal class TimeReferee : Referee
     {
         #region Fields
 
@@ -29,7 +29,7 @@ namespace AirHockey.Match.Referees
         /// <param name="subscribe">How to subscribe to the match scoring.</param>
         /// <param name="duration">The desired duration of the match in seconds.</param>
         /// <param name="onUpdate">Callback to be invoked every time the timer ticks.</param>
-        public TimeReferee(Pauser pause, Action end, Action<Scorer> subscribe, uint duration, Action<uint> onUpdate) 
+        internal TimeReferee(Pauser pause, Action end, Action<Scorer> subscribe, uint duration, Action<uint> onUpdate) 
             : base(pause, end, subscribe)
         {
             _tokenSource = new CancellationTokenSource();
@@ -59,9 +59,9 @@ namespace AirHockey.Match.Referees
 
         #endregion
 
-        #region Public
+        #region Internal
 
-        public override void LeaveMatch(Action<Scorer> unsubscribeToScore)
+        internal override void LeaveMatch(Action<Scorer> unsubscribeToScore)
         {
             base.LeaveMatch(unsubscribeToScore);
             Stop();
@@ -71,7 +71,7 @@ namespace AirHockey.Match.Referees
         /// Starts a timer. This async method should not be awaited, just fire it and forget.
         /// </summary>
         /// <returns>The required <see cref="UniTaskVoid"/> to forget the task.</returns>
-        public async UniTaskVoid StartTimer()
+        internal async UniTaskVoid StartTimer()
         {
             var token = _tokenSource.Token;
             const int ticksPerSecond = 10;

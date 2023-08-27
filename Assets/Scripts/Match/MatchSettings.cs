@@ -3,15 +3,15 @@ namespace AirHockey.Match
     /// <summary>
     /// Settings used to start a new valid <see cref="Match"/>.
     /// </summary>
-    public readonly struct MatchSettings
+    internal readonly struct MatchSettings
     {
         #region Properties
 
-        public MatchMode Mode { get; }
+        internal MatchMode Mode { get; }
         /// <summary>
         /// Extra information that might be used by some <see cref="MatchMode"/>s. Its meaning varies on the mode.
         /// </summary>
-        public uint Value { get; }
+        internal uint Value { get; }
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace AirHockey.Match
         /// </summary>
         /// <param name="mode">The match mode.</param>
         /// <param name="value">Extra information used by the =<paramref name="mode"/>.</param>
-        public MatchSettings(MatchMode mode, uint value)
+        internal MatchSettings(MatchMode mode, uint value)
         {
             Mode = mode;
             Value = value;
@@ -34,7 +34,7 @@ namespace AirHockey.Match
         /// <see cref="MatchMode"/>.
         /// </summary>
         /// <param name="mode">The match mode.</param>
-        public MatchSettings(MatchMode mode)
+        internal MatchSettings(MatchMode mode)
         {
             Mode = mode;
             Value = 0;

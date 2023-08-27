@@ -9,7 +9,7 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// A <see cref="Match"/>'s manager.
     /// </summary>
-    public class MatchManager : MonoBehaviour
+    internal class MatchManager : MonoBehaviour
     {
         #region Serialized fields
 
@@ -68,7 +68,7 @@ namespace AirHockey.Match.Managers
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Starts a match asynchronously.
@@ -77,7 +77,7 @@ namespace AirHockey.Match.Managers
         /// <returns>An awaitable task representing the entire match setup process.</returns>
         /// <exception cref="NotImplementedException">Thrown whenever an invalid match <see cref="MatchMode"/> is provided
         /// in the <paramref name="settings"/>.</exception>
-        public async UniTask StartMatchAsync(MatchSettings settings)
+        internal async UniTask StartMatchAsync(MatchSettings settings)
         {
             var info = settings.Value;
             _placementManager.StartMatch();
@@ -120,7 +120,7 @@ namespace AirHockey.Match.Managers
         /// </summary>
         /// <param name="fadeOutDuration">How long the stopping should take, in seconds.</param>
         /// <returns>The awaitable task representing the stop process.</returns>
-        public async UniTask StopMatchAsync(float fadeOutDuration)
+        internal async UniTask StopMatchAsync(float fadeOutDuration)
         {
             _placementManager.StopAll();
             _audioManager.PlayBuzz();

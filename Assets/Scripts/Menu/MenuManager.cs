@@ -11,14 +11,14 @@ namespace AirHockey.Menu
     /// <summary>
     /// Manages the game's main menu.
     /// </summary>
-    public class MenuManager : MonoBehaviour
+    internal class MenuManager : MonoBehaviour
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever a new match starts.
         /// </summary>
-        public event Action<MatchSettings> OnStartMatch;
+        internal event Action<MatchSettings> OnStartMatch;
 
         #endregion
         
@@ -99,9 +99,9 @@ namespace AirHockey.Menu
 
         #endregion
 
-        #region Public
+        #region Internal
         
-        public async UniTask ReturnAsync()
+        internal async UniTask ReturnAsync()
         {
             await _transition.FadeInAsync(_transitionDuration / 2f);
            

@@ -10,7 +10,7 @@ namespace AirHockey.Match
     /// <summary>
     /// Board seen in the match which gives general visual announcements (e.g. score, match start and end).
     /// </summary>
-    public class AnnouncementBoard : MonoBehaviour
+    internal class AnnouncementBoard : MonoBehaviour
     {
         #region Serialized fields
 
@@ -37,7 +37,7 @@ namespace AirHockey.Match
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Displays a "match is starting..." announcement asynchronously.
@@ -47,7 +47,7 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public async UniTask AnnounceMatchStartAsync(int duration, CancellationToken token)
+        internal async UniTask AnnounceMatchStartAsync(int duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
@@ -81,7 +81,7 @@ namespace AirHockey.Match
         /// is negative.</exception>
         /// <exception cref="NotImplementedException">Thrown if an invalid <see cref="Player"/>
         /// was provided.</exception>
-        public async UniTask AnnounceGoalAsync(Player player, int duration, CancellationToken token)
+        internal async UniTask AnnounceGoalAsync(Player player, int duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
@@ -113,7 +113,7 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public async UniTask AnnounceGetReadyAsync(int duration, CancellationToken token)
+        internal async UniTask AnnounceGetReadyAsync(int duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
@@ -131,12 +131,12 @@ namespace AirHockey.Match
         /// </summary>
         /// <param name="token">The token for operation cancellation.</param>
         /// <returns>The awaitable task.</returns>
-        public async UniTask FadeOutAsync(CancellationToken token)
+        internal async UniTask FadeOutAsync(CancellationToken token)
         {
             await FadeOutAsync(FadeOutDuration, token);
         }
 
-        public void AnnounceEndOfMatch(Score.Result result, CancellationToken token)
+        internal void AnnounceEndOfMatch(Result result, CancellationToken token)
         {
             switch (result)
             {

@@ -6,7 +6,7 @@ namespace AirHockey.Match.Referees
     /// <summary>
     /// A <see cref="Referee"/> which controls the <see cref="Match"/> lifetime based on the <see cref="Score"/>.
     /// </summary>
-    public abstract class ScoreReferee : Referee
+    internal abstract class ScoreReferee : Referee
     {
         #region Delegates
         

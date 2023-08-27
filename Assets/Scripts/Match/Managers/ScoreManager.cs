@@ -6,14 +6,14 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// Manages all the scoring in a <see cref="Match"/>.
     /// </summary>
-    public class ScoreManager : MonoBehaviour
+    internal class ScoreManager : MonoBehaviour
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever a player scores.
         /// </summary>
-        public event Scorer OnScore;
+        internal event Scorer OnScore;
 
         #endregion
         
@@ -86,6 +86,5 @@ namespace AirHockey.Match.Managers
         }
 
         #endregion
-
     }
 }

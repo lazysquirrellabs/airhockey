@@ -7,7 +7,7 @@ namespace AirHockey.Match.Referees
     /// <see cref="ScoreReferee"/> which implements the rules of the "best of score" mode. See
     /// <see cref="MatchMode.BestOfScore"/> for more.
     /// </summary>
-    public class BestOfScoreReferee : ScoreReferee
+    internal class BestOfScoreReferee : ScoreReferee
     {
         #region Setup
 
@@ -18,7 +18,7 @@ namespace AirHockey.Match.Referees
         /// <param name="end">How to end the match.</param>
         /// <param name="subscribeToScore">How to subscribe to the match scoring.</param>
         /// <param name="score">The maximum score used to end the match.</param>
-        public BestOfScoreReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore, uint score) 
+        internal BestOfScoreReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore, uint score) 
             : base(pause, end, GetBestOfScoreChecker(score), subscribeToScore)
         {
         }

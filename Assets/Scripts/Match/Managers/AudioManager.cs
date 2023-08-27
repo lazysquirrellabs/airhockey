@@ -8,7 +8,7 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// A match's audio manager.
     /// </summary>
-    public class AudioManager : MonoBehaviour
+    internal class AudioManager : MonoBehaviour
     {
         #region Serialized fields
 
@@ -40,14 +40,14 @@ namespace AirHockey.Match.Managers
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Fades all match audio out.
         /// </summary>
         /// <param name="duration">The duration of the fade in seconds.</param>
         /// <returns>The awaitable task.</returns>
-        public async UniTask FadeOutAllAsync(float duration)
+        internal async UniTask FadeOutAllAsync(float duration)
         {
             var goalHorn = _goalHorn.FadeOutAsync(duration, _cancellationTokenSource.Token);
             var goalCrowd = _goalCrowd.FadeOutAsync(duration, _cancellationTokenSource.Token);
@@ -58,7 +58,7 @@ namespace AirHockey.Match.Managers
         /// <summary>
         /// Plays the sound effects for when a player scores. 
         /// </summary>
-        public void PlayGoal()
+        internal void PlayGoal()
         {
             _goalCrowd.Play();
             _goalHorn.Play();
@@ -67,7 +67,7 @@ namespace AirHockey.Match.Managers
         /// <summary>
         /// Plays a buzz sound.
         /// </summary>
-        public void PlayBuzz()
+        internal void PlayBuzz()
         {
             _buzz.Play();
         }
