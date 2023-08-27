@@ -27,6 +27,7 @@ namespace AirHockey.UI
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
 
         #endregion

@@ -47,6 +47,7 @@ namespace AirHockey.Match.Managers
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
             _referee?.LeaveMatch(UnsubscribeToScore);
             UnsubscribeToScore(HandleScore);
             
@@ -123,6 +124,7 @@ namespace AirHockey.Match.Managers
             _placementManager.StopAll();
             _audioManager.PlayBuzz();
             _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
             await _audioManager.FadeOutAllAsync(fadeOutDuration);
         }
 

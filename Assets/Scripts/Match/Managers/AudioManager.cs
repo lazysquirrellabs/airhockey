@@ -35,6 +35,7 @@ namespace AirHockey.Match.Managers
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
 
         #endregion
