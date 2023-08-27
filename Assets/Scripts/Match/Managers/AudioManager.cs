@@ -21,7 +21,7 @@ namespace AirHockey.Match.Managers
 
         #region Fields
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         #endregion
 
@@ -29,7 +29,6 @@ namespace AirHockey.Match.Managers
 
         private async void Awake()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
             await _loop.FadeInAsync(1f, 3f, _cancellationTokenSource.Token);
         }
 

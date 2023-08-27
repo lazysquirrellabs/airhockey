@@ -41,7 +41,6 @@ namespace AirHockey.Match.Managers
         {
             _player1Goal.OnScore += ScoreRight;
             _player2Goal.OnScore += ScoreLeft;
-            _score = new Score();
         }
         
         private void OnDestroy()

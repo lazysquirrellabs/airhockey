@@ -23,7 +23,7 @@ namespace AirHockey.Match
 
         #region Fields
 
-        /// <summary> Duration in seconds of general fade outs used in <see cref="FadeOutAsync"/>. </summary>
+        /// <summary> Duration in seconds of general fade outs used in FadeOutAsync. </summary>
         private const float FadeOutDuration = 1f;
         private const float MatchStartFadeDuration = 0.5f;
         private const float MatchEndFadeDuration = 0.5f;
