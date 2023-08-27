@@ -148,12 +148,11 @@ namespace AirHockey.Managers
         /// Loads a scene that contains a manager asynchronously.
         /// </summary>
         /// <param name="scene">The scene to be loaded.</param>
-        /// <typeparam name="TManager">The type of the manager to be fetched in the scene.</typeparam>
+        /// <typeparam name="T">The type of the manager to be fetched in the scene.</typeparam>
         /// <returns>A task to be awaited which represents the loading. Its value is the scene's manager. </returns>
         /// <exception cref="Exception">Thrown if the given <paramref name="scene"/> does not contain a manager of type
-        /// <typeparamref name="TManager"/>.</exception>
-        private async UniTask<TManager> LoadManagedSceneAsync<TManager>(SceneReference scene) 
-            where TManager : MonoBehaviour
+        /// <typeparamref name="T"/>The type of the manager in the scene.</exception>
+        private async UniTask<T> LoadManagedSceneAsync<T>(SceneReference scene) where T : MonoBehaviour
         {
             _loading = true;
             await _transition.FadeInAsync(TransitionDuration);
@@ -162,10 +161,10 @@ namespace AirHockey.Managers
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             _scene = SceneManager.GetSceneByPath(scene);
             if (_scene == null)
-                throw new Exception($"Managed scene wasn't loaded ({typeof(TManager)}).");
+                throw new Exception($"Managed scene wasn't loaded ({typeof(T)}).");
             
             SceneManager.SetActiveScene(_scene.Value);
-            var manager = FindObjectOfType<TManager>();
+            var manager = FindAnyObjectByType<T>();
             await _transition.FadeOutAsync(TransitionDuration);
             _loading = false;
             
