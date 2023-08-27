@@ -14,7 +14,7 @@ namespace AirHockey.Match.Managers
         /// <summary>
         /// Invoked whenever a player scores.
         /// </summary>
-        internal event Scorer OnScore;
+        internal event ScoreHandler OnScore;
 
         #endregion
         

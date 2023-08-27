@@ -1,6 +1,8 @@
 using System;
+using System.Threading;
 using AirHockey.Match;
 using AirHockey.UI;
+using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +37,7 @@ namespace AirHockey.Menu
 
         #endregion
 
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         #region Fields
 
         private Screen _currentScreen;
@@ -58,6 +61,8 @@ namespace AirHockey.Menu
 
         private void OnDestroy()
         {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
             _playButton.onClick.RemoveListener(HandleSelectNewMatch);
             _settingsButton.onClick.RemoveListener(HandleSelectSettings);
             _creditsButton.onClick.RemoveListener(HandleSelectCredits);
@@ -94,29 +99,42 @@ namespace AirHockey.Menu
 
         private async void HandleReturn()
         {
-            await ReturnAsync();
+	        try
+	        {
+		        await ReturnMenuAsync(_cancellationTokenSource.Token);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Stopped handling menu return because the operation was cancelled.");
+	        }
         }
 
         #endregion
 
         #region Internal
         
-        internal async UniTask ReturnAsync()
+        internal async UniTask ReturnAsync(CancellationToken token)
         {
-            await _transition.FadeInAsync(_transitionDuration / 2f);
-           
-            if (_currentScreen != null)
-                _currentScreen.Hide();
-
-            _currentScreen = null;
-            
-            await _transition.FadeOutAsync(_transitionDuration / 2f);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+	        await ReturnMenuAsync(unifiedToken);
         }
 
         #endregion
 
         #region Private
 
+        private async UniTask ReturnMenuAsync(CancellationToken token)
+        {
+	        await _transition.FadeInAsync(_transitionDuration / 2f, token);
+           
+	        if (_currentScreen != null)
+		        _currentScreen.Hide();
+
+	        _currentScreen = null;
+            
+	        await _transition.FadeOutAsync(_transitionDuration / 2f, token);
+        }
+        
         /// <summary>
         /// Transitions to the given <paramref name="screen"/> asynchronously.
         /// </summary>
@@ -124,7 +142,7 @@ namespace AirHockey.Menu
         /// <returns>A task to be awaited representing the fade transition.</returns>
         private async UniTask TransitionToAsync(Screen screen)
         {
-            await _transition.FadeInAsync(_transitionDuration / 2f);
+            await _transition.FadeInAsync(_transitionDuration / 2f, _cancellationTokenSource.Token);
            
             if (_currentScreen != null)
                 _currentScreen.Hide();
@@ -132,7 +150,7 @@ namespace AirHockey.Menu
             screen.Show();
             _currentScreen = screen;
             
-            await _transition.FadeOutAsync(_transitionDuration / 2f);
+            await _transition.FadeOutAsync(_transitionDuration / 2f, _cancellationTokenSource.Token);
         }
 
         #endregion

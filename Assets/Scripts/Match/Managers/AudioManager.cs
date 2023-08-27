@@ -46,12 +46,14 @@ namespace AirHockey.Match.Managers
         /// Fades all match audio out.
         /// </summary>
         /// <param name="duration">The duration of the fade in seconds.</param>
+        /// <param name="token">Token used for task cancellation.</param>
         /// <returns>The awaitable task.</returns>
-        internal async UniTask FadeOutAllAsync(float duration)
+        internal async UniTask FadeOutAllAsync(float duration, CancellationToken token)
         {
-            var goalHorn = _goalHorn.FadeOutAsync(duration, _cancellationTokenSource.Token);
-            var goalCrowd = _goalCrowd.FadeOutAsync(duration, _cancellationTokenSource.Token);
-            var loop = _loop.FadeOutAsync(duration, _cancellationTokenSource.Token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            var goalHorn = _goalHorn.FadeOutAsync(duration, unifiedToken);
+            var goalCrowd = _goalCrowd.FadeOutAsync(duration, unifiedToken);
+            var loop = _loop.FadeOutAsync(duration, unifiedToken);
             await UniTask.WhenAll(goalHorn, goalCrowd, loop);
         }
 

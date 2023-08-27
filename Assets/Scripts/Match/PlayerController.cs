@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using AirHockey.Movement;
+using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace AirHockey.Match
 
         #region Fields
 
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private Transform _transform;
 
         #endregion
@@ -28,6 +30,12 @@ namespace AirHockey.Match
         private void Awake()
         {
             _transform = transform;
+        }
+
+        private void OnDestroy()
+        {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
         }
 
         #endregion
@@ -75,9 +83,10 @@ namespace AirHockey.Match
             
             var totalTime = 0f;
             var initialPosition = _transform.position;
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
             while (totalTime <= duration)
             {
-                await UniTask.Yield(PlayerLoopTiming.Update, token);
+                await UniTask.Yield(PlayerLoopTiming.Update, unifiedToken);
                 _transform.position = Vector3.Lerp(initialPosition, position, totalTime/duration);
                 totalTime += Time.deltaTime;
             }

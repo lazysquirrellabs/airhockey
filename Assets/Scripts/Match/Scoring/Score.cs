@@ -27,9 +27,7 @@ namespace AirHockey.Match.Scoring
             {
                 if (LeftPlayer == RightPlayer)
                     return MatchResult.Tie;
-                if (LeftPlayer > RightPlayer)
-                    return MatchResult.LeftPlayerWin;
-                return MatchResult.RightPlayerWin;
+                return LeftPlayer > RightPlayer ? MatchResult.LeftPlayerWin : MatchResult.RightPlayerWin;
             }
         }
 

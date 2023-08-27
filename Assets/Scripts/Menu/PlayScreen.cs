@@ -76,12 +76,8 @@ namespace AirHockey.Menu
                 _popup.Show();
                 return;
             }
-            
-            MatchSettings settings;
-            if (_needsExtraInfo)
-                settings = new MatchSettings(_matchMode, _extraInfo);
-            else
-                settings = new MatchSettings(_matchMode);
+
+            var settings = _needsExtraInfo ? new MatchSettings(_matchMode, _extraInfo) : new MatchSettings(_matchMode);
             OnStartMatch?.Invoke(settings);
 
             bool TryGetExtraInfo()

@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -20,6 +21,22 @@ namespace AirHockey.Match.Managers
         [SerializeField] private Transform _puckNeutralStart;
         [SerializeField] private Transform _puckLeftStart;
         [SerializeField] private Transform _puckRightStart;
+
+        #endregion
+
+        #region Fields
+
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+        #endregion
+
+        #region Setup
+
+        private void OnDestroy()
+        {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
+        }
 
         #endregion
 
@@ -50,8 +67,9 @@ namespace AirHockey.Match.Managers
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
             
-            var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration, token);
-            var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            var leftWait = _leftPlayer.MoveToAsync(_leftPlayerStart.position, duration, unifiedToken);
+            var rightWait = _rightPlayer.MoveToAsync(_rightPlayerStart.position, duration, unifiedToken);
             await UniTask.WhenAll(leftWait, rightWait);
         }
 

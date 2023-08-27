@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using AirHockey.Match;
 using AirHockey.Match.Managers;
 using AirHockey.Menu;
@@ -62,6 +63,8 @@ namespace AirHockey.Managers
         /// </summary>
         private bool _loading;
 
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
         #endregion
 
         #region Setup
@@ -74,6 +77,8 @@ namespace AirHockey.Managers
 
         private void OnDestroy()
         {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
             _inputManager.OnReturn -= HandleReturn;
         }
 
@@ -91,17 +96,18 @@ namespace AirHockey.Managers
             // Ignore the return if it's already loading something.
             if (_loading) 
                 return;
-            
+
+            var token = _cancellationTokenSource.Token;
             switch (_part)
             {
                 case GamePart.None:
                     Debug.Log("Can't return when the application is loading.");
                     break;
                 case GamePart.Menu:
-                    await _menuManager.ReturnAsync();
+                    await _menuManager.ReturnAsync(token);
                     break;
                 case GamePart.Match:
-                    var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f);
+                    var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f, token);
                     var loadMenu = LoadMenuAsync();
                     await UniTask.WhenAll(matchEnd, loadMenu);
                     break;
@@ -121,7 +127,7 @@ namespace AirHockey.Managers
             try
             {
                 _part = GamePart.Match;
-                await _matchManager.StartMatchAsync(settings);
+                await _matchManager.StartMatchAsync(settings, _cancellationTokenSource.Token);
             }
             catch (OperationCanceledException)
             {
@@ -155,7 +161,8 @@ namespace AirHockey.Managers
         private async UniTask<T> LoadManagedSceneAsync<T>(SceneReference scene) where T : MonoBehaviour
         {
             _loading = true;
-            await _transition.FadeInAsync(TransitionDuration);
+            var token = _cancellationTokenSource.Token;
+            await _transition.FadeInAsync(TransitionDuration, token);
             if (_scene != null)
                 await SceneManager.UnloadSceneAsync(_scene.Value);
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -165,7 +172,7 @@ namespace AirHockey.Managers
             
             SceneManager.SetActiveScene(_scene.Value);
             var manager = FindAnyObjectByType<T>();
-            await _transition.FadeOutAsync(TransitionDuration);
+            await _transition.FadeOutAsync(TransitionDuration, token);
             _loading = false;
             
             return manager;

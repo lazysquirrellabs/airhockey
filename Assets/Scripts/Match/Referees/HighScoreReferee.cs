@@ -1,5 +1,4 @@
 using System;
-using AirHockey.Match.Scoring;
 
 namespace AirHockey.Match.Referees
 {    
@@ -16,10 +15,8 @@ namespace AirHockey.Match.Referees
         /// </summary>
         /// <param name="pause">How to pause the match when a player scores.</param>
         /// <param name="end">How to end the match.</param>
-        /// <param name="subscribeToScore">How to subscribe to the match scoring.</param>
         /// <param name="score">The high score used to end the match.</param>
-        internal HighScoreReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore, uint score) 
-            : base(pause, end, IsOver(score), subscribeToScore)
+        internal HighScoreReferee(AsyncPauser pause, Action end, uint score) : base(pause, end, IsOver(score))
         {
         }
 

@@ -27,11 +27,9 @@ namespace AirHockey.Match.Referees
         /// </summary>
         /// <param name="pause">How to pause the game whenever a player scores.</param>
         /// <param name="end">How to end the game.</param>
-        /// <param name="subscribe">How to subscribe to the match scoring.</param>
         /// <param name="duration">The desired duration of the match in seconds.</param>
         /// <param name="onUpdate">Callback to be invoked every time the timer ticks.</param>
-        internal TimeReferee(Pauser pause, Action end, Action<Scorer> subscribe, uint duration, Action<uint> onUpdate) 
-            : base(pause, end, subscribe)
+        internal TimeReferee(AsyncPauser pause, Action end, uint duration, Action<uint> onUpdate) : base(pause, end)
         {
             _tokenSource = new CancellationTokenSource();
             _running = true;
@@ -41,30 +39,16 @@ namespace AirHockey.Match.Referees
         
         #endregion
 
-        #region Event handlers
-
-        protected override async void HandleScore(Player player, Score _)
-        {
-            _running = false;
-            try
-            {
-                await PauseAsync(player);
-                _running = true;
-
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log($"{typeof(TimeReferee)} failed to handle score because the operation was cancelled.");
-            }
-        }
-
-        #endregion
-
         #region Internal
 
-        internal override void LeaveMatch(Action<Scorer> unsubscribeToScore)
+        internal override async UniTask ProcessScoreAsync(Player player, Score _, CancellationToken token)
         {
-            base.LeaveMatch(unsubscribeToScore);
+	        _running = false;
+	        await PauseAsync(player, token);
+        }
+        
+        internal override void LeaveMatch()
+        {
             Stop();
         }
         
@@ -116,7 +100,7 @@ namespace AirHockey.Match.Referees
             }
             catch (OperationCanceledException)
             {
-                Debug.Log($"The {typeof(TimeReferee)}'s timer stopped because the token was cancelled.");
+                Debug.Log($"The {typeof(TimeReferee)}'s timer stopped because the operation was cancelled.");
             }
 
             bool IsRunning() => _running;

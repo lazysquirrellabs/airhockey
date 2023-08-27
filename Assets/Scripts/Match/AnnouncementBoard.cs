@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using AirHockey.Match.Scoring;
+using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,6 +39,22 @@ namespace AirHockey.Match
 
         #endregion
 
+        #region Fields
+
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+        #endregion
+
+        #region Setup
+
+        private void OnDestroy()
+        {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
+        }
+
+        #endregion
+
         #region Internal
 
         /// <summary>
@@ -54,15 +71,16 @@ namespace AirHockey.Match
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
             
             SetTexts(duration);
-            await FadeInAsync(MatchStartFadeDuration, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeInAsync(MatchStartFadeDuration, unifiedToken);
             _canvas.alpha = 1f;
             while (duration > 0)
             {
                 SetTexts(duration);
-                await UniTask.Delay(1_000, false, PlayerLoopTiming.Update, token);
+                await UniTask.Delay(1_000, false, PlayerLoopTiming.Update, unifiedToken);
                 duration--;
             }
-            await FadeOutAsync(MatchStartFadeDuration, token);
+            await FadeOutAsync(MatchStartFadeDuration, unifiedToken);
 
             void SetTexts(int s)
             {
@@ -101,9 +119,10 @@ namespace AirHockey.Match
                     throw new NotImplementedException($"Player not valid: {player}");
             }
             
-            await FadeInAsync(duration * 0.1f, token);
-            await UniTask.Delay((int) (duration * 1_000 * 0.8f), false, PlayerLoopTiming.Update, token);
-            await FadeOutAsync(duration * 0.1f, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeInAsync(duration * 0.1f, unifiedToken);
+            await UniTask.Delay((int) (duration * 1_000 * 0.8f), false, PlayerLoopTiming.Update, unifiedToken);
+            await FadeOutAsync(duration * 0.1f, unifiedToken);
         }
 
         /// <summary>
@@ -121,8 +140,9 @@ namespace AirHockey.Match
             
             _leftText.text = GetReadyText;
             _rightText.text = GetReadyText;
-            await FadeInAsync(duration * 0.1f, token);
-            await UniTask.Delay((int) (duration * 1_000 * 0.9f), false, PlayerLoopTiming.Update, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeInAsync(duration * 0.1f, unifiedToken);
+            await UniTask.Delay((int) (duration * 1_000 * 0.9f), false, PlayerLoopTiming.Update, unifiedToken);
             _leftText.text = GoText;
             _rightText.text = GoText;
         }
@@ -134,7 +154,8 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         internal async UniTask FadeOutAsync(CancellationToken token)
         {
-            await FadeOutAsync(FadeOutDuration, token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeOutAsync(FadeOutDuration, unifiedToken);
         }
 
         internal void AnnounceEndOfMatch(MatchResult matchResult, CancellationToken token)
@@ -174,7 +195,8 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         private async UniTask FadeOutAsync(float duration, CancellationToken token)
         {
-            await UniTaskExtensions.ProgressAsync(SetAlpha, 1f, 0f, duration, token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await UniTaskExtensions.ProgressAsync(SetAlpha, 1f, 0f, duration, unifiedToken);
         }
         
         /// <summary>
@@ -185,7 +207,8 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         private async UniTask FadeInAsync(float duration, CancellationToken token)
         {
-            await UniTaskExtensions.ProgressAsync(SetAlpha, 0f, 1f, duration, token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await UniTaskExtensions.ProgressAsync(SetAlpha, 0f, 1f, duration, unifiedToken);
         }
 
         #endregion
