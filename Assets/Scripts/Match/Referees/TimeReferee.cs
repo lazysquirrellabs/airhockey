@@ -13,10 +13,10 @@ namespace AirHockey.Match.Referees
     {
         #region Fields
 
-        private bool _running;
-        private readonly CancellationTokenSource _tokenSource;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private readonly Action<uint> _onUpdate;
         private readonly uint _duration;
+        private bool _running = true;
 
         #endregion
         
@@ -31,8 +31,6 @@ namespace AirHockey.Match.Referees
         /// <param name="onUpdate">Callback to be invoked every time the timer ticks.</param>
         internal TimeReferee(AsyncPauser pause, Action end, uint duration, Action<uint> onUpdate) : base(pause, end)
         {
-            _tokenSource = new CancellationTokenSource();
-            _running = true;
             _onUpdate = onUpdate;
             _duration = duration;
         }
@@ -45,6 +43,7 @@ namespace AirHockey.Match.Referees
         {
 	        _running = false;
 	        await PauseAsync(player, token);
+	        _running = true;
         }
         
         internal override void LeaveMatch()
@@ -58,7 +57,7 @@ namespace AirHockey.Match.Referees
         /// <returns>The required <see cref="UniTaskVoid"/> to forget the task.</returns>
         internal async UniTaskVoid StartTimer()
         {
-            var token = _tokenSource.Token;
+            var token = _cancellationTokenSource.Token;
             const int ticksPerSecond = 10;
             const int tickInterval = 1_000 / ticksPerSecond;
             var durationMilli = _duration * 1_000;
@@ -116,7 +115,7 @@ namespace AirHockey.Match.Referees
         private void Stop()
         {
             _running = false;
-            _tokenSource.Cancel();
+            _cancellationTokenSource.Cancel();
         }
 
         #endregion
