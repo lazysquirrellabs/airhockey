@@ -1,51 +1,39 @@
 using System;
 
-namespace AirHockey.Match
+namespace AirHockey.Match.Scoring
 {
     /// <summary>
     /// A <see cref="Match"/> score.
     /// </summary>
-    public struct Score
+    internal struct Score
     {
-        /// <summary>
-        /// Possible outcomes of a finished <see cref="Match"/>.
-        /// </summary>
-        public enum Result
-        {
-            Tie,
-            LeftPlayerWin,
-            RightPlayerWin
-        }
-        
         #region Properties    
 
         /// <summary>
         /// How many goals the left player has scored
         /// </summary>
-        public uint LeftPlayer { get; private set; }
+        internal uint LeftPlayer { get; private set; }
         /// <summary>
         /// How many goals the right player has scored
         /// </summary>
-        public uint RightPlayer { get; private set; }
+        internal uint RightPlayer { get; private set; }
 
         /// <summary>
         /// The final result of the <see cref="Match"/> if this was its final score.
         /// </summary>
-        public Result FinalResult
+        internal MatchResult FinalResult
         {
             get
             {
                 if (LeftPlayer == RightPlayer)
-                    return Result.Tie;
-                if (LeftPlayer > RightPlayer)
-                    return Result.LeftPlayerWin;
-                return Result.RightPlayerWin;
+                    return MatchResult.Tie;
+                return LeftPlayer > RightPlayer ? MatchResult.LeftPlayerWin : MatchResult.RightPlayerWin;
             }
         }
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Register a goal scored by the given <paramref name="player"/>.
@@ -53,7 +41,7 @@ namespace AirHockey.Match
         /// <param name="player">The player who scored the goal.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown whenever the given <see cref="Player"/> is out of
         /// range. </exception>
-        public void ScoreGoal(Player player)
+        internal void ScoreGoal(Player player)
         {
             switch (player)
             {

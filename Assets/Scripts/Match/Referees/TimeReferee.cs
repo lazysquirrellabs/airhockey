@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using AirHockey.Match.Scoring;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -8,14 +9,14 @@ namespace AirHockey.Match.Referees
     /// <summary>
     /// A <see cref="Referee"/> which controls the <see cref="Match"/> lifetime based on a timer.
     /// </summary>
-    public class TimeReferee : Referee
+    internal class TimeReferee : Referee
     {
         #region Fields
 
-        private bool _running;
-        private readonly CancellationTokenSource _tokenSource;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private readonly Action<uint> _onUpdate;
         private readonly uint _duration;
+        private bool _running = true;
 
         #endregion
         
@@ -26,44 +27,27 @@ namespace AirHockey.Match.Referees
         /// </summary>
         /// <param name="pause">How to pause the game whenever a player scores.</param>
         /// <param name="end">How to end the game.</param>
-        /// <param name="subscribe">How to subscribe to the match scoring.</param>
         /// <param name="duration">The desired duration of the match in seconds.</param>
         /// <param name="onUpdate">Callback to be invoked every time the timer ticks.</param>
-        public TimeReferee(Pauser pause, Action end, Action<Scorer> subscribe, uint duration, Action<uint> onUpdate) 
-            : base(pause, end, subscribe)
+        internal TimeReferee(AsyncPauser pause, Action end, uint duration, Action<uint> onUpdate) : base(pause, end)
         {
-            _tokenSource = new CancellationTokenSource();
-            _running = true;
             _onUpdate = onUpdate;
             _duration = duration;
         }
         
         #endregion
 
-        #region Event handlers
+        #region Internal
 
-        protected override async void HandleScore(Player player, Score _)
+        internal override async UniTask ProcessScoreAsync(Player player, Score _, CancellationToken token)
         {
-            _running = false;
-            try
-            {
-                await PauseAsync(player);
-                _running = true;
-
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log($"{typeof(TimeReferee)} failed to handle score because the operation was cancelled.");
-            }
+	        _running = false;
+	        await PauseAsync(player, token);
+	        _running = true;
         }
-
-        #endregion
-
-        #region Public
-
-        public override void LeaveMatch(Action<Scorer> unsubscribeToScore)
+        
+        internal override void LeaveMatch()
         {
-            base.LeaveMatch(unsubscribeToScore);
             Stop();
         }
         
@@ -71,9 +55,9 @@ namespace AirHockey.Match.Referees
         /// Starts a timer. This async method should not be awaited, just fire it and forget.
         /// </summary>
         /// <returns>The required <see cref="UniTaskVoid"/> to forget the task.</returns>
-        public async UniTaskVoid StartTimer()
+        internal async UniTaskVoid StartTimer()
         {
-            var token = _tokenSource.Token;
+            var token = _cancellationTokenSource.Token;
             const int ticksPerSecond = 10;
             const int tickInterval = 1_000 / ticksPerSecond;
             var durationMilli = _duration * 1_000;
@@ -115,7 +99,7 @@ namespace AirHockey.Match.Referees
             }
             catch (OperationCanceledException)
             {
-                Debug.Log($"The {typeof(TimeReferee)}'s timer stopped because the token was cancelled.");
+                Debug.Log($"The {typeof(TimeReferee)}'s timer stopped because the operation was cancelled.");
             }
 
             bool IsRunning() => _running;
@@ -131,7 +115,7 @@ namespace AirHockey.Match.Referees
         private void Stop()
         {
             _running = false;
-            _tokenSource.Cancel();
+            _cancellationTokenSource.Cancel();
         }
 
         #endregion

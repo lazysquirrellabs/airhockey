@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace AirHockey.Utils
 {
-    public static class UniTaskExtensions
+	internal static class UniTaskExtensions
     {
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Asynchronously progresses an <paramref name="update"/> function through a range.
@@ -20,7 +20,7 @@ namespace AirHockey.Utils
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public static async UniTask ProgressAsync(Action<float> update, float start, float end, float duration, 
+        internal static async UniTask ProgressAsync(Action<float> update, float start, float end, float duration, 
                                                   CancellationToken token)
         {
             if (duration < 0)

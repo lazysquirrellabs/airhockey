@@ -1,5 +1,7 @@
 using System;
 using System.Threading;
+using AirHockey.Match.Scoring;
+using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +12,7 @@ namespace AirHockey.Match
     /// <summary>
     /// Board seen in the match which gives general visual announcements (e.g. score, match start and end).
     /// </summary>
-    public class AnnouncementBoard : MonoBehaviour
+    internal class AnnouncementBoard : MonoBehaviour
     {
         #region Serialized fields
 
@@ -22,7 +24,7 @@ namespace AirHockey.Match
 
         #region Fields
 
-        /// <summary> Duration in seconds of general fade outs used in <see cref="FadeOutAsync"/>. </summary>
+        /// <summary> Duration in seconds of general fade outs used in FadeOutAsync. </summary>
         private const float FadeOutDuration = 1f;
         private const float MatchStartFadeDuration = 0.5f;
         private const float MatchEndFadeDuration = 0.5f;
@@ -37,7 +39,23 @@ namespace AirHockey.Match
 
         #endregion
 
-        #region Public
+        #region Fields
+
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+
+        #endregion
+
+        #region Setup
+
+        private void OnDestroy()
+        {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
+        }
+
+        #endregion
+
+        #region Internal
 
         /// <summary>
         /// Displays a "match is starting..." announcement asynchronously.
@@ -47,21 +65,22 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public async UniTask AnnounceMatchStartAsync(int duration, CancellationToken token)
+        internal async UniTask AnnounceMatchStartAsync(int duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
             
             SetTexts(duration);
-            await FadeInAsync(MatchStartFadeDuration, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeInAsync(MatchStartFadeDuration, unifiedToken);
             _canvas.alpha = 1f;
             while (duration > 0)
             {
                 SetTexts(duration);
-                await UniTask.Delay(1_000, false, PlayerLoopTiming.Update, token);
+                await UniTask.Delay(1_000, false, PlayerLoopTiming.Update, unifiedToken);
                 duration--;
             }
-            await FadeOutAsync(MatchStartFadeDuration, token);
+            await FadeOutAsync(MatchStartFadeDuration, unifiedToken);
 
             void SetTexts(int s)
             {
@@ -81,7 +100,7 @@ namespace AirHockey.Match
         /// is negative.</exception>
         /// <exception cref="NotImplementedException">Thrown if an invalid <see cref="Player"/>
         /// was provided.</exception>
-        public async UniTask AnnounceGoalAsync(Player player, int duration, CancellationToken token)
+        internal async UniTask AnnounceGoalAsync(Player player, int duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
@@ -100,9 +119,10 @@ namespace AirHockey.Match
                     throw new NotImplementedException($"Player not valid: {player}");
             }
             
-            await FadeInAsync(duration * 0.1f, token);
-            await UniTask.Delay((int) (duration * 1_000 * 0.8f), false, PlayerLoopTiming.Update, token);
-            await FadeOutAsync(duration * 0.1f, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeInAsync(duration * 0.1f, unifiedToken);
+            await UniTask.Delay((int) (duration * 1_000 * 0.8f), false, PlayerLoopTiming.Update, unifiedToken);
+            await FadeOutAsync(duration * 0.1f, unifiedToken);
         }
 
         /// <summary>
@@ -113,15 +133,16 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if the <paramref name="duration"/>
         /// is negative.</exception>
-        public async UniTask AnnounceGetReadyAsync(int duration, CancellationToken token)
+        internal async UniTask AnnounceGetReadyAsync(int duration, CancellationToken token)
         {
             if (duration < 0)
                 throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
             
             _leftText.text = GetReadyText;
             _rightText.text = GetReadyText;
-            await FadeInAsync(duration * 0.1f, token);
-            await UniTask.Delay((int) (duration * 1_000 * 0.9f), false, PlayerLoopTiming.Update, token);
+            var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeInAsync(duration * 0.1f, unifiedToken);
+            await UniTask.Delay((int) (duration * 1_000 * 0.9f), false, PlayerLoopTiming.Update, unifiedToken);
             _leftText.text = GoText;
             _rightText.text = GoText;
         }
@@ -131,29 +152,30 @@ namespace AirHockey.Match
         /// </summary>
         /// <param name="token">The token for operation cancellation.</param>
         /// <returns>The awaitable task.</returns>
-        public async UniTask FadeOutAsync(CancellationToken token)
+        internal async UniTask FadeOutAsync(CancellationToken token)
         {
-            await FadeOutAsync(FadeOutDuration, token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await FadeOutAsync(FadeOutDuration, unifiedToken);
         }
 
-        public void AnnounceEndOfMatch(Score.Result result, CancellationToken token)
+        internal void AnnounceEndOfMatch(MatchResult matchResult, CancellationToken token)
         {
-            switch (result)
+            switch (matchResult)
             {
-                case Score.Result.Tie:
+                case MatchResult.Tie:
                     _leftText.text = TieText;
                     _rightText.text = TieText;
                     break;
-                case Score.Result.LeftPlayerWin:
+                case MatchResult.LeftPlayerWin:
                     _leftText.text = YouWinText;
                     _rightText.text = YouLoseText;
                     break;
-                case Score.Result.RightPlayerWin:
+                case MatchResult.RightPlayerWin:
                     _leftText.text = YouLoseText;
                     _rightText.text = YouWinText;
                     break;
                 default:
-                    throw new NotImplementedException($"Result not valid: {result}");
+                    throw new NotImplementedException($"Result not valid: {matchResult}");
             }
             
             FadeInAsync(MatchEndFadeDuration, token).Forget();
@@ -173,7 +195,8 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         private async UniTask FadeOutAsync(float duration, CancellationToken token)
         {
-            await UniTaskExtensions.ProgressAsync(SetAlpha, 1f, 0f, duration, token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await UniTaskExtensions.ProgressAsync(SetAlpha, 1f, 0f, duration, unifiedToken);
         }
         
         /// <summary>
@@ -184,7 +207,8 @@ namespace AirHockey.Match
         /// <returns>The awaitable task.</returns>
         private async UniTask FadeInAsync(float duration, CancellationToken token)
         {
-            await UniTaskExtensions.ProgressAsync(SetAlpha, 0f, 1f, duration, token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            await UniTaskExtensions.ProgressAsync(SetAlpha, 0f, 1f, duration, unifiedToken);
         }
 
         #endregion

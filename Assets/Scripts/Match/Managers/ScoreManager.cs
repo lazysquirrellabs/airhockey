@@ -1,3 +1,4 @@
+using AirHockey.Match.Scoring;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,14 +7,14 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// Manages all the scoring in a <see cref="Match"/>.
     /// </summary>
-    public class ScoreManager : MonoBehaviour
+    internal class ScoreManager : MonoBehaviour
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever a player scores.
         /// </summary>
-        public event Scorer OnScore;
+        internal event ScoreHandler OnScore;
 
         #endregion
         
@@ -40,7 +41,6 @@ namespace AirHockey.Match.Managers
         {
             _player1Goal.OnScore += ScoreRight;
             _player2Goal.OnScore += ScoreLeft;
-            _score = new Score();
         }
         
         private void OnDestroy()
@@ -86,6 +86,5 @@ namespace AirHockey.Match.Managers
         }
 
         #endregion
-
     }
 }

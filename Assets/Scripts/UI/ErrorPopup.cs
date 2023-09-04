@@ -6,7 +6,7 @@ namespace AirHockey.UI
     /// <summary>
     /// Error popup with a message.
     /// </summary>
-    public class ErrorPopup : Screen
+    internal class ErrorPopup : Screen
     {
         #region Serialized fields
 
@@ -19,7 +19,7 @@ namespace AirHockey.UI
         /// <summary>
         /// Message to be displayed in the popup.
         /// </summary>
-        public string Message
+        internal string Message
         {
             set => _text.text = value;
         }

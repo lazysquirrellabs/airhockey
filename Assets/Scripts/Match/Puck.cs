@@ -6,7 +6,7 @@ namespace AirHockey.Match
     /// <summary>
     /// The match puck entity. Controls movement and other scene elements.
     /// </summary>
-    public class Puck : MonoBehaviour
+    internal class Puck : MonoBehaviour
     {
         #region Serialized fields
 
@@ -24,13 +24,13 @@ namespace AirHockey.Match
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Resets the <see cref="Puck"/> after some action, for regrouping. Stops it completely.
         /// </summary>
         /// <param name="position"></param>
-        public void Regroup(Vector2 position)
+        internal void Regroup(Vector2 position)
         {
             _rigidbody2D.velocity = Vector2.zero;
             _rigidbody2D.position = position;
@@ -41,7 +41,7 @@ namespace AirHockey.Match
         /// <summary>
         /// Completely and instantly stops the <see cref="Puck"/>. Disables all interactions.
         /// </summary>
-        public void StopMoving()
+        internal void StopMoving()
         {
             _rigidbody2D.isKinematic = true;
             _rigidbody2D.velocity = Vector2.zero;

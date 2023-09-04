@@ -9,14 +9,14 @@ namespace AirHockey.UI.Generic
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="TU"></typeparam>
-    public class GenericToggleGroup<T,TU> : ToggleGroup where T : GenericToggle<TU>
+    internal class GenericToggleGroup<T,TU> : ToggleGroup where T : GenericToggle<TU>
     {
         #region Events
 
         /// <summary>
         /// Event invoked whenever one of the values is selected.
         /// </summary>
-        public event Action<TU> OnSelect; 
+        internal event Action<TU> OnSelect; 
 
         #endregion
         

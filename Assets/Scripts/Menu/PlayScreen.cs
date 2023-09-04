@@ -12,14 +12,14 @@ namespace AirHockey.Menu
     /// <summary>
     /// The play/start match screen in the main menu.
     /// </summary>
-    public class PlayScreen : Screen
+    internal class PlayScreen : Screen
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever the play/start match button has been successfully invoked.
         /// </summary>
-        public event Action<MatchSettings> OnStartMatch;
+        internal event Action<MatchSettings> OnStartMatch;
 
         #endregion
         
@@ -76,12 +76,8 @@ namespace AirHockey.Menu
                 _popup.Show();
                 return;
             }
-            
-            MatchSettings settings;
-            if (_needsExtraInfo)
-                settings = new MatchSettings(_matchMode, _extraInfo);
-            else
-                settings = new MatchSettings(_matchMode);
+
+            var settings = _needsExtraInfo ? new MatchSettings(_matchMode, _extraInfo) : new MatchSettings(_matchMode);
             OnStartMatch?.Invoke(settings);
 
             bool TryGetExtraInfo()
@@ -129,10 +125,10 @@ namespace AirHockey.Menu
 
         #endregion
 
-        #region Public
+        #region Internal
         
         /// <inheritdoc />
-        public override void Hide()
+        internal override void Hide()
         {
             gameObject.SetActive(false);
             _popup.Hide();

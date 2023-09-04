@@ -6,7 +6,7 @@ namespace AirHockey.Match.Referees
     /// <see cref="ScoreReferee"/> which implements the rules of the "high score" mode. See
     /// <see cref="MatchMode.HighScore"/> for more.
     /// </summary>
-    public class HighScoreReferee : ScoreReferee
+    internal class HighScoreReferee : ScoreReferee
     {
         #region Setup
 
@@ -15,10 +15,8 @@ namespace AirHockey.Match.Referees
         /// </summary>
         /// <param name="pause">How to pause the match when a player scores.</param>
         /// <param name="end">How to end the match.</param>
-        /// <param name="subscribeToScore">How to subscribe to the match scoring.</param>
         /// <param name="score">The high score used to end the match.</param>
-        public HighScoreReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore, uint score) 
-            : base(pause, end, IsOver(score), subscribeToScore)
+        internal HighScoreReferee(AsyncPauser pause, Action end, uint score) : base(pause, end, IsOver(score))
         {
         }
 

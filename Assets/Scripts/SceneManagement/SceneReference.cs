@@ -9,7 +9,7 @@ namespace AirHockey.SceneManagement
     /// A Unity scene reference. Useful to serialize scene references as an object field, and not a string.
     /// </summary>
     [Serializable]
-    public class SceneReference
+    internal class SceneReference
     {
         #region Serialized fields
         
@@ -24,7 +24,7 @@ namespace AirHockey.SceneManagement
 
         #endregion
 
-        #region Properties
+        #region Public
 
         public static implicit operator string(SceneReference sceneField) => sceneField._scenePath;
 
