@@ -161,4 +161,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb9d7bdfa08f4369af9807d0a52ffc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 7593389556534962451}
   _canvasGroup: {fileID: 7593389556534962450}

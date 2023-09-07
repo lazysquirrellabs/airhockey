@@ -13,6 +13,7 @@ namespace AirHockey.UI
     {
         #region Serialized fields
 
+        [SerializeField] private Canvas _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
 
         #endregion
@@ -44,6 +45,7 @@ namespace AirHockey.UI
         internal async UniTask FadeInAsync(float duration, CancellationToken token)
         {
 	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+	        _canvas.enabled = true;
             await FadeAsync(0f, 1f, duration, unifiedToken);
         }
         
@@ -57,6 +59,7 @@ namespace AirHockey.UI
         {
 	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
             await FadeAsync(1f, 0f, duration, unifiedToken);
+            _canvas.enabled = false;
         }
 
         #endregion
