@@ -294,6 +294,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: OK
       objectReference: {fileID: 0}
+    - target: {fileID: 5133504656043013154, guid: 14d8a9637b52f4a09851e85a04d5d150,
+        type: 3}
+      propertyPath: m_FontData.m_FontSize
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -322,8 +327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: 600
-  m_MinHeight: 200
+  m_MinWidth: 400
+  m_MinHeight: 133.3
   m_PreferredWidth: -1
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
