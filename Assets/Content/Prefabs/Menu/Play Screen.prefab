@@ -1708,11 +1708,6 @@ PrefabInstance:
       propertyPath: m_FontData.m_MinSize
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6138585140422627029, guid: bb98342d2c6ed4ac1b88d38d179888a1,
-        type: 3}
-      propertyPath: m_FontData.m_FontSize
-      value: 101
-      objectReference: {fileID: 0}
     - target: {fileID: 8533545676918697951, guid: bb98342d2c6ed4ac1b88d38d179888a1,
         type: 3}
       propertyPath: m_Name

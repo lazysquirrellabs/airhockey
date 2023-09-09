@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.UI
+namespace AirHockey.UI.Popups
 {
     /// <summary>
     /// Error popup with a message.
