@@ -44,20 +44,29 @@ namespace AirHockey.Managers
 
         #region Fields
             
+        private MenuManager _menuManager;
+        private MatchManager _matchManager;
+        
         /// <summary>
         /// The duration of <see cref="UI.Screen"/> transitions in the UI.
         /// </summary>
         private const float TransitionDuration = 1f;
+        
         /// <summary>
         /// The currently loaded scene.
         /// </summary>
         private Scene? _scene;
-        private MenuManager _menuManager;
-        private MatchManager _matchManager;
+        
+        /// <summary>
+        /// The settings of the current match.
+        /// </summary>
+        private MatchSettings _matchSettings;
+        
         /// <summary>
         /// Current state of the application.
         /// </summary>
         private GamePart _part;
+        
         /// <summary>
         /// Whether a scene is being loaded.
         /// </summary>
@@ -87,7 +96,7 @@ namespace AirHockey.Managers
         #region Event handlers
 
         /// <summary>
-        /// Handles the event of a return from the <see cref="_menuManager"/>.
+        /// Handles the event of a return to the main menu.
         /// </summary>
         /// <exception cref="NotImplementedException">Thrown if the current <see cref="GamePart"/>
         /// is invalid.</exception>
@@ -117,22 +126,39 @@ namespace AirHockey.Managers
         }
         
         /// <summary>
-        /// Loads the match <see cref="Scene"/> and starts a new <see cref="Match"/> asynchronously.
+        /// Handles the event of a start match from the main menu.
         /// </summary>
         /// <param name="settings">The settings of the match to be started.</param>
-        private async void LoadMatchAsync(MatchSettings settings)
+        private async void HandleStartMatch(MatchSettings settings)
         {
-            _menuManager.OnStartMatch -= LoadMatchAsync;
-            _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
+            _menuManager.OnStartMatch -= HandleStartMatch;
+            _matchSettings = settings;
+
             try
             {
-                _part = GamePart.Match;
-                await _matchManager.StartMatchAsync(settings, _cancellationTokenSource.Token);
+	            await StartMatch(settings);
             }
             catch (OperationCanceledException)
             {
                 Debug.Log("Match start was cancelled.");
             }
+        }
+
+        /// <summary>
+        /// Handles the event of a restart match request.
+        /// </summary>
+        private async void HandleRestartMatch()
+        {
+	        try
+	        {
+		        _matchManager.OnLeaveRequest -= HandleReturn;
+		        _matchManager.OnRestartRequest -= HandleRestartMatch;
+		        await StartMatch(_matchSettings);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Match restart was cancelled.");
+	        }
         }
 
         #endregion
@@ -146,8 +172,21 @@ namespace AirHockey.Managers
         private async UniTask LoadMenuAsync()
         {
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
-            _menuManager.OnStartMatch += LoadMatchAsync;
+            _menuManager.OnStartMatch += HandleStartMatch;
             _part = GamePart.Menu;
+        }
+
+        /// <summary>
+        /// Loads the match <see cref="Scene"/> and starts a new <see cref="Match"/> asynchronously.
+        /// </summary>
+        /// <param name="settings">The settings of the match to be started.</param>
+        private async UniTask StartMatch(MatchSettings settings)
+        {
+	        _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
+	        _matchManager.OnLeaveRequest += HandleReturn;
+	        _matchManager.OnRestartRequest += HandleRestartMatch;
+	        _part = GamePart.Match;
+	        await _matchManager.StartMatchAsync(_matchSettings, _cancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -163,8 +202,8 @@ namespace AirHockey.Managers
             _loading = true;
             var token = _cancellationTokenSource.Token;
             await _transition.FadeInAsync(TransitionDuration, token);
-            if (_scene != null)
-                await SceneManager.UnloadSceneAsync(_scene.Value);
+            if (_scene != null) // In some cases (e.g. leading menu), there is nothing to unload.
+				await SceneManager.UnloadSceneAsync(_scene.Value);
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             _scene = SceneManager.GetSceneByPath(scene);
             if (_scene == null)
