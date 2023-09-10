@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 
 namespace AirHockey.Match.Referees
 {    
@@ -14,9 +15,10 @@ namespace AirHockey.Match.Referees
         /// <see cref="HighScoreReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the match when a player scores.</param>
-        /// <param name="end">How to end the match.</param>
+        /// <param name="endAsync">How to end the match.</param>
         /// <param name="score">The high score used to end the match.</param>
-        internal HighScoreReferee(AsyncPauser pause, Action end, uint score) : base(pause, end, IsOver(score))
+        internal HighScoreReferee(AsyncPauser pause, Func<UniTask> endAsync, uint score) 
+	        : base(pause, endAsync, IsOver(score))
         {
         }
 

@@ -11,21 +11,9 @@ namespace AirHockey.UI.Popups
         #region Serialized fields
 
         [SerializeField] private Button _acknowledgeButton;
-        [SerializeField] private Text _text;
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Message to be displayed in the popup.
-        /// </summary>
-        internal string Message
-        {
-            set => _text.text = value;
-        }
-
-        #endregion
 
         #region Setup
 

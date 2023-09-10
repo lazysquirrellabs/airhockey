@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace AirHockey.Match.Referees
@@ -15,10 +16,10 @@ namespace AirHockey.Match.Referees
         /// <see cref="BestOfScoreReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the match when a player scores.</param>
-        /// <param name="end">How to end the match.</param>
+        /// <param name="endAsync">How to end the match.</param>
         /// <param name="score">The maximum score used to end the match.</param>
-        internal BestOfScoreReferee(AsyncPauser pause, Action end, uint score) 
-            : base(pause, end, GetBestOfScoreChecker(score))
+        internal BestOfScoreReferee(AsyncPauser pause, Func<UniTask> endAsync, uint score) 
+            : base(pause, endAsync, GetBestOfScoreChecker(score))
         {
         }
 
