@@ -26,10 +26,11 @@ namespace AirHockey.Match.Referees
         /// <see cref="TimeReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the game whenever a player scores.</param>
-        /// <param name="end">How to end the game.</param>
+        /// <param name="endAsync">How to end the game.</param>
         /// <param name="duration">The desired duration of the match in seconds.</param>
         /// <param name="onUpdate">Callback to be invoked every time the timer ticks.</param>
-        internal TimeReferee(AsyncPauser pause, Action end, uint duration, Action<uint> onUpdate) : base(pause, end)
+        internal TimeReferee(AsyncPauser pause, Func<UniTask> endAsync, uint duration, Action<uint> onUpdate) 
+	        : base(pause, endAsync)
         {
             _onUpdate = onUpdate;
             _duration = duration;
@@ -92,7 +93,7 @@ namespace AirHockey.Match.Referees
                     if (elapsed >= durationMilli)
                     {
                         Stop();
-                        End();
+                        await EndAsync();
                         return;
                     }
                 }

@@ -26,10 +26,11 @@ namespace AirHockey.Match.Referees
         /// Pauses the match when a player scores.
         /// </summary>
         protected AsyncPauser PauseAsync { get; }
+        
         /// <summary>
         /// Ends the match.
         /// </summary>
-        protected Action End { get; }
+        protected Func<UniTask> EndAsync { get; }
 
         #endregion
 
@@ -39,11 +40,11 @@ namespace AirHockey.Match.Referees
         /// <see cref="Referee"/>'s constructor
         /// </summary>
         /// <param name="pause">How to pause the game whenever a player scores.</param>
-        /// <param name="end">How to end the game.</param>
-        protected Referee(AsyncPauser pause, Action end)
+        /// <param name="endAsync">How to end the game.</param>
+        protected Referee(AsyncPauser pause, Func<UniTask> endAsync)
         {
             PauseAsync = pause;
-            End = end;
+            EndAsync = endAsync;
         }
 
         #endregion

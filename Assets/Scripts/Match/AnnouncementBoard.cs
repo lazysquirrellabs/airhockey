@@ -158,7 +158,7 @@ namespace AirHockey.Match
             await FadeOutAsync(FadeOutDuration, unifiedToken);
         }
 
-        internal void AnnounceEndOfMatch(MatchResult matchResult, CancellationToken token)
+        internal async UniTask AnnounceEndOfMatchAsync(MatchResult matchResult, CancellationToken token)
         {
             switch (matchResult)
             {
@@ -177,8 +177,8 @@ namespace AirHockey.Match
                 default:
                     throw new NotImplementedException($"Result not valid: {matchResult}");
             }
-            
-            FadeInAsync(MatchEndFadeDuration, token).Forget();
+
+            await FadeInAsync(MatchEndFadeDuration, token);
         }
 
         #endregion

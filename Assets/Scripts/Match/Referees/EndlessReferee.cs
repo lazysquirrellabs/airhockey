@@ -16,9 +16,9 @@ namespace AirHockey.Match.Referees
         /// <see cref="EndlessReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the match when a player scores.</param>
-        /// <param name="end">How to end the match. Although this <see cref="Referee"/> never ends the match
+        /// <param name="endAsync">How to end the match. Although this <see cref="Referee"/> never ends the match
         /// automatically, it can be done via player input. </param>
-        internal EndlessReferee(AsyncPauser pause, Action end) : base(pause, end)
+        internal EndlessReferee(AsyncPauser pause, Func<UniTask> endAsync) : base(pause, endAsync)
         {
         }
 

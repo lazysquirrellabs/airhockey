@@ -34,9 +34,9 @@ namespace AirHockey.Match.Referees
         /// <see cref="ScoreReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the game whenever a player scores.</param>
-        /// <param name="end">How to end the game.</param>
+        /// <param name="endAsync">How to end the game.</param>
         /// <param name="isOver">How to check if the score should end the match.</param>
-        protected ScoreReferee(AsyncPauser pause, Action end, ScoreCheck isOver) : base(pause, end)
+        protected ScoreReferee(AsyncPauser pause, Func<UniTask> endAsync, ScoreCheck isOver) : base(pause, endAsync)
         {
             _isOver = isOver;
         }
@@ -49,7 +49,7 @@ namespace AirHockey.Match.Referees
         {
 	        if (_isOver(score))
 	        {
-		        End();
+		        await EndAsync();
 	        }
 	        else
             {

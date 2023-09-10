@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using AirHockey.Match.Referees;
 using AirHockey.Match.Scoring;
+using AirHockey.UI.Popups;
 using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,6 +14,13 @@ namespace AirHockey.Match.Managers
     /// </summary>
     internal class MatchManager : MonoBehaviour
     {
+	    #region Events
+
+	    internal event Action OnRestartRequest;
+	    internal event Action OnLeaveRequest;
+
+	    #endregion
+	    
         #region Serialized fields
 
         [SerializeField] private PlayerController _leftPlayer;
@@ -22,10 +30,12 @@ namespace AirHockey.Match.Managers
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private AnnouncementBoard _announcementBoard;
         [SerializeField] private Timer _timer;
+        [SerializeField] private ChoicePopup _endMatchPopup;
         [SerializeField, Range(0, 10)] private int _matchStartDelay;
         [SerializeField, Range(0, 10)] private int _celebrationDuration;
         [SerializeField, Range(0, 10)] private int _resetDuration;
         [SerializeField, Range(0, 10)] private int _preparationDuration;
+        [SerializeField, Range(0, 10)] private float _endMatchDelay;
 
         #endregion
 
@@ -43,6 +53,8 @@ namespace AirHockey.Match.Managers
         {
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             _scoreManager.OnScore += HandleScore;
+            _endMatchPopup.OnSelectFirstChoice += HandleRestartChoice;
+            _endMatchPopup.OnSelectSecondChoice += HandleLeaveChoice;
         }
         
         private void OnDestroy()
@@ -50,6 +62,8 @@ namespace AirHockey.Match.Managers
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
             _referee?.LeaveMatch();
+            _endMatchPopup.OnSelectFirstChoice -= HandleRestartChoice;
+            _endMatchPopup.OnSelectSecondChoice -= HandleLeaveChoice;
         }
 
         #endregion
@@ -68,6 +82,16 @@ namespace AirHockey.Match.Managers
             {
 	            Debug.Log("Stopped handling score because the operation was cancelled.");
             }
+        }
+
+        private void HandleRestartChoice()
+        {
+	        OnRestartRequest?.Invoke();
+        }
+
+        private void HandleLeaveChoice()
+        {
+	        OnLeaveRequest?.Invoke();
         }
 
         #endregion
@@ -94,20 +118,20 @@ namespace AirHockey.Match.Managers
             switch (settings.Mode)
             {
                 case MatchMode.HighScore:
-                    _referee = new HighScoreReferee(ScoreAndResetAsync, End, info);
+                    _referee = new HighScoreReferee(ScoreAndResetAsync, EndAsync, info);
                     break;
                 case MatchMode.BestOfScore:
-                    _referee = new BestOfScoreReferee(ScoreAndResetAsync, End, info);
+                    _referee = new BestOfScoreReferee(ScoreAndResetAsync, EndAsync, info);
                     break;
                 case MatchMode.Time:
                     _timer.Show(info);
                     var seconds = info * 60;
-                    var timedReferee = new TimeReferee(ScoreAndResetAsync, End, seconds, _timer.SetTime);
+                    var timedReferee = new TimeReferee(ScoreAndResetAsync, EndAsync, seconds, _timer.SetTime);
                     timedReferee.StartTimer().Forget();
                     _referee = timedReferee;
                     break;
                 case MatchMode.Endless:
-                    _referee = new EndlessReferee(ScoreAndResetAsync, End);
+                    _referee = new EndlessReferee(ScoreAndResetAsync, EndAsync);
                     break;
                 default:
                     throw new NotImplementedException($"Mode not implemented: {settings.Mode}");
@@ -161,12 +185,25 @@ namespace AirHockey.Match.Managers
         /// <summary>
         /// End the match instantly.
         /// </summary>
-        private void End()
+        private async UniTask EndAsync()
         {
             Debug.Log("Match is over");
             _placementManager.StopAll();
             _audioManager.PlayBuzz();
-            _announcementBoard.AnnounceEndOfMatch(_score.FinalResult, _cancellationTokenSource.Token);
+            var token = _cancellationTokenSource.Token;
+            await _announcementBoard.AnnounceEndOfMatchAsync(_score.FinalResult, token);
+            var delayMilli = (int)(_endMatchDelay * 1_000);
+            await UniTask.Delay(delayMilli, DelayType.Realtime, PlayerLoopTiming.Update, token);
+           _endMatchPopup.Message = _score.FinalResult switch
+            {
+	            MatchResult.Tie => "It's a tie!!",
+	            MatchResult.LeftPlayerWin => $"Player 1 wins!\n{GetScoreMessage(_score)}",
+	            MatchResult.RightPlayerWin => $"Player 2 wins!\n{GetScoreMessage(_score)}",
+	            _ => throw new ArgumentOutOfRangeException()
+            };
+            _endMatchPopup.Show();
+
+            string GetScoreMessage(Score score) => $"({score.LeftPlayer} x {score.RightPlayer})";
         }
 
         #endregion
