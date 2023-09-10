@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using AirHockey.Match;
-using AirHockey.UI;
 using AirHockey.UI.Menu;
 using AirHockey.UI.Popups;
 using UnityEngine;
@@ -51,7 +50,6 @@ namespace AirHockey.Menu
             base.Awake();
             _startButton.onClick.AddListener(HandleStart);
             _modeSelector.OnSelect += HandleModeSelect;
-            _popup.OnGoBack += _popup.Hide;
         }
 
         protected override void OnDestroy()
@@ -59,7 +57,6 @@ namespace AirHockey.Menu
             base.OnDestroy();
             _startButton.onClick.RemoveListener(HandleStart);
             _modeSelector.OnSelect -= HandleModeSelect;
-            _popup.OnGoBack -= _popup.Hide;
         }
 
         #endregion

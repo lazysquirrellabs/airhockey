@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bc6203028554d98bf48e49fb84fc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backButton: {fileID: 5625650575858229743}
+  _acknowledgeButton: {fileID: 5625650575858229743}
   _text: {fileID: 6131319441701792200}
 --- !u!1001 &661901798041800018
 PrefabInstance:
