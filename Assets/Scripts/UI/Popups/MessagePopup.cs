@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,12 @@ namespace AirHockey.UI.Popups
     /// </summary>
     internal class MessagePopup : Popup
     {
+	    #region Events
+
+	    internal event Action OnAcknowledge;
+
+	    #endregion
+	    
         #region Serialized fields
 
         [SerializeField] private Button _acknowledgeButton;
@@ -18,12 +25,22 @@ namespace AirHockey.UI.Popups
 
         private void Awake()
         {
-	        _acknowledgeButton.onClick.AddListener(Hide);
+	        _acknowledgeButton.onClick.AddListener(HandleAcknowledge);
         }
 
         private void OnDestroy()
         {
-	        _acknowledgeButton.onClick.RemoveListener(Hide);
+	        _acknowledgeButton.onClick.RemoveListener(HandleAcknowledge);
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void HandleAcknowledge()
+        {
+	        Hide();
+	        OnAcknowledge?.Invoke();
         }
 
         #endregion

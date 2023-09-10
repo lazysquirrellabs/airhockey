@@ -186,7 +186,7 @@ namespace AirHockey.Managers
 	        _matchManager.OnLeaveRequest += HandleReturn;
 	        _matchManager.OnRestartRequest += HandleRestartMatch;
 	        _part = GamePart.Match;
-	        await _matchManager.StartMatchAsync(_matchSettings, _cancellationTokenSource.Token);
+	        await _matchManager.StartMatchAsync(settings, _cancellationTokenSource.Token);
         }
 
         /// <summary>

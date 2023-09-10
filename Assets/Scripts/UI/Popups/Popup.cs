@@ -5,7 +5,11 @@ namespace AirHockey.UI.Popups
 {
 	internal abstract class Popup : MonoBehaviour
 	{
+		#region Serialized fields
+
 		[SerializeField] private Text _text;
+
+		#endregion
 		
 		#region Properties
 

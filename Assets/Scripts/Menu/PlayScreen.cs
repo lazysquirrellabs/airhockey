@@ -31,6 +31,7 @@ namespace AirHockey.Menu
         [SerializeField] private Text _extraFieldLabel;
         [SerializeField] private Text _extraInfoUnit;
         [SerializeField] private MessagePopup _popup;
+        [SerializeField, TextArea] private string _endlessModeWarning;
 
         #endregion
 
@@ -75,8 +76,16 @@ namespace AirHockey.Menu
                 return;
             }
 
-            var settings = _needsExtraInfo ? new MatchSettings(_matchMode, _extraInfo) : new MatchSettings(_matchMode);
-            OnStartMatch?.Invoke(settings);
+            // There is no "end of match" popup on endless mode, so we need to let the user know how to leave the match.
+            if (_matchMode == MatchMode.Endless)
+            {
+	            _popup.Message = _endlessModeWarning;
+	            _popup.OnAcknowledge += StartMatch;
+	            _popup.Show();
+	            return;
+            }
+            
+            StartMatch();
 
             bool TryGetExtraInfo()
             {
@@ -87,6 +96,15 @@ namespace AirHockey.Menu
                     return true;
                 }
                 return false;
+            }
+
+            void StartMatch()
+            {
+	            _popup.OnAcknowledge -= StartMatch;
+	            var settings = _needsExtraInfo ? 
+		            new MatchSettings(_matchMode, _extraInfo) : 
+		            new MatchSettings(_matchMode);
+	            OnStartMatch?.Invoke(settings);
             }
         }
 
