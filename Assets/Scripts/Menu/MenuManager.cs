@@ -78,17 +78,39 @@ namespace AirHockey.Menu
 
         private async void HandleSelectNewMatch()
         {
-            await TransitionToAsync(_playScreen);
+	        try
+	        {
+		        await TransitionToAsync(_playScreen);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("New match selection handling stopped because the operation was cancelled.");
+	        }
         }
         
         private async void HandleSelectSettings()
         {
-            await TransitionToAsync(_settingsScreen);
+	        try
+	        {
+		        await TransitionToAsync(_settingsScreen);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Settings selection handling stopped because the operation was cancelled.");
+	        }
         }
         
         private async void HandleSelectCredits()
         {
-            await TransitionToAsync(_creditsScreen);
+	        try
+	        {
+		        await TransitionToAsync(_creditsScreen);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Credits selection handling stopped because the operation was cancelled.");
+	        }
+            
         }
         
         private void StartMatch(MatchSettings settings)

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using AirHockey.Utils;
 using UnityEngine;
@@ -29,7 +30,14 @@ namespace AirHockey.Match.Managers
 
         private async void Awake()
         {
-            await _loop.FadeInAsync(1f, 3f, _cancellationTokenSource.Token);
+	        try
+	        {
+		        await _loop.FadeInAsync(1f, 3f, _cancellationTokenSource.Token);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Audio manager started because the operation was cancelled.");
+	        }
         }
 
         private void OnDestroy()

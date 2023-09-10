@@ -80,8 +80,15 @@ namespace AirHockey.Managers
 
         private async void Start()
         {
-            await LoadMenuAsync();
-            _inputManager.OnReturn += HandleReturn;
+	        try
+	        {
+		        await LoadMenuAsync();
+		        _inputManager.OnReturn += HandleReturn;
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Game manager start stopped because the operation was cancelled.");
+	        }
         }
 
         private void OnDestroy()
@@ -102,29 +109,36 @@ namespace AirHockey.Managers
         /// is invalid.</exception>
         private async void HandleReturn()
         {
-            // Ignore the return if it's already loading something.
-            if (_loading) 
-                return;
+	        // Ignore the return if it's already loading something.
+	        if (_loading)
+		        return;
 
-            var token = _cancellationTokenSource.Token;
-            switch (_part)
-            {
-                case GamePart.None:
-                    Debug.Log("Can't return when the application is loading.");
-                    break;
-                case GamePart.Menu:
-                    await _menuManager.ReturnAsync(token);
-                    break;
-                case GamePart.Match:
-                    var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f, token);
-                    var loadMenu = LoadMenuAsync();
-                    await UniTask.WhenAll(matchEnd, loadMenu);
-                    break;
-                default:
-                    throw new NotImplementedException($"Game part not implemented: {_part}");
-            }
+	        try
+	        {
+		        var token = _cancellationTokenSource.Token;
+		        switch (_part)
+		        {
+			        case GamePart.None:
+				        Debug.Log("Can't return when the application is loading.");
+				        break;
+			        case GamePart.Menu:
+				        await _menuManager.ReturnAsync(token);
+				        break;
+			        case GamePart.Match:
+				        var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f, token);
+				        var loadMenu = LoadMenuAsync();
+				        await UniTask.WhenAll(matchEnd, loadMenu);
+				        break;
+			        default:
+				        throw new NotImplementedException($"Game part not implemented: {_part}");
+		        }
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Return handling stopped because the operation was cancelled.");
+	        }
         }
-        
+
         /// <summary>
         /// Handles the event of a start match from the main menu.
         /// </summary>
