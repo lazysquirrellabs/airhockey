@@ -4,16 +4,15 @@ using UnityEngine.UI;
 namespace AirHockey.UI.Popups
 {
     /// <summary>
-    /// Error popup with a message.
+    /// A simple popup with a message and an acknowledgment button.
     /// </summary>
-    internal class ErrorPopup : Popup
+    internal class MessagePopup : Popup
     {
         #region Serialized fields
 
         [SerializeField] private Button _acknowledgeButton;
 
         #endregion
-
 
         #region Setup
 

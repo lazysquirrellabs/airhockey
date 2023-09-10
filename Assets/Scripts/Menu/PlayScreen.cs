@@ -30,7 +30,7 @@ namespace AirHockey.Menu
         [SerializeField] private InputField _extraInfoInput;
         [SerializeField] private Text _extraFieldLabel;
         [SerializeField] private Text _extraInfoUnit;
-        [SerializeField] private ErrorPopup _popup;
+        [SerializeField] private MessagePopup _popup;
 
         #endregion
 

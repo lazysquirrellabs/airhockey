@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 3513480395145374325}
   - component: {fileID: 1774485383839279133}
   m_Layer: 5
-  m_Name: Error Popup
+  m_Name: Message Popup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
