@@ -37,7 +37,7 @@ namespace AirHockey.UI
             _group.audioMixer.GetFloat(_parameter, out var value);
             value = PlayerPrefs.GetFloat(_parameter, value);
             _group.audioMixer.SetFloat(_parameter, value);
-            _slider.value = value;
+            _slider.value = Mathf.Pow(10, value / 20);
             _slider.onValueChanged.AddListener(HandleSliderChange);
         }
 
@@ -48,9 +48,10 @@ namespace AirHockey.UI
         private void HandleSliderChange(float value)
         {
             // Set the audio level
-            _group.audioMixer.SetFloat(_parameter, value);
+            var volume = Mathf.Log10(value) * 20;
+            _group.audioMixer.SetFloat(_parameter, volume);
             // Store the audio level in the player preferences
-            PlayerPrefs.SetFloat(_parameter, value);
+            PlayerPrefs.SetFloat(_parameter, volume);
         }
 
         #endregion

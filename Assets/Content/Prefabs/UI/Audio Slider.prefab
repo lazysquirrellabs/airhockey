@@ -113,6 +113,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4662674146247531611, guid: 339a220d6126f418290d8430d1b72c7a,
+        type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662674146247531611, guid: 339a220d6126f418290d8430d1b72c7a,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662674146247531611, guid: 339a220d6126f418290d8430d1b72c7a,
+        type: 3}
+      propertyPath: m_MinValue
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662674146247531611, guid: 339a220d6126f418290d8430d1b72c7a,
+        type: 3}
+      propertyPath: m_WholeNumbers
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5499498719609790632, guid: 339a220d6126f418290d8430d1b72c7a,
         type: 3}
       propertyPath: m_Name
