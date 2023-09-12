@@ -6,7 +6,7 @@ namespace AirHockey.UI
     /// <summary>
     /// Sets a Text label with the application version.
     /// </summary>
-    public class VersionLabel : MonoBehaviour
+    internal class VersionLabel : MonoBehaviour
     {
         #region Serialized fields
 

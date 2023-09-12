@@ -1,12 +1,14 @@
 using System;
-using UnityEngine;
+using System.Threading;
+using AirHockey.Match.Scoring;
+using Cysharp.Threading.Tasks;
 
 namespace AirHockey.Match.Referees
 {
     /// <summary>
     /// A <see cref="Referee"/> which controls the <see cref="Match"/> lifetime based on the <see cref="Score"/>.
     /// </summary>
-    public abstract class ScoreReferee : Referee
+    internal abstract class ScoreReferee : Referee
     {
         #region Delegates
         
@@ -32,33 +34,26 @@ namespace AirHockey.Match.Referees
         /// <see cref="ScoreReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the game whenever a player scores.</param>
-        /// <param name="end">How to end the game.</param>
+        /// <param name="endAsync">How to end the game.</param>
         /// <param name="isOver">How to check if the score should end the match.</param>
-        /// <param name="subscribeToScore">How to subscribe to the match scoring.</param>
-        protected ScoreReferee(Pauser pause, Action end, ScoreCheck isOver, Action<Scorer> subscribeToScore) 
-            : base(pause, end, subscribeToScore)
+        protected ScoreReferee(AsyncPauser pause, Func<UniTask> endAsync, ScoreCheck isOver) : base(pause, endAsync)
         {
             _isOver = isOver;
         }
         
         #endregion
         
-        #region Event hanlders
+        #region Internal
 
-        protected override async void HandleScore(Player player, Score score)
+        internal override async UniTask ProcessScoreAsync(Player player, Score score, CancellationToken token)
         {
-            if (_isOver(score)) 
-                End();
-            else
+	        if (_isOver(score))
+	        {
+		        await EndAsync();
+	        }
+	        else
             {
-                try
-                {
-                    await PauseAsync(player);
-                }
-                catch (OperationCanceledException)
-                {
-                    Debug.Log($"{typeof(ScoreReferee)} failed to handle score because the operation was cancelled.");
-                }
+                await PauseAsync(player, token);
             }
         }
 

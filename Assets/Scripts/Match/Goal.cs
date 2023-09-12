@@ -7,14 +7,14 @@ namespace AirHockey.Match
     /// <summary>
     /// A goal (the area where a pucks has to go in to score) in the match.
     /// </summary>
-    public class Goal : MonoBehaviour
+    internal class Goal : MonoBehaviour
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever someone scored in this <see cref="Goal"/>.
         /// </summary>
-        public event Action OnScore;
+        internal event Action OnScore;
 
         #endregion
         

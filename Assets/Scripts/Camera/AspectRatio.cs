@@ -7,7 +7,7 @@ namespace AirHockey.Camera
     /// A screen/camera aspect ratio represented by its width and height.
     /// </summary>
     [Serializable]
-    public struct AspectRatio
+    internal struct AspectRatio
     {
         #region Serialized fields
 
@@ -23,7 +23,7 @@ namespace AirHockey.Camera
         /// </summary>
         /// <param name="width">The width of the screen.</param>
         /// <param name="height">The height of the screen.</param>
-        public AspectRatio(uint width, uint height)
+        internal AspectRatio(uint width, uint height)
         {
             _width = width;
             _height = height;
@@ -34,7 +34,7 @@ namespace AirHockey.Camera
         #region Public
 
         public static implicit operator float(AspectRatio ratio) => (float) ratio._width / ratio._height;
-
+        
         public static bool operator <(AspectRatio aspectRatio1, AspectRatio aspectRatio2)
         {
             float ratio1 = aspectRatio1;

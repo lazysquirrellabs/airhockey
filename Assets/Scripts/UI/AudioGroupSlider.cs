@@ -7,7 +7,7 @@ namespace AirHockey.UI
     /// <summary>
     /// A UI <see cref="Slider"/> that controls an <see cref="AudioMixerGroup"/> parameter.
     /// </summary>
-    public class AudioGroupSlider : MonoBehaviour
+    internal class AudioGroupSlider : MonoBehaviour
     {
         #region Serialized fields
 
@@ -26,18 +26,18 @@ namespace AirHockey.UI
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Sets the <see cref="AudioGroupSlider"/> up. Loads audio levels from player prefs and sets them.
         /// </summary>
-        public void Setup()
+        internal void Setup()
         {
             // If there is no saved prefs, load the default value from the mixer
             _group.audioMixer.GetFloat(_parameter, out var value);
             value = PlayerPrefs.GetFloat(_parameter, value);
             _group.audioMixer.SetFloat(_parameter, value);
-            _slider.value = value;
+            _slider.value = Mathf.Pow(10, value / 20);
             _slider.onValueChanged.AddListener(HandleSliderChange);
         }
 
@@ -48,9 +48,10 @@ namespace AirHockey.UI
         private void HandleSliderChange(float value)
         {
             // Set the audio level
-            _group.audioMixer.SetFloat(_parameter, value);
+            var volume = Mathf.Log10(value) * 20;
+            _group.audioMixer.SetFloat(_parameter, volume);
             // Store the audio level in the player preferences
-            PlayerPrefs.SetFloat(_parameter, value);
+            PlayerPrefs.SetFloat(_parameter, volume);
         }
 
         #endregion

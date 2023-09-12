@@ -1,13 +1,14 @@
 using System;
-using UnityEngine;
+using System.Threading;
+using AirHockey.Match.Scoring;
+using Cysharp.Threading.Tasks;
 
 namespace AirHockey.Match.Referees
 {
     /// <summary>
     /// <see cref="Referee"/> which never ends the match and lets the players play endlessly.
     /// </summary>
-    public class 
-    EndlessReferee : Referee
+    internal class EndlessReferee : Referee
     {
         #region Setup
 
@@ -15,28 +16,19 @@ namespace AirHockey.Match.Referees
         /// <see cref="EndlessReferee"/>'s constructor.
         /// </summary>
         /// <param name="pause">How to pause the match when a player scores.</param>
-        /// <param name="end">How to end the match. Although this <see cref="Referee"/> never ends the match
+        /// <param name="endAsync">How to end the match. Although this <see cref="Referee"/> never ends the match
         /// automatically, it can be done via player input. </param>
-        /// <param name="subscribeToScore">How to subscribe to the match scoring.</param>
-        public EndlessReferee(Pauser pause, Action end, Action<Scorer> subscribeToScore) 
-            : base(pause, end, subscribeToScore)
+        internal EndlessReferee(AsyncPauser pause, Func<UniTask> endAsync) : base(pause, endAsync)
         {
         }
 
         #endregion
 
-        #region Event handlers
+        #region Internal
 
-        protected override async void HandleScore(Player player, Score score)
+        internal override async UniTask ProcessScoreAsync(Player player, Score score, CancellationToken token)
         {
-            try
-            {
-                await PauseAsync(player);
-            }
-            catch (OperationCanceledException)
-            {
-                Debug.Log($"{typeof(EndlessReferee)} failed to handle score because the operation was cancelled.");
-            }
+            await PauseAsync(player, token);
         }
 
         #endregion

@@ -7,7 +7,7 @@ namespace AirHockey.Camera
     /// Locks a <see cref="Camera"/> to a maximum <see cref="AspectRatio"/> so the game screen scales properly on
     /// different aspect ratios.
     /// </summary>
-    public class CameraAspectRatioLock : MonoBehaviour
+    internal class CameraAspectRatioLock : MonoBehaviour
     {
         #region Serialized fields
 

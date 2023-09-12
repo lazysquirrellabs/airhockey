@@ -1,6 +1,8 @@
 using System;
+using System.Threading;
 using AirHockey.Match;
 using AirHockey.UI;
+using AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,14 +13,14 @@ namespace AirHockey.Menu
     /// <summary>
     /// Manages the game's main menu.
     /// </summary>
-    public class MenuManager : MonoBehaviour
+    internal class MenuManager : MonoBehaviour
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever a new match starts.
         /// </summary>
-        public event Action<MatchSettings> OnStartMatch;
+        internal event Action<MatchSettings> OnStartMatch;
 
         #endregion
         
@@ -35,6 +37,7 @@ namespace AirHockey.Menu
 
         #endregion
 
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         #region Fields
 
         private Screen _currentScreen;
@@ -58,6 +61,8 @@ namespace AirHockey.Menu
 
         private void OnDestroy()
         {
+	        _cancellationTokenSource.Cancel();
+	        _cancellationTokenSource.Dispose();
             _playButton.onClick.RemoveListener(HandleSelectNewMatch);
             _settingsButton.onClick.RemoveListener(HandleSelectSettings);
             _creditsButton.onClick.RemoveListener(HandleSelectCredits);
@@ -73,17 +78,39 @@ namespace AirHockey.Menu
 
         private async void HandleSelectNewMatch()
         {
-            await TransitionToAsync(_playScreen);
+	        try
+	        {
+		        await TransitionToAsync(_playScreen);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("New match selection handling stopped because the operation was cancelled.");
+	        }
         }
         
         private async void HandleSelectSettings()
         {
-            await TransitionToAsync(_settingsScreen);
+	        try
+	        {
+		        await TransitionToAsync(_settingsScreen);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Settings selection handling stopped because the operation was cancelled.");
+	        }
         }
         
         private async void HandleSelectCredits()
         {
-            await TransitionToAsync(_creditsScreen);
+	        try
+	        {
+		        await TransitionToAsync(_creditsScreen);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Credits selection handling stopped because the operation was cancelled.");
+	        }
+            
         }
         
         private void StartMatch(MatchSettings settings)
@@ -94,29 +121,42 @@ namespace AirHockey.Menu
 
         private async void HandleReturn()
         {
-            await ReturnAsync();
+	        try
+	        {
+		        await ReturnMenuAsync(_cancellationTokenSource.Token);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Stopped handling menu return because the operation was cancelled.");
+	        }
         }
 
         #endregion
 
-        #region Public
+        #region Internal
         
-        public async UniTask ReturnAsync()
+        internal async UniTask ReturnAsync(CancellationToken token)
         {
-            await _transition.FadeInAsync(_transitionDuration / 2f);
-           
-            if (_currentScreen != null)
-                _currentScreen.Hide();
-
-            _currentScreen = null;
-            
-            await _transition.FadeOutAsync(_transitionDuration / 2f);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+	        await ReturnMenuAsync(unifiedToken);
         }
 
         #endregion
 
         #region Private
 
+        private async UniTask ReturnMenuAsync(CancellationToken token)
+        {
+	        await _transition.FadeInAsync(_transitionDuration / 2f, token);
+           
+	        if (_currentScreen != null)
+		        _currentScreen.Hide();
+
+	        _currentScreen = null;
+            
+	        await _transition.FadeOutAsync(_transitionDuration / 2f, token);
+        }
+        
         /// <summary>
         /// Transitions to the given <paramref name="screen"/> asynchronously.
         /// </summary>
@@ -124,7 +164,7 @@ namespace AirHockey.Menu
         /// <returns>A task to be awaited representing the fade transition.</returns>
         private async UniTask TransitionToAsync(Screen screen)
         {
-            await _transition.FadeInAsync(_transitionDuration / 2f);
+            await _transition.FadeInAsync(_transitionDuration / 2f, _cancellationTokenSource.Token);
            
             if (_currentScreen != null)
                 _currentScreen.Hide();
@@ -132,7 +172,7 @@ namespace AirHockey.Menu
             screen.Show();
             _currentScreen = screen;
             
-            await _transition.FadeOutAsync(_transitionDuration / 2f);
+            await _transition.FadeOutAsync(_transitionDuration / 2f, _cancellationTokenSource.Token);
         }
 
         #endregion

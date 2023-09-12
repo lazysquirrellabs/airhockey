@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using AirHockey.Utils;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// A match's audio manager.
     /// </summary>
-    public class AudioManager : MonoBehaviour
+    internal class AudioManager : MonoBehaviour
     {
         #region Serialized fields
 
@@ -21,7 +22,7 @@ namespace AirHockey.Match.Managers
 
         #region Fields
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
 
         #endregion
 
@@ -29,36 +30,45 @@ namespace AirHockey.Match.Managers
 
         private async void Awake()
         {
-            _cancellationTokenSource = new CancellationTokenSource();
-            await _loop.FadeInAsync(1f, 3f, _cancellationTokenSource.Token);
+	        try
+	        {
+		        await _loop.FadeInAsync(1f, 3f, _cancellationTokenSource.Token);
+	        }
+	        catch (OperationCanceledException)
+	        {
+		        Debug.Log("Audio manager started because the operation was cancelled.");
+	        }
         }
 
         private void OnDestroy()
         {
             _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
         }
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Fades all match audio out.
         /// </summary>
         /// <param name="duration">The duration of the fade in seconds.</param>
+        /// <param name="token">Token used for task cancellation.</param>
         /// <returns>The awaitable task.</returns>
-        public async UniTask FadeOutAllAsync(float duration)
+        internal async UniTask FadeOutAllAsync(float duration, CancellationToken token)
         {
-            var goalHorn = _goalHorn.FadeOutAsync(duration, _cancellationTokenSource.Token);
-            var goalCrowd = _goalCrowd.FadeOutAsync(duration, _cancellationTokenSource.Token);
-            var loop = _loop.FadeOutAsync(duration, _cancellationTokenSource.Token);
+	        var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+            var goalHorn = _goalHorn.FadeOutAsync(duration, unifiedToken);
+            var goalCrowd = _goalCrowd.FadeOutAsync(duration, unifiedToken);
+            var loop = _loop.FadeOutAsync(duration, unifiedToken);
             await UniTask.WhenAll(goalHorn, goalCrowd, loop);
         }
 
         /// <summary>
         /// Plays the sound effects for when a player scores. 
         /// </summary>
-        public void PlayGoal()
+        internal void PlayGoal()
         {
             _goalCrowd.Play();
             _goalHorn.Play();
@@ -67,7 +77,7 @@ namespace AirHockey.Match.Managers
         /// <summary>
         /// Plays a buzz sound.
         /// </summary>
-        public void PlayBuzz()
+        internal void PlayBuzz()
         {
             _buzz.Play();
         }

@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: a26d502fec03b4a75b78861568c8517e
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 2f9954c8a567446a8818b438ee731f61
+    guid: b54e4dc77ba38405ca9729030466ee55
   - enabled: 1
     path: Assets/Scenes/Match.unity
     guid: 2cda990e2423bbf4892e6590ba056729

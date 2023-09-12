@@ -9,14 +9,14 @@ namespace AirHockey.UI.Generic
     /// A generic toggle that stores a value.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class GenericToggle<T> : MonoBehaviour, IPointerClickHandler
+    internal abstract class GenericToggle<T> : MonoBehaviour, IPointerClickHandler
     {
         #region Events
 
         /// <summary>
         /// Event invoked whenever the toggle is selected.
         /// </summary>
-        public event Action<GenericToggle<T>> OnSelect;
+        internal event Action<GenericToggle<T>> OnSelect;
 
         #endregion
         
@@ -40,7 +40,7 @@ namespace AirHockey.UI.Generic
         /// <summary>
         /// The value that this toggle represents.
         /// </summary>
-        public T Value => _value;
+        internal T Value => _value;
 
         #endregion
 
@@ -56,12 +56,12 @@ namespace AirHockey.UI.Generic
 
         #endregion
 
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Forces toggle selection. Invokes the <see cref="OnSelect"/> event.
         /// </summary>
-        public void ForceSelection()
+        internal void ForceSelection()
         {
             Select();
         }
@@ -69,7 +69,7 @@ namespace AirHockey.UI.Generic
         /// <summary>
         /// Forces toggle deselection.
         /// </summary>
-        public void ForceDeselection()
+        internal void ForceDeselection()
         {
             _selected = false;
             _text.color = _unselectedColor;

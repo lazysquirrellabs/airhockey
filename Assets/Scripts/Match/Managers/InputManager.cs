@@ -6,7 +6,7 @@ namespace AirHockey.Match.Managers
     /// <summary>
     /// Manages non-UI game input like pointer movement.
     /// </summary>
-    public class InputManager : MonoBehaviour
+    internal class InputManager : MonoBehaviour
     {
         #region Serialized fields
 

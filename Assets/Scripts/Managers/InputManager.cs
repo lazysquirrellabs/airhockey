@@ -6,14 +6,14 @@ namespace AirHockey.Managers
     /// <summary>
     /// Manages non-pointer (touchscreen on device, clicks on the editor) input.
     /// </summary>
-    public class InputManager : MonoBehaviour
+    internal class InputManager : MonoBehaviour
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever the a return action (e.g. Android's return button) is invoked.
         /// </summary>
-        public event Action OnReturn;
+        internal event Action OnReturn;
 
         #endregion
 

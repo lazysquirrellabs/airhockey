@@ -1,8 +1,8 @@
 using System;
 using System.Globalization;
 using AirHockey.Match;
-using AirHockey.UI;
 using AirHockey.UI.Menu;
+using AirHockey.UI.Popups;
 using UnityEngine;
 using UnityEngine.UI;
 using Screen = AirHockey.UI.Screen;
@@ -12,14 +12,14 @@ namespace AirHockey.Menu
     /// <summary>
     /// The play/start match screen in the main menu.
     /// </summary>
-    public class PlayScreen : Screen
+    internal class PlayScreen : Screen
     {
         #region Events
 
         /// <summary>
         /// Invoked whenever the play/start match button has been successfully invoked.
         /// </summary>
-        public event Action<MatchSettings> OnStartMatch;
+        internal event Action<MatchSettings> OnStartMatch;
 
         #endregion
         
@@ -30,7 +30,8 @@ namespace AirHockey.Menu
         [SerializeField] private InputField _extraInfoInput;
         [SerializeField] private Text _extraFieldLabel;
         [SerializeField] private Text _extraInfoUnit;
-        [SerializeField] private ErrorPopup _popup;
+        [SerializeField] private MessagePopup _popup;
+        [SerializeField, TextArea] private string _endlessModeWarning;
 
         #endregion
 
@@ -50,7 +51,6 @@ namespace AirHockey.Menu
             base.Awake();
             _startButton.onClick.AddListener(HandleStart);
             _modeSelector.OnSelect += HandleModeSelect;
-            _popup.OnGoBack += _popup.Hide;
         }
 
         protected override void OnDestroy()
@@ -58,7 +58,6 @@ namespace AirHockey.Menu
             base.OnDestroy();
             _startButton.onClick.RemoveListener(HandleStart);
             _modeSelector.OnSelect -= HandleModeSelect;
-            _popup.OnGoBack -= _popup.Hide;
         }
 
         #endregion
@@ -76,13 +75,17 @@ namespace AirHockey.Menu
                 _popup.Show();
                 return;
             }
+
+            // There is no "end of match" popup on endless mode, so we need to let the user know how to leave the match.
+            if (_matchMode == MatchMode.Endless)
+            {
+	            _popup.Message = _endlessModeWarning;
+	            _popup.OnAcknowledge += StartMatch;
+	            _popup.Show();
+	            return;
+            }
             
-            MatchSettings settings;
-            if (_needsExtraInfo)
-                settings = new MatchSettings(_matchMode, _extraInfo);
-            else
-                settings = new MatchSettings(_matchMode);
-            OnStartMatch?.Invoke(settings);
+            StartMatch();
 
             bool TryGetExtraInfo()
             {
@@ -93,6 +96,15 @@ namespace AirHockey.Menu
                     return true;
                 }
                 return false;
+            }
+
+            void StartMatch()
+            {
+	            _popup.OnAcknowledge -= StartMatch;
+	            var settings = _needsExtraInfo ? 
+		            new MatchSettings(_matchMode, _extraInfo) : 
+		            new MatchSettings(_matchMode);
+	            OnStartMatch?.Invoke(settings);
             }
         }
 
@@ -129,10 +141,10 @@ namespace AirHockey.Menu
 
         #endregion
 
-        #region Public
+        #region Internal
         
         /// <inheritdoc />
-        public override void Hide()
+        internal override void Hide()
         {
             gameObject.SetActive(false);
             _popup.Hide();

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace AirHockey.Utils
 {
-    public static class AudioSourceExtensions
+	internal static class AudioSourceExtensions
     {
-        #region Public
+        #region Internal
 
         /// <summary>
         /// Fades an <see cref="AudioSource"/> in asynchronously. 
@@ -16,7 +16,7 @@ namespace AirHockey.Utils
         /// <param name="dur">The duration of the fade in seconds.</param>
         /// <param name="token">The token for operation cancellation.</param>
         /// <returns>The awaitable task.</returns>
-        public static async UniTask FadeInAsync(this AudioSource source, float end, float dur, CancellationToken token)
+        internal static async UniTask FadeInAsync(this AudioSource source, float end, float dur, CancellationToken token)
         {
             await UniTaskExtensions.ProgressAsync(SetVolume, 0f, end, dur, token);
 
@@ -30,7 +30,7 @@ namespace AirHockey.Utils
         /// <param name="duration">The duration of the fade in seconds.</param>
         /// <param name="token">The token for operation cancellation.</param>
         /// <returns>The awaitable task.</returns>
-        public static async UniTask FadeOutAsync(this AudioSource source, float duration, CancellationToken token)
+        internal static async UniTask FadeOutAsync(this AudioSource source, float duration, CancellationToken token)
         {
             await UniTaskExtensions.ProgressAsync(SetVolume, source.volume, 0f, duration, token);
 
