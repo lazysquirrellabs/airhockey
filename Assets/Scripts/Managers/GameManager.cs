@@ -96,6 +96,11 @@ namespace AirHockey.Managers
 	        _cancellationTokenSource.Cancel();
 	        _cancellationTokenSource.Dispose();
             _inputManager.OnReturn -= HandleReturn;
+            if (_menuManager)
+            {
+	            _menuManager.OnReturnToMainMenu -= HandleReturnToMainMenu;
+	            _menuManager.OnEnterMenu -= HandleEnterSubmenu;
+            }
         }
 
         #endregion
@@ -175,6 +180,22 @@ namespace AirHockey.Managers
 	        }
         }
 
+        /// <summary>
+        /// Handles the event of entering s submenu.
+        /// </summary>
+        private void HandleEnterSubmenu()
+        {
+	        Input.backButtonLeavesApp = false;
+        }
+
+        /// <summary>
+        /// Handles the event of going back to the main menu, from a submenu.
+        /// </summary>
+        private void HandleReturnToMainMenu()
+        {
+	        Input.backButtonLeavesApp = true;
+        }
+
         #endregion
 
         #region Private
@@ -185,8 +206,11 @@ namespace AirHockey.Managers
         /// <returns>A task to be awaited which represents the loading.</returns>
         private async UniTask LoadMenuAsync()
         {
+	        Input.backButtonLeavesApp = true;
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += HandleStartMatch;
+            _menuManager.OnReturnToMainMenu += HandleReturnToMainMenu;
+            _menuManager.OnEnterMenu += HandleEnterSubmenu;
             _part = GamePart.Menu;
         }
 
