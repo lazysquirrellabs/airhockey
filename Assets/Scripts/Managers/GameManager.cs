@@ -39,6 +39,10 @@ namespace AirHockey.Managers
         [SerializeField] private SceneReference _matchScene;
         [SerializeField] private CanvasFader _transition;
         [SerializeField] private InputManager _inputManager;
+        /// <summary>
+        /// The duration of &lt;see cref="UI.Screen"/&gt; transitions in the UI.
+        /// </summary>
+        [SerializeField, Range(0.1f, 5f)] private float _transitionDuration;
 
         #endregion
 
@@ -46,11 +50,6 @@ namespace AirHockey.Managers
             
         private MenuManager _menuManager;
         private MatchManager _matchManager;
-        
-        /// <summary>
-        /// The duration of <see cref="UI.Screen"/> transitions in the UI.
-        /// </summary>
-        private const float TransitionDuration = 1f;
         
         /// <summary>
         /// The currently loaded scene.
@@ -82,6 +81,7 @@ namespace AirHockey.Managers
         {
 	        try
 	        {
+		        Input.backButtonLeavesApp = true;
 		        await LoadMenuAsync();
 		        _inputManager.OnReturn += HandleReturn;
 	        }
@@ -96,6 +96,11 @@ namespace AirHockey.Managers
 	        _cancellationTokenSource.Cancel();
 	        _cancellationTokenSource.Dispose();
             _inputManager.OnReturn -= HandleReturn;
+            if (_menuManager)
+            {
+	            _menuManager.OnReturnToMainMenu -= HandleReturnToMainMenu;
+	            _menuManager.OnEnterMenu -= HandleEnterSubmenu;
+            }
         }
 
         #endregion
@@ -125,9 +130,12 @@ namespace AirHockey.Managers
 				        await _menuManager.ReturnAsync(token);
 				        break;
 			        case GamePart.Match:
-				        var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f, token);
+				        var matchEnd = _matchManager.StopMatchAsync(_transitionDuration * 0.9f, token);
 				        var loadMenu = LoadMenuAsync();
 				        await UniTask.WhenAll(matchEnd, loadMenu);
+				        // Wait for the loading to set this to true, otherwise the event system might pick up the 
+				        // back button press right away (within the same frame), effectively quitting the application. 
+				        Input.backButtonLeavesApp = true;
 				        break;
 			        default:
 				        throw new NotImplementedException($"Game part not implemented: {_part}");
@@ -175,6 +183,22 @@ namespace AirHockey.Managers
 	        }
         }
 
+        /// <summary>
+        /// Handles the event of entering s submenu.
+        /// </summary>
+        private void HandleEnterSubmenu()
+        {
+	        Input.backButtonLeavesApp = false;
+        }
+
+        /// <summary>
+        /// Handles the event of going back to the main menu, from a submenu.
+        /// </summary>
+        private void HandleReturnToMainMenu()
+        {
+	        Input.backButtonLeavesApp = true;
+        }
+
         #endregion
 
         #region Private
@@ -185,9 +209,13 @@ namespace AirHockey.Managers
         /// <returns>A task to be awaited which represents the loading.</returns>
         private async UniTask LoadMenuAsync()
         {
+	        await StartTransitionAsync();
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += HandleStartMatch;
+            _menuManager.OnReturnToMainMenu += HandleReturnToMainMenu;
+            _menuManager.OnEnterMenu += HandleEnterSubmenu;
             _part = GamePart.Menu;
+            await EndTransitionAsync();
         }
 
         /// <summary>
@@ -196,26 +224,43 @@ namespace AirHockey.Managers
         /// <param name="settings">The settings of the match to be started.</param>
         private async UniTask StartMatch(MatchSettings settings)
         {
+	        await StartTransitionAsync();
 	        _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
 	        _matchManager.OnLeaveRequest += HandleReturn;
 	        _matchManager.OnRestartRequest += HandleRestartMatch;
 	        _part = GamePart.Match;
+	        await EndTransitionAsync();
 	        await _matchManager.StartMatchAsync(settings, _cancellationTokenSource.Token);
         }
 
+        /// <summary>
+        /// Starts a scene transition.
+        /// </summary>
+        private async UniTask StartTransitionAsync()
+        {
+	        _loading = true;
+	        await _transition.FadeInAsync(_transitionDuration, _cancellationTokenSource.Token);
+        }
+
+        /// <summary>
+        /// End a scene transition.
+        /// </summary>
+        private async UniTask EndTransitionAsync()
+        {
+	        await _transition.FadeOutAsync(_transitionDuration, _cancellationTokenSource.Token);
+	        _loading = false;
+        }
+        
         /// <summary>
         /// Loads a scene that contains a manager asynchronously.
         /// </summary>
         /// <param name="scene">The scene to be loaded.</param>
         /// <typeparam name="T">The type of the manager to be fetched in the scene.</typeparam>
         /// <returns>A task to be awaited which represents the loading. Its value is the scene's manager. </returns>
-        /// <exception cref="Exception">Thrown if the given <paramref name="scene"/> does not contain a manager of type
+        /// <exception cref="Exception">Thrown if the given <paramref name="scene"/> wasn't loaded.
         /// <typeparamref name="T"/>The type of the manager in the scene.</exception>
         private async UniTask<T> LoadManagedSceneAsync<T>(SceneReference scene) where T : MonoBehaviour
         {
-            _loading = true;
-            var token = _cancellationTokenSource.Token;
-            await _transition.FadeInAsync(TransitionDuration, token);
             if (_scene != null) // In some cases (e.g. leading menu), there is nothing to unload.
 				await SceneManager.UnloadSceneAsync(_scene.Value);
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -224,11 +269,7 @@ namespace AirHockey.Managers
                 throw new Exception($"Managed scene wasn't loaded ({typeof(T)}).");
             
             SceneManager.SetActiveScene(_scene.Value);
-            var manager = FindAnyObjectByType<T>();
-            await _transition.FadeOutAsync(TransitionDuration, token);
-            _loading = false;
-            
-            return manager;
+            return FindAnyObjectByType<T>();
         }
 
         #endregion

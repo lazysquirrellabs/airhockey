@@ -160,6 +160,7 @@ MonoBehaviour:
     _scenePath: Assets/Scenes/Match.unity
   _transition: {fileID: 686083401}
   _inputManager: {fileID: 1379932018}
+  _transitionDuration: 0.5
 --- !u!4 &437329616
 Transform:
   m_ObjectHideFlags: 0
