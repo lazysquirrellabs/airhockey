@@ -207,11 +207,13 @@ namespace AirHockey.Managers
         private async UniTask LoadMenuAsync()
         {
 	        Input.backButtonLeavesApp = true;
+	        await StartTransitionAsync();
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += HandleStartMatch;
             _menuManager.OnReturnToMainMenu += HandleReturnToMainMenu;
             _menuManager.OnEnterMenu += HandleEnterSubmenu;
             _part = GamePart.Menu;
+            await EndTransitionAsync();
         }
 
         /// <summary>
@@ -220,26 +222,43 @@ namespace AirHockey.Managers
         /// <param name="settings">The settings of the match to be started.</param>
         private async UniTask StartMatch(MatchSettings settings)
         {
+	        await StartTransitionAsync();
 	        _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
 	        _matchManager.OnLeaveRequest += HandleReturn;
 	        _matchManager.OnRestartRequest += HandleRestartMatch;
 	        _part = GamePart.Match;
+	        await EndTransitionAsync();
 	        await _matchManager.StartMatchAsync(settings, _cancellationTokenSource.Token);
         }
 
+        /// <summary>
+        /// Starts a scene transition.
+        /// </summary>
+        private async UniTask StartTransitionAsync()
+        {
+	        _loading = true;
+	        await _transition.FadeInAsync(TransitionDuration, _cancellationTokenSource.Token);
+        }
+
+        /// <summary>
+        /// End a scene transition.
+        /// </summary>
+        private async UniTask EndTransitionAsync()
+        {
+	        await _transition.FadeOutAsync(TransitionDuration, _cancellationTokenSource.Token);
+	        _loading = false;
+        }
+        
         /// <summary>
         /// Loads a scene that contains a manager asynchronously.
         /// </summary>
         /// <param name="scene">The scene to be loaded.</param>
         /// <typeparam name="T">The type of the manager to be fetched in the scene.</typeparam>
         /// <returns>A task to be awaited which represents the loading. Its value is the scene's manager. </returns>
-        /// <exception cref="Exception">Thrown if the given <paramref name="scene"/> does not contain a manager of type
+        /// <exception cref="Exception">Thrown if the given <paramref name="scene"/> wasn't loaded.
         /// <typeparamref name="T"/>The type of the manager in the scene.</exception>
         private async UniTask<T> LoadManagedSceneAsync<T>(SceneReference scene) where T : MonoBehaviour
         {
-            _loading = true;
-            var token = _cancellationTokenSource.Token;
-            await _transition.FadeInAsync(TransitionDuration, token);
             if (_scene != null) // In some cases (e.g. leading menu), there is nothing to unload.
 				await SceneManager.UnloadSceneAsync(_scene.Value);
             await SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -248,11 +267,7 @@ namespace AirHockey.Managers
                 throw new Exception($"Managed scene wasn't loaded ({typeof(T)}).");
             
             SceneManager.SetActiveScene(_scene.Value);
-            var manager = FindAnyObjectByType<T>();
-            await _transition.FadeOutAsync(TransitionDuration, token);
-            _loading = false;
-            
-            return manager;
+            return FindAnyObjectByType<T>();
         }
 
         #endregion
