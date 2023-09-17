@@ -82,6 +82,7 @@ namespace AirHockey.Managers
         {
 	        try
 	        {
+		        Input.backButtonLeavesApp = true;
 		        await LoadMenuAsync();
 		        _inputManager.OnReturn += HandleReturn;
 	        }
@@ -133,6 +134,9 @@ namespace AirHockey.Managers
 				        var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f, token);
 				        var loadMenu = LoadMenuAsync();
 				        await UniTask.WhenAll(matchEnd, loadMenu);
+				        // Wait for the loading to set this to true, otherwise the event system might pick up the 
+				        // back button press right away (within the same frame), effectively quitting the application. 
+				        Input.backButtonLeavesApp = true;
 				        break;
 			        default:
 				        throw new NotImplementedException($"Game part not implemented: {_part}");
@@ -206,7 +210,6 @@ namespace AirHockey.Managers
         /// <returns>A task to be awaited which represents the loading.</returns>
         private async UniTask LoadMenuAsync()
         {
-	        Input.backButtonLeavesApp = true;
 	        await StartTransitionAsync();
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += HandleStartMatch;
