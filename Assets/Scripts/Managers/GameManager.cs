@@ -82,7 +82,7 @@ namespace AirHockey.Managers
 	        try
 	        {
 		        Input.backButtonLeavesApp = true;
-		        await LoadMenuAsync();
+		        await LoadMenuAsync(false);
 		        _inputManager.OnReturn += HandleReturn;
 	        }
 	        catch (OperationCanceledException)
@@ -131,7 +131,7 @@ namespace AirHockey.Managers
 				        break;
 			        case GamePart.Match:
 				        var matchEnd = _matchManager.StopMatchAsync(_transitionDuration * 0.9f, token);
-				        var loadMenu = LoadMenuAsync();
+				        var loadMenu = LoadMenuAsync(true);
 				        await UniTask.WhenAll(matchEnd, loadMenu);
 				        // Wait for the loading to set this to true, otherwise the event system might pick up the 
 				        // back button press right away (within the same frame), effectively quitting the application. 
@@ -203,19 +203,22 @@ namespace AirHockey.Managers
 
         #region Private
 
-        /// <summary>
+		/// <summary>
         /// Loads the menu scene.
         /// </summary>
+        /// <param name="transition">Whether the transition animation should be played when loading the menu. </param>
         /// <returns>A task to be awaited which represents the loading.</returns>
-        private async UniTask LoadMenuAsync()
+        private async UniTask LoadMenuAsync(bool transition)
         {
-	        await StartTransitionAsync();
+	        if (transition)
+				await StartTransitionAsync();
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += HandleStartMatch;
             _menuManager.OnReturnToMainMenu += HandleReturnToMainMenu;
             _menuManager.OnEnterMenu += HandleEnterSubmenu;
             _part = GamePart.Menu;
-            await EndTransitionAsync();
+            if (transition)
+				await EndTransitionAsync();
         }
 
         /// <summary>

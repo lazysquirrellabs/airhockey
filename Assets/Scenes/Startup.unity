@@ -354,6 +354,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Transition Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7593389556534962451, guid: 8c44d27ccf79c4f37a77e8dc1c3e8e2e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7593389556534962460, guid: 8c44d27ccf79c4f37a77e8dc1c3e8e2e,
         type: 3}
       propertyPath: m_Pivot.x
