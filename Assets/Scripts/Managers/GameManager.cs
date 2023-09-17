@@ -39,6 +39,10 @@ namespace AirHockey.Managers
         [SerializeField] private SceneReference _matchScene;
         [SerializeField] private CanvasFader _transition;
         [SerializeField] private InputManager _inputManager;
+        /// <summary>
+        /// The duration of &lt;see cref="UI.Screen"/&gt; transitions in the UI.
+        /// </summary>
+        [SerializeField, Range(0.1f, 5f)] private float _transitionDuration;
 
         #endregion
 
@@ -46,11 +50,6 @@ namespace AirHockey.Managers
             
         private MenuManager _menuManager;
         private MatchManager _matchManager;
-        
-        /// <summary>
-        /// The duration of <see cref="UI.Screen"/> transitions in the UI.
-        /// </summary>
-        private const float TransitionDuration = 1f;
         
         /// <summary>
         /// The currently loaded scene.
@@ -131,7 +130,7 @@ namespace AirHockey.Managers
 				        await _menuManager.ReturnAsync(token);
 				        break;
 			        case GamePart.Match:
-				        var matchEnd = _matchManager.StopMatchAsync(TransitionDuration * 0.9f, token);
+				        var matchEnd = _matchManager.StopMatchAsync(_transitionDuration * 0.9f, token);
 				        var loadMenu = LoadMenuAsync();
 				        await UniTask.WhenAll(matchEnd, loadMenu);
 				        // Wait for the loading to set this to true, otherwise the event system might pick up the 
@@ -240,7 +239,7 @@ namespace AirHockey.Managers
         private async UniTask StartTransitionAsync()
         {
 	        _loading = true;
-	        await _transition.FadeInAsync(TransitionDuration, _cancellationTokenSource.Token);
+	        await _transition.FadeInAsync(_transitionDuration, _cancellationTokenSource.Token);
         }
 
         /// <summary>
@@ -248,7 +247,7 @@ namespace AirHockey.Managers
         /// </summary>
         private async UniTask EndTransitionAsync()
         {
-	        await _transition.FadeOutAsync(TransitionDuration, _cancellationTokenSource.Token);
+	        await _transition.FadeOutAsync(_transitionDuration, _cancellationTokenSource.Token);
 	        _loading = false;
         }
         
