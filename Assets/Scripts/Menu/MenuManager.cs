@@ -22,6 +22,16 @@ namespace AirHockey.Menu
         /// </summary>
         internal event Action<MatchSettings> OnStartMatch;
 
+        /// <summary>
+        /// Invoked whenever the application leaves a submenu and goes back to the main menu.
+        /// </summary>
+        internal event Action OnEnterMenu;
+
+        /// <summary>
+        /// Invoked whenever the application goes to a submenu.
+        /// </summary>
+        internal event Action OnReturnToMainMenu;
+
         #endregion
         
         #region Serialized fields
@@ -38,6 +48,7 @@ namespace AirHockey.Menu
         #endregion
 
         private readonly CancellationTokenSource _cancellationTokenSource = new();
+        
         #region Fields
 
         private Screen _currentScreen;
@@ -78,6 +89,7 @@ namespace AirHockey.Menu
 
         private async void HandleSelectNewMatch()
         {
+	        OnEnterMenu?.Invoke();
 	        try
 	        {
 		        await TransitionToAsync(_playScreen);
@@ -90,6 +102,7 @@ namespace AirHockey.Menu
         
         private async void HandleSelectSettings()
         {
+	        OnEnterMenu?.Invoke();
 	        try
 	        {
 		        await TransitionToAsync(_settingsScreen);
@@ -102,6 +115,7 @@ namespace AirHockey.Menu
         
         private async void HandleSelectCredits()
         {
+	        OnEnterMenu?.Invoke();
 	        try
 	        {
 		        await TransitionToAsync(_creditsScreen);
@@ -110,7 +124,6 @@ namespace AirHockey.Menu
 	        {
 		        Debug.Log("Credits selection handling stopped because the operation was cancelled.");
 	        }
-            
         }
         
         private void StartMatch(MatchSettings settings)
@@ -147,14 +160,14 @@ namespace AirHockey.Menu
 
         private async UniTask ReturnMenuAsync(CancellationToken token)
         {
+	        if (_currentScreen == null)
+		        return;
+	        
 	        await _transition.FadeInAsync(_transitionDuration / 2f, token);
-           
-	        if (_currentScreen != null)
-		        _currentScreen.Hide();
-
+		    _currentScreen.Hide();
 	        _currentScreen = null;
-            
 	        await _transition.FadeOutAsync(_transitionDuration / 2f, token);
+	        OnReturnToMainMenu?.Invoke();
         }
         
         /// <summary>
