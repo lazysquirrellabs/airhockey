@@ -9,7 +9,7 @@ using LazySquirrelLabs.AirHockey.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace LazySquirrelLabs.AirHockey.Managers
+namespace LazySquirrelLabs.AirHockey
 {
     /// <summary>
     /// The top-most manager int he entire application.
@@ -38,7 +38,7 @@ namespace LazySquirrelLabs.AirHockey.Managers
         [SerializeField] private SceneReference _menuScene;
         [SerializeField] private SceneReference _matchScene;
         [SerializeField] private CanvasFader _transition;
-        [SerializeField] private InputManager _inputManager;
+        [SerializeField] private Input.InputManager _inputManager;
         /// <summary>
         /// The duration of &lt;see cref="UI.Screen"/&gt; transitions in the UI.
         /// </summary>
@@ -48,6 +48,8 @@ namespace LazySquirrelLabs.AirHockey.Managers
 
         #region Fields
             
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
+        
         private MenuManager _menuManager;
         private MatchManager _matchManager;
         
@@ -71,8 +73,6 @@ namespace LazySquirrelLabs.AirHockey.Managers
         /// </summary>
         private bool _loading;
 
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
-
         #endregion
 
         #region Setup
@@ -81,9 +81,8 @@ namespace LazySquirrelLabs.AirHockey.Managers
         {
 	        try
 	        {
-		        Input.backButtonLeavesApp = true;
 		        await LoadMenuAsync(false);
-		        _inputManager.OnReturn += HandleReturn;
+		        _inputManager.OnBack += HandleBackNavigation;
 	        }
 	        catch (OperationCanceledException)
 	        {
@@ -95,11 +94,10 @@ namespace LazySquirrelLabs.AirHockey.Managers
         {
 	        _cancellationTokenSource.Cancel();
 	        _cancellationTokenSource.Dispose();
-            _inputManager.OnReturn -= HandleReturn;
+            _inputManager.OnBack -= HandleBackNavigation;
             if (_menuManager)
             {
-	            _menuManager.OnReturnToMainMenu -= HandleReturnToMainMenu;
-	            _menuManager.OnEnterMenu -= HandleEnterSubmenu;
+	            _menuManager.OnQuit -= Application.Quit;
             }
         }
 
@@ -112,7 +110,7 @@ namespace LazySquirrelLabs.AirHockey.Managers
         /// </summary>
         /// <exception cref="NotImplementedException">Thrown if the current <see cref="GamePart"/>
         /// is invalid.</exception>
-        private async void HandleReturn()
+        private async void HandleBackNavigation()
         {
 	        // Ignore the return if it's already loading something.
 	        if (_loading)
@@ -126,6 +124,9 @@ namespace LazySquirrelLabs.AirHockey.Managers
 			        case GamePart.None:
 				        Debug.Log("Can't return when the application is loading.");
 				        break;
+			        case GamePart.Menu when _menuManager.IsOnMainMenu:
+				        _menuManager.ShowQuitPopup();
+				        break;
 			        case GamePart.Menu:
 				        await _menuManager.ReturnAsync(token);
 				        break;
@@ -133,9 +134,6 @@ namespace LazySquirrelLabs.AirHockey.Managers
 				        var matchEnd = _matchManager.StopMatchAsync(_transitionDuration * 0.9f, token);
 				        var loadMenu = LoadMenuAsync(true);
 				        await UniTask.WhenAll(matchEnd, loadMenu);
-				        // Wait for the loading to set this to true, otherwise the event system might pick up the 
-				        // back button press right away (within the same frame), effectively quitting the application. 
-				        Input.backButtonLeavesApp = true;
 				        break;
 			        default:
 				        throw new NotImplementedException($"Game part not implemented: {_part}");
@@ -173,7 +171,7 @@ namespace LazySquirrelLabs.AirHockey.Managers
         {
 	        try
 	        {
-		        _matchManager.OnLeaveRequest -= HandleReturn;
+		        _matchManager.OnLeaveRequest -= HandleBackNavigation;
 		        _matchManager.OnRestartRequest -= HandleRestartMatch;
 		        await StartMatch(_matchSettings);
 	        }
@@ -181,22 +179,6 @@ namespace LazySquirrelLabs.AirHockey.Managers
 	        {
 		        Debug.Log("Match restart was cancelled.");
 	        }
-        }
-
-        /// <summary>
-        /// Handles the event of entering s submenu.
-        /// </summary>
-        private void HandleEnterSubmenu()
-        {
-	        Input.backButtonLeavesApp = false;
-        }
-
-        /// <summary>
-        /// Handles the event of going back to the main menu, from a submenu.
-        /// </summary>
-        private void HandleReturnToMainMenu()
-        {
-	        Input.backButtonLeavesApp = true;
         }
 
         #endregion
@@ -214,8 +196,7 @@ namespace LazySquirrelLabs.AirHockey.Managers
 				await StartTransitionAsync();
             _menuManager = await LoadManagedSceneAsync<MenuManager>(_menuScene);
             _menuManager.OnStartMatch += HandleStartMatch;
-            _menuManager.OnReturnToMainMenu += HandleReturnToMainMenu;
-            _menuManager.OnEnterMenu += HandleEnterSubmenu;
+            _menuManager.OnQuit += Application.Quit;
             _part = GamePart.Menu;
             if (transition)
 				await EndTransitionAsync();
@@ -229,7 +210,7 @@ namespace LazySquirrelLabs.AirHockey.Managers
         {
 	        await StartTransitionAsync();
 	        _matchManager = await LoadManagedSceneAsync<MatchManager>(_matchScene);
-	        _matchManager.OnLeaveRequest += HandleReturn;
+	        _matchManager.OnLeaveRequest += HandleBackNavigation;
 	        _matchManager.OnRestartRequest += HandleRestartMatch;
 	        _part = GamePart.Match;
 	        await EndTransitionAsync();
