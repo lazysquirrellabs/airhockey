@@ -304,7 +304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95992e7f83ed64c3b8b525e2a3327d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _url: https://sneakysquirrellabs.com
+  _url: https://lslabs.dev
 --- !u!1 &4965235936196406718
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,7 +451,7 @@ PrefabInstance:
     - target: {fileID: 328315184782035710, guid: 322792b20cb0848aca64f1d32c566d9d,
         type: 3}
       propertyPath: m_Text
-      value: SNEAKYSQUIRRELLABS.COM
+      value: LSLLABS.DEV
       objectReference: {fileID: 0}
     - target: {fileID: 5240676137010181436, guid: 322792b20cb0848aca64f1d32c566d9d,
         type: 3}
@@ -580,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 328315184782035710, guid: 322792b20cb0848aca64f1d32c566d9d,
         type: 3}
       propertyPath: m_Text
-      value: SNEAKY SQUIRREL LABS
+      value: LAZY SQUIRREL LABS
       objectReference: {fileID: 0}
     - target: {fileID: 5240676137010181436, guid: 322792b20cb0848aca64f1d32c566d9d,
         type: 3}
