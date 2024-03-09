@@ -1,7 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 
-namespace AirHockey.Match.Referees
+namespace LazySquirrelLabs.AirHockey.Match.Referees
 {    
     /// <summary>
     /// <see cref="ScoreReferee"/> which implements the rules of the "high score" mode. See

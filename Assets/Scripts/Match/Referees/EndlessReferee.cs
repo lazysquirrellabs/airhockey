@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
-using AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
 using Cysharp.Threading.Tasks;
 
-namespace AirHockey.Match.Referees
+namespace LazySquirrelLabs.AirHockey.Match.Referees
 {
     /// <summary>
     /// <see cref="Referee"/> which never ends the match and lets the players play endlessly.

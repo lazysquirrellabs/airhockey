@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace AirHockey.UI
+namespace LazySquirrelLabs.AirHockey.UI
 {
     /// <summary>
     /// Plays an <see cref="_audioSource"/> whenever the Pointer clicks on this component.

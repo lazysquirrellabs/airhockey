@@ -2,7 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AirHockey.Match.Referees
+namespace LazySquirrelLabs.AirHockey.Match.Referees
 {
     /// <summary>
     /// <see cref="ScoreReferee"/> which implements the rules of the "best of score" mode. See

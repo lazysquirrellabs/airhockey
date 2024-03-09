@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.UI.Popups
+namespace LazySquirrelLabs.AirHockey.UI.Popups
 {
     /// <summary>
     /// A simple popup with a message and an acknowledgment button.

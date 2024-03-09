@@ -1,15 +1,15 @@
 using System;
 using System.Threading;
-using AirHockey.Match;
-using AirHockey.Match.Managers;
-using AirHockey.Menu;
-using AirHockey.SceneManagement;
-using AirHockey.UI;
 using Cysharp.Threading.Tasks;
+using LazySquirrelLabs.AirHockey.Match;
+using LazySquirrelLabs.AirHockey.Match.Managers;
+using LazySquirrelLabs.AirHockey.Menu;
+using LazySquirrelLabs.AirHockey.SceneManagement;
+using LazySquirrelLabs.AirHockey.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AirHockey.Managers
+namespace LazySquirrelLabs.AirHockey.Managers
 {
     /// <summary>
     /// The top-most manager int he entire application.

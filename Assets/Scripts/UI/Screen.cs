@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.UI
+namespace LazySquirrelLabs.AirHockey.UI
 {
     /// <summary>
     /// Base class for every screen in the game menu.

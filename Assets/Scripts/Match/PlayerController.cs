@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
-using AirHockey.Movement;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Movement;
+using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// A <see cref="Player"/> entity in the <see cref="Match"/>. Controls movement and its scene elements. 

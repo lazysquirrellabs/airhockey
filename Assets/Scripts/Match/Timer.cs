@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// A simple visual timer used in the match to show time (either left or elapsed) in minutes and seconds.

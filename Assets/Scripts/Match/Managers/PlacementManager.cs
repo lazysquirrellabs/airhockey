@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AirHockey.Match.Managers
+namespace LazySquirrelLabs.AirHockey.Match.Managers
 {
     /// <summary>
     /// Manages the placement of <see cref="Match"/> elements (i.e. players and puck).

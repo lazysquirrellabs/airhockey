@@ -1,8 +1,8 @@
-using AirHockey.Match;
-using AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.Match;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
 using NUnit.Framework;
 
-namespace AirHockey.Tests
+namespace LazySquirrelLabs.AirHockey.Tests
 {
     public class ScoreTests
     {

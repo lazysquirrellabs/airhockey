@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AirHockey.Managers
+namespace LazySquirrelLabs.AirHockey.Managers
 {
     /// <summary>
     /// Manages non-pointer (touchscreen on device, clicks on the editor) input.

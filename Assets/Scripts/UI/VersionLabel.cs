@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.UI
+namespace LazySquirrelLabs.AirHockey.UI
 {
     /// <summary>
     /// Sets a Text label with the application version.

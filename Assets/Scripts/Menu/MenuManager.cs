@@ -1,14 +1,14 @@
 using System;
 using System.Threading;
-using AirHockey.Match;
-using AirHockey.UI;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Match;
+using LazySquirrelLabs.AirHockey.UI;
+using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using Screen = AirHockey.UI.Screen;
+using Screen = LazySquirrelLabs.AirHockey.UI.Screen;
 
-namespace AirHockey.Menu 
+namespace LazySquirrelLabs.AirHockey.Menu 
 {
     /// <summary>
     /// Manages the game's main menu.

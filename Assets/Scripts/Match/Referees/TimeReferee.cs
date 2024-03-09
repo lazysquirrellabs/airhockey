@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
-using AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AirHockey.Match.Referees
+namespace LazySquirrelLabs.AirHockey.Match.Referees
 {
     /// <summary>
     /// A <see cref="Referee"/> which controls the <see cref="Match"/> lifetime based on a timer.

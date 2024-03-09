@@ -1,4 +1,4 @@
-namespace AirHockey.Match.Scoring
+namespace LazySquirrelLabs.AirHockey.Match.Scoring
 {
     /// <summary>
     /// Encapsulates a method that handles a player scoring.

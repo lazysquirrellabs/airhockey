@@ -1,7 +1,7 @@
-using AirHockey.Movement;
+using LazySquirrelLabs.AirHockey.Movement;
 using UnityEngine;
 
-namespace AirHockey.Match.Managers
+namespace LazySquirrelLabs.AirHockey.Match.Managers
 {
     /// <summary>
     /// Manages non-UI game input like pointer movement.

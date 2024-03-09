@@ -1,4 +1,4 @@
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
 	/// <summary>
 	/// Player in a <see cref="Match"/>

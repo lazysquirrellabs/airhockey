@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace AirHockey.SceneManagement
+namespace LazySquirrelLabs.AirHockey.SceneManagement
 {
     /// <summary>
     /// A Unity scene reference. Useful to serialize scene references as an object field, and not a string.

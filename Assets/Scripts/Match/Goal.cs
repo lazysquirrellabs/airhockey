@@ -1,8 +1,8 @@
 using System;
-using AirHockey.Physics;
+using LazySquirrelLabs.AirHockey.Physics;
 using UnityEngine;
 
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// A goal (the area where a pucks has to go in to score) in the match.

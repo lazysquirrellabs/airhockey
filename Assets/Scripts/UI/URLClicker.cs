@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace AirHockey.UI
+namespace LazySquirrelLabs.AirHockey.UI
 {
     /// <summary>
     /// Opens a URL whenever the pointer clicks on this component. 

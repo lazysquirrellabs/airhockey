@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AirHockey.Utils
+namespace LazySquirrelLabs.AirHockey.Utils
 {
     internal class TargetFrameRateSetter : MonoBehaviour
     {

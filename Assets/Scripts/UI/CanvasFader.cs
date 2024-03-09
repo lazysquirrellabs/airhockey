@@ -1,10 +1,10 @@
 using System.Threading;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UniTaskExtensions = AirHockey.Utils.UniTaskExtensions;
+using UniTaskExtensions = LazySquirrelLabs.AirHockey.Utils.UniTaskExtensions;
 
-namespace AirHockey.UI
+namespace LazySquirrelLabs.AirHockey.UI
 {
     /// <summary>
     /// Fades a <see cref="CanvasGroup"/> in out asynchronously.

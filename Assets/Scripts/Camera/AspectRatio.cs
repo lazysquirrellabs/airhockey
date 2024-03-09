@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AirHockey.Camera
+namespace LazySquirrelLabs.AirHockey.Camera
 {
     /// <summary>
     /// A screen/camera aspect ratio represented by its width and height.

@@ -2,9 +2,9 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using NUnit.Framework;
-using AspectRatio = AirHockey.Camera.AspectRatio;
+using AspectRatio = LazySquirrelLabs.AirHockey.Camera.AspectRatio;
 
-namespace AirHockey.Editor.Camera
+namespace LazySquirrelLabs.AirHockey.Editor.Camera
 {
     [CustomPropertyDrawer(typeof(AspectRatio))]
     internal class AspectRatioDrawer : PropertyDrawer

@@ -1,4 +1,4 @@
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// Settings used to start a new valid <see cref="Match"/>.

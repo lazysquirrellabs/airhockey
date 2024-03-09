@@ -1,13 +1,13 @@
 using System;
 using System.Threading;
-using AirHockey.Match.Referees;
-using AirHockey.Match.Scoring;
-using AirHockey.UI.Popups;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Match.Referees;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.UI.Popups;
+using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AirHockey.Match.Managers
+namespace LazySquirrelLabs.AirHockey.Match.Managers
 {
     /// <summary>
     /// A <see cref="Match"/>'s manager.

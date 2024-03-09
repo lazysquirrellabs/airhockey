@@ -2,7 +2,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace AirHockey.Utils
+namespace LazySquirrelLabs.AirHockey.Utils
 {
 	internal static class AudioSourceExtensions
     {

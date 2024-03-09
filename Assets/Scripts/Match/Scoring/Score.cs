@@ -1,6 +1,6 @@
 using System;
 
-namespace AirHockey.Match.Scoring
+namespace LazySquirrelLabs.AirHockey.Match.Scoring
 {
     /// <summary>
     /// A <see cref="Match"/> score.

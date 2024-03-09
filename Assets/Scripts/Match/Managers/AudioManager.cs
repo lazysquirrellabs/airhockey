@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Utils;
 using UnityEngine;
 using UniTask = Cysharp.Threading.Tasks.UniTask;
 
-namespace AirHockey.Match.Managers
+namespace LazySquirrelLabs.AirHockey.Match.Managers
 {
     /// <summary>
     /// A match's audio manager.

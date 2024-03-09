@@ -1,4 +1,4 @@
 using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("AirHockey.Tests")]
-[assembly:InternalsVisibleTo("AirHockey.Editor")]
+[assembly:InternalsVisibleTo("LazySquirrelLabs.AirHockey.Tests")]
+[assembly:InternalsVisibleTo("LazySquirrelLabs.AirHockey.Editor")]

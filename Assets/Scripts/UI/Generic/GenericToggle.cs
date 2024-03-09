@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace AirHockey.UI.Generic
+namespace LazySquirrelLabs.AirHockey.UI.Generic
 {
     /// <summary>
     /// A generic toggle that stores a value.

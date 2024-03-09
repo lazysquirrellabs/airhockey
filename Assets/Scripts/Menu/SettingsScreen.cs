@@ -1,8 +1,8 @@
-using AirHockey.UI;
+using LazySquirrelLabs.AirHockey.UI;
 using UnityEngine;
-using Screen = AirHockey.UI.Screen;
+using Screen = LazySquirrelLabs.AirHockey.UI.Screen;
 
-namespace AirHockey.Menu
+namespace LazySquirrelLabs.AirHockey.Menu
 {
     /// <summary>
     /// The settings/options screen in the main menu.

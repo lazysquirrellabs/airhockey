@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.UI.Generic
+namespace LazySquirrelLabs.AirHockey.UI.Generic
 {
     /// <summary>
     /// A generic toggle group that can hold any value.

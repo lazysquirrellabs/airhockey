@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
-using AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
 using Cysharp.Threading.Tasks;
 
-namespace AirHockey.Match.Referees
+namespace LazySquirrelLabs.AirHockey.Match.Referees
 {
     /// <summary>
     /// Base class for all match <see cref="Referee"/>s. A <see cref="Referee"/> is responsible for implementing the

@@ -1,8 +1,8 @@
-using AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.Match.Managers
+namespace LazySquirrelLabs.AirHockey.Match.Managers
 {
     /// <summary>
     /// Manages all the scoring in a <see cref="Match"/>.

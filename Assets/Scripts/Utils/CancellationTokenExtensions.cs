@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace AirHockey.Utils
+namespace LazySquirrelLabs.AirHockey.Utils
 {
 	internal static class CancellationTokenExtensions
 	{

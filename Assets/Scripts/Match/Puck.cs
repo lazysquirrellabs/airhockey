@@ -1,7 +1,7 @@
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Utils;
 using UnityEngine;
 
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// The match puck entity. Controls movement and other scene elements.

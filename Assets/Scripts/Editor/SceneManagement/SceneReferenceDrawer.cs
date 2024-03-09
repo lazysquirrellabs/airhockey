@@ -1,10 +1,10 @@
 using System.Reflection;
-using AirHockey.SceneManagement;
+using LazySquirrelLabs.AirHockey.SceneManagement;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-namespace AirHockey.Editor.SceneManagement
+namespace LazySquirrelLabs.AirHockey.Editor.SceneManagement
 {
     [CustomPropertyDrawer(typeof(SceneReference))]
     internal class SceneReferenceDrawer : PropertyDrawer

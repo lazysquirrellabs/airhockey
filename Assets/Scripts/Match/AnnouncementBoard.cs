@@ -1,13 +1,13 @@
 using System;
 using System.Threading;
-using AirHockey.Match.Scoring;
-using AirHockey.Utils;
+using LazySquirrelLabs.AirHockey.Match.Scoring;
+using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using UniTaskExtensions = AirHockey.Utils.UniTaskExtensions;
+using UniTaskExtensions = LazySquirrelLabs.AirHockey.Utils.UniTaskExtensions;
 
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// Board seen in the match which gives general visual announcements (e.g. score, match start and end).

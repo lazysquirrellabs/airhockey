@@ -1,6 +1,6 @@
 using System;
 
-namespace AirHockey.Match
+namespace LazySquirrelLabs.AirHockey.Match
 {
     /// <summary>
     /// The modes that a <see cref="Match"/> can be.

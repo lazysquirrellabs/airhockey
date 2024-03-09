@@ -1,6 +1,6 @@
 using System;
 
-namespace AirHockey.Utils
+namespace LazySquirrelLabs.AirHockey.Utils
 {
 	internal static class ArrayExtensions
     {

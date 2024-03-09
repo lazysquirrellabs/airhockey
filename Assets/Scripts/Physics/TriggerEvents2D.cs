@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AirHockey.Physics
+namespace LazySquirrelLabs.AirHockey.Physics
 {
     /// <summary>
     /// Propagates trigger event methods as delegate events

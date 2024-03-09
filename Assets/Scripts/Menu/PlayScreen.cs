@@ -1,13 +1,13 @@
 using System;
 using System.Globalization;
-using AirHockey.Match;
-using AirHockey.UI.Menu;
-using AirHockey.UI.Popups;
+using LazySquirrelLabs.AirHockey.Match;
+using LazySquirrelLabs.AirHockey.UI.Menu;
+using LazySquirrelLabs.AirHockey.UI.Popups;
 using UnityEngine;
 using UnityEngine.UI;
-using Screen = AirHockey.UI.Screen;
+using Screen = LazySquirrelLabs.AirHockey.UI.Screen;
 
-namespace AirHockey.Menu
+namespace LazySquirrelLabs.AirHockey.Menu
 {
     /// <summary>
     /// The play/start match screen in the main menu.

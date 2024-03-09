@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace AirHockey.Camera
+namespace LazySquirrelLabs.AirHockey.Camera
 {
     /// <summary>
     /// Locks a <see cref="Camera"/> to a maximum <see cref="AspectRatio"/> so the game screen scales properly on

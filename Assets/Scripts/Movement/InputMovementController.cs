@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace AirHockey.Movement
+namespace LazySquirrelLabs.AirHockey.Movement
 {
     /// <summary>
     /// Moves a 2D object around based on pointer drag movement.
