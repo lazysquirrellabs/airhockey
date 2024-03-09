@@ -4,6 +4,7 @@ using LazySquirrelLabs.AirHockey.Match;
 using LazySquirrelLabs.AirHockey.UI;
 using LazySquirrelLabs.AirHockey.Utils;
 using Cysharp.Threading.Tasks;
+using LazySquirrelLabs.AirHockey.UI.Popups;
 using UnityEngine;
 using UnityEngine.UI;
 using Screen = LazySquirrelLabs.AirHockey.UI.Screen;
@@ -22,16 +23,8 @@ namespace LazySquirrelLabs.AirHockey.Menu
         /// </summary>
         internal event Action<MatchSettings> OnStartMatch;
 
-        /// <summary>
-        /// Invoked whenever the application leaves a submenu and goes back to the main menu.
-        /// </summary>
-        internal event Action OnEnterMenu;
-
-        /// <summary>
-        /// Invoked whenever the application goes to a submenu.
-        /// </summary>
-        internal event Action OnReturnToMainMenu;
-
+        internal event Action OnQuit;
+        
         #endregion
         
         #region Serialized fields
@@ -42,6 +35,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
         [SerializeField] private PlayScreen _playScreen;
         [SerializeField] private SettingsScreen _settingsScreen;
         [SerializeField] private Screen _creditsScreen;
+        [SerializeField] private ChoicePopup _quitPopup;
         [SerializeField] private CanvasFader _transition;
         [SerializeField, Range(0, 10)] private float _transitionDuration;
 
@@ -52,6 +46,12 @@ namespace LazySquirrelLabs.AirHockey.Menu
         #region Fields
 
         private Screen _currentScreen;
+
+        #endregion
+
+        #region Properties
+
+        internal bool IsOnMainMenu { get; private set; } = true;
 
         #endregion
 
@@ -89,7 +89,6 @@ namespace LazySquirrelLabs.AirHockey.Menu
 
         private async void HandleSelectNewMatch()
         {
-	        OnEnterMenu?.Invoke();
 	        try
 	        {
 		        await TransitionToAsync(_playScreen);
@@ -102,7 +101,6 @@ namespace LazySquirrelLabs.AirHockey.Menu
         
         private async void HandleSelectSettings()
         {
-	        OnEnterMenu?.Invoke();
 	        try
 	        {
 		        await TransitionToAsync(_settingsScreen);
@@ -115,7 +113,6 @@ namespace LazySquirrelLabs.AirHockey.Menu
         
         private async void HandleSelectCredits()
         {
-	        OnEnterMenu?.Invoke();
 	        try
 	        {
 		        await TransitionToAsync(_creditsScreen);
@@ -154,6 +151,31 @@ namespace LazySquirrelLabs.AirHockey.Menu
 	        await ReturnMenuAsync(unifiedToken);
         }
 
+        internal void ShowQuitPopup()
+        {
+	        _quitPopup.OnSelectFirstChoice += HandleConfirm;
+	        _quitPopup.OnSelectSecondChoice += HandleCancel;
+	        _quitPopup.Show();
+
+	        void HandleConfirm()
+	        {
+		        Unsubscribe();
+		        OnQuit?.Invoke();
+	        }
+
+	        void HandleCancel()
+	        {
+		        Unsubscribe();
+		        _quitPopup.Hide();
+	        }
+
+	        void Unsubscribe()
+	        {
+		        _quitPopup.OnSelectFirstChoice -= HandleConfirm;
+		        _quitPopup.OnSelectSecondChoice -= HandleCancel;
+	        }
+        }
+
         #endregion
 
         #region Private
@@ -167,7 +189,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		    _currentScreen.Hide();
 	        _currentScreen = null;
 	        await _transition.FadeOutAsync(_transitionDuration / 2f, token);
-	        OnReturnToMainMenu?.Invoke();
+	        IsOnMainMenu = true;
         }
         
         /// <summary>
@@ -184,7 +206,8 @@ namespace LazySquirrelLabs.AirHockey.Menu
            
             screen.Show();
             _currentScreen = screen;
-            
+
+            IsOnMainMenu = false;
             await _transition.FadeOutAsync(_transitionDuration / 2f, _cancellationTokenSource.Token);
         }
 
