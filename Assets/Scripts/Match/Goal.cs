@@ -4,51 +4,51 @@ using UnityEngine;
 
 namespace LazySquirrelLabs.AirHockey.Match
 {
-    /// <summary>
-    /// A goal (the area where a pucks has to go in to score) in the match.
-    /// </summary>
-    internal class Goal : MonoBehaviour
-    {
-        #region Events
+	/// <summary>
+	/// A goal (the area where a pucks has to go in to score) in the match.
+	/// </summary>
+	internal class Goal : MonoBehaviour
+	{
+		#region Events
 
-        /// <summary>
-        /// Invoked whenever someone scored in this <see cref="Goal"/>.
-        /// </summary>
-        internal event Action OnScore;
+		/// <summary>
+		/// Invoked whenever someone scored in this <see cref="Goal"/>.
+		/// </summary>
+		internal event Action OnScore;
 
-        #endregion
-        
-        #region Serialized fields
+		#endregion
 
-        [SerializeField] private TriggerEvents2D _triggerEvents;
+		#region Serialized fields
 
-        #endregion
+		[SerializeField] private TriggerEvents2D _triggerEvents;
 
-        #region Setup
+		#endregion
 
-        private void Awake()
-        {
-            _triggerEvents.OnEnterTrigger += Score;
-        }
-        
-        private void OnDestroy()
-        {
-            _triggerEvents.OnEnterTrigger -= Score;
-        }
+		#region Setup
 
-        #endregion
+		private void Awake()
+		{
+			_triggerEvents.OnEnterTrigger += Score;
+		}
 
-        #region Event handlers
+		private void OnDestroy()
+		{
+			_triggerEvents.OnEnterTrigger -= Score;
+		}
 
-        /// <summary>
-        /// Handles the event of the puck colliding with this <see cref="Goal"/>'s trigger.
-        /// </summary>
-        /// <param name="_"></param>
-        private void Score(Collider2D _)
-        {
-            OnScore?.Invoke();
-        }
+		#endregion
 
-        #endregion
-    }
+		#region Event handlers
+
+		/// <summary>
+		/// Handles the event of the puck colliding with this <see cref="Goal"/>'s trigger.
+		/// </summary>
+		/// <param name="_"></param>
+		private void Score(Collider2D _)
+		{
+			OnScore?.Invoke();
+		}
+
+		#endregion
+	}
 }

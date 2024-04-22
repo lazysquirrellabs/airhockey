@@ -4,69 +4,73 @@ using UnityEngine.UI;
 
 namespace LazySquirrelLabs.AirHockey.UI.Generic
 {
-    /// <summary>
-    /// A generic toggle group that can hold any value.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TU"></typeparam>
-    internal class GenericToggleGroup<T,TU> : ToggleGroup where T : GenericToggle<TU>
-    {
-        #region Events
+	/// <summary>
+	/// A generic toggle group that can hold any value.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="TU"></typeparam>
+	internal class GenericToggleGroup<T, TU> : ToggleGroup where T : GenericToggle<TU>
+	{
+		#region Events
 
-        /// <summary>
-        /// Event invoked whenever one of the values is selected.
-        /// </summary>
-        internal event Action<TU> OnSelect; 
+		/// <summary>
+		/// Event invoked whenever one of the values is selected.
+		/// </summary>
+		internal event Action<TU> OnSelect;
 
-        #endregion
-        
-        #region Serialized fields
+		#endregion
 
-        [SerializeField] private T[] _toggles;
+		#region Serialized fields
 
-        #endregion
+		[SerializeField] private T[] _toggles;
 
-        #region Fields
+		#endregion
 
-        private GenericToggle<TU> _selectedToggle;
+		#region Fields
 
-        #endregion
+		private GenericToggle<TU> _selectedToggle;
 
-        #region Setup
+		#endregion
 
-        protected override void Awake()
-        {
-            foreach (var toggle in _toggles)
-            {
-                toggle.ForceDeselection();
-                toggle.OnSelect += HandleToggleSelection;
-            }
-            
-            // Select the first toggle
-            _toggles[0].ForceSelection();
-        }
-        
-        protected override void OnDestroy()
-        {
-            foreach (var toggle in _toggles)
-                toggle.OnSelect -= HandleToggleSelection;
-        }
+		#region Setup
 
-        #endregion
+		protected override void Awake()
+		{
+			foreach (var toggle in _toggles)
+			{
+				toggle.ForceDeselection();
+				toggle.OnSelect += HandleToggleSelection;
+			}
 
-        #region Event handlers
+			// Select the first toggle
+			_toggles[0].ForceSelection();
+		}
 
-        private void HandleToggleSelection(GenericToggle<TU> selectedToggle)
-        {
-            // Unselect the previously selected toggle, if there is one
-            if (_selectedToggle != null)
-                _selectedToggle.ForceDeselection();
+		protected override void OnDestroy()
+		{
+			foreach (var toggle in _toggles)
+			{
+				toggle.OnSelect -= HandleToggleSelection;
+			}
+		}
 
-            _selectedToggle = selectedToggle;
+		#endregion
 
-            OnSelect?.Invoke(_selectedToggle.Value);
-        }
+		#region Event handlers
 
-        #endregion
-    }
+		private void HandleToggleSelection(GenericToggle<TU> selectedToggle)
+		{
+			// Unselect the previously selected toggle, if there is one
+			if (_selectedToggle != null)
+			{
+				_selectedToggle.ForceDeselection();
+			}
+
+			_selectedToggle = selectedToggle;
+
+			OnSelect?.Invoke(_selectedToggle.Value);
+		}
+
+		#endregion
+	}
 }

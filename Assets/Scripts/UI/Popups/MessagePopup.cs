@@ -4,45 +4,45 @@ using UnityEngine.UI;
 
 namespace LazySquirrelLabs.AirHockey.UI.Popups
 {
-    /// <summary>
-    /// A simple popup with a message and an acknowledgment button.
-    /// </summary>
-    internal class MessagePopup : Popup
-    {
-	    #region Events
+	/// <summary>
+	/// A simple popup with a message and an acknowledgment button.
+	/// </summary>
+	internal class MessagePopup : Popup
+	{
+		#region Events
 
-	    internal event Action OnAcknowledge;
+		internal event Action OnAcknowledge;
 
-	    #endregion
-	    
-        #region Serialized fields
+		#endregion
 
-        [SerializeField] private Button _acknowledgeButton;
+		#region Serialized fields
 
-        #endregion
+		[SerializeField] private Button _acknowledgeButton;
 
-        #region Setup
+		#endregion
 
-        private void Awake()
-        {
-	        _acknowledgeButton.onClick.AddListener(HandleAcknowledge);
-        }
+		#region Setup
 
-        private void OnDestroy()
-        {
-	        _acknowledgeButton.onClick.RemoveListener(HandleAcknowledge);
-        }
+		private void Awake()
+		{
+			_acknowledgeButton.onClick.AddListener(HandleAcknowledge);
+		}
 
-        #endregion
+		private void OnDestroy()
+		{
+			_acknowledgeButton.onClick.RemoveListener(HandleAcknowledge);
+		}
 
-        #region Event handlers
+		#endregion
 
-        private void HandleAcknowledge()
-        {
-	        Hide();
-	        OnAcknowledge?.Invoke();
-        }
+		#region Event handlers
 
-        #endregion
-    }
+		private void HandleAcknowledge()
+		{
+			Hide();
+			OnAcknowledge?.Invoke();
+		}
+
+		#endregion
+	}
 }

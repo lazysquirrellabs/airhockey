@@ -4,64 +4,64 @@ using UnityEngine.UI;
 
 namespace LazySquirrelLabs.AirHockey.UI
 {
-    /// <summary>
-    /// Base class for every screen in the game menu.
-    /// </summary>
-    internal class Screen : MonoBehaviour
-    {
-        #region Events
+	/// <summary>
+	/// Base class for every screen in the game menu.
+	/// </summary>
+	internal class Screen : MonoBehaviour
+	{
+		#region Events
 
-        /// <summary>
-        /// Event invoked whenever this screen wants to go back (return) to the previous one.
-        /// </summary>
-        internal event Action OnGoBack;
+		/// <summary>
+		/// Event invoked whenever this screen wants to go back (return) to the previous one.
+		/// </summary>
+		internal event Action OnGoBack;
 
-        #endregion
-        
-        #region Serialized fields
+		#endregion
 
-        [SerializeField] private Button _backButton;
+		#region Serialized fields
 
-        #endregion
+		[SerializeField] private Button _backButton;
 
-        #region Setup
+		#endregion
 
-        protected virtual void Awake()
-        {
-            _backButton.onClick.AddListener(HandleDismiss);
-        }
+		#region Setup
 
-        protected virtual void OnDestroy()
-        {
-            _backButton.onClick.RemoveListener(HandleDismiss);
-        }
+		protected virtual void Awake()
+		{
+			_backButton.onClick.AddListener(HandleDismiss);
+		}
 
-        #endregion
+		protected virtual void OnDestroy()
+		{
+			_backButton.onClick.RemoveListener(HandleDismiss);
+		}
 
-        #region Event handlers
+		#endregion
 
-        private void HandleDismiss() => OnGoBack?.Invoke();
+		#region Event handlers
 
-        #endregion
+		private void HandleDismiss() => OnGoBack?.Invoke();
 
-        #region Internal
+		#endregion
 
-        /// <summary>
-        ///  Displays the screen. If it's already displayed, nothing happens.
-        /// </summary>
-        internal void Show()
-        {
-            gameObject.SetActive(true);
-        }
+		#region Internal
 
-        /// <summary>
-        /// Hides the screen. If it's already hidden, nothing happens.
-        /// </summary>
-        internal virtual void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-        
-        #endregion
-    }
+		/// <summary>
+		/// Displays the screen. If it's already displayed, nothing happens.
+		/// </summary>
+		internal void Show()
+		{
+			gameObject.SetActive(true);
+		}
+
+		/// <summary>
+		/// Hides the screen. If it's already hidden, nothing happens.
+		/// </summary>
+		internal virtual void Hide()
+		{
+			gameObject.SetActive(false);
+		}
+
+		#endregion
+	}
 }

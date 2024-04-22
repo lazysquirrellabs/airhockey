@@ -3,24 +3,24 @@ using UnityEngine.UI;
 
 namespace LazySquirrelLabs.AirHockey.UI
 {
-    /// <summary>
-    /// Sets a Text label with the application version.
-    /// </summary>
-    internal class VersionLabel : MonoBehaviour
-    {
-        #region Serialized fields
+	/// <summary>
+	/// Sets a Text label with the application version.
+	/// </summary>
+	internal class VersionLabel : MonoBehaviour
+	{
+		#region Serialized fields
 
-        [SerializeField] private Text _label;
+		[SerializeField] private Text _label;
 
-        #endregion
+		#endregion
 
-        #region Setup
+		#region Setup
 
-        private void Awake()
-        {
-            _label.text = $"VERSION {Application.version}";
-        }
+		private void Awake()
+		{
+			_label.text = $"VERSION {Application.version}";
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

@@ -3,24 +3,24 @@ using UnityEngine.EventSystems;
 
 namespace LazySquirrelLabs.AirHockey.UI
 {
-    /// <summary>
-    /// Opens a URL whenever the pointer clicks on this component. 
-    /// </summary>
-    internal class URLClicker : MonoBehaviour, IPointerClickHandler
-    {
-        #region Serialized fields
+	/// <summary>
+	/// Opens a URL whenever the pointer clicks on this component.
+	/// </summary>
+	internal class URLClicker : MonoBehaviour, IPointerClickHandler
+	{
+		#region Serialized fields
 
-        [SerializeField] private string _url;
+		[SerializeField] private string _url;
 
-        #endregion
+		#endregion
 
-        #region Event handlers
+		#region Event handlers
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Application.OpenURL(_url);
-        }
-        
-        #endregion
-    }
+		public void OnPointerClick(PointerEventData eventData)
+		{
+			Application.OpenURL(_url);
+		}
+
+		#endregion
+	}
 }

@@ -10,7 +10,7 @@ namespace LazySquirrelLabs.AirHockey.UI.Popups
 		[SerializeField] private Text _text;
 
 		#endregion
-		
+
 		#region Properties
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace LazySquirrelLabs.AirHockey.UI.Popups
 		}
 
 		#endregion
-		
+
 		#region Internal
 
 		internal void Show()
