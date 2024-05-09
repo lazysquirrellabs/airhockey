@@ -188,7 +188,8 @@ namespace LazySquirrelLabs.AirHockey.Match
 					throw new NotImplementedException($"Result not valid: {matchResult}");
 			}
 
-			await FadeInAsync(MatchEndFadeDuration, token);
+			var unifiedToken = token.Unify(_cancellationTokenSource.Token);
+			await FadeInAsync(MatchEndFadeDuration, unifiedToken);
 		}
 
 		#endregion
@@ -205,8 +206,7 @@ namespace LazySquirrelLabs.AirHockey.Match
 		/// <returns>The awaitable task.</returns>
 		private async UniTask FadeOutAsync(float duration, CancellationToken token)
 		{
-			var unifiedToken = token.Unify(_cancellationTokenSource.Token);
-			await UniTaskExtensions.ProgressAsync(SetAlpha, 1f, 0f, duration, unifiedToken);
+			await UniTaskExtensions.ProgressAsync(SetAlpha, 1f, 0f, duration, token);
 		}
 
 		/// <summary>
@@ -217,8 +217,7 @@ namespace LazySquirrelLabs.AirHockey.Match
 		/// <returns>The awaitable task.</returns>
 		private async UniTask FadeInAsync(float duration, CancellationToken token)
 		{
-			var unifiedToken = token.Unify(_cancellationTokenSource.Token);
-			await UniTaskExtensions.ProgressAsync(SetAlpha, 0f, 1f, duration, unifiedToken);
+			await UniTaskExtensions.ProgressAsync(SetAlpha, 0f, 1f, duration, token);
 		}
 
 		#endregion
