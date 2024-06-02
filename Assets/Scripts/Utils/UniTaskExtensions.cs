@@ -27,27 +27,20 @@ namespace LazySquirrelLabs.AirHockey.Utils
 			{
 				throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
 			}
+			
+			var startTime = Time.time;
+			var delta = 0f;
 
-			try
+			while (delta <= duration)
 			{
-				var startTime = Time.time;
-				var delta = 0f;
-
-				while (delta <= duration)
-				{
-					var value = Mathf.Lerp(start, end, delta / duration);
-					update(value);
-					await UniTask.Yield(PlayerLoopTiming.Update, token);
-					token.ThrowIfCancellationRequested();
-					delta = Time.time - startTime;
-				}
-
-				update(end);
+				var value = Mathf.Lerp(start, end, delta / duration);
+				update(value);
+				await UniTask.Yield(PlayerLoopTiming.Update, token);
+				token.ThrowIfCancellationRequested();
+				delta = Time.time - startTime;
 			}
-			catch (OperationCanceledException)
-			{
-				Debug.Log("Stopped progressing because the operation got cancelled");
-			}
+
+			update(end);
 		}
 
 		#endregion
