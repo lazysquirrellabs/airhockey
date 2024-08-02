@@ -1,13 +1,13 @@
 using System.Threading;
 
-namespace AirHockey.Utils
+namespace LazySquirrelLabs.AirHockey.Utils
 {
 	internal static class CancellationTokenExtensions
 	{
 		#region Internal
 
 		/// <summary>
-		/// Unifies 2 <see cref="CancellationToken"/> into a single one. The unified token will be cancelled whenever 
+		/// Unifies 2 <see cref="CancellationToken"/> into a single one. The unified token will be cancelled whenever
 		/// any of the provided tokens gets cancelled.
 		/// </summary>
 		/// <param name="token1">The first token to be unified.</param>

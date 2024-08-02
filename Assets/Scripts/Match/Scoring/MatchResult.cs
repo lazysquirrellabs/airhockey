@@ -1,4 +1,4 @@
-namespace AirHockey.Match.Scoring
+namespace LazySquirrelLabs.AirHockey.Match.Scoring
 {
 	/// <summary>
 	/// Possible outcomes of a finished <see cref="Match"/>.

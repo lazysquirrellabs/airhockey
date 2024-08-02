@@ -1,0 +1,17 @@
+{
+    "name": "LazySquirrelLabs.AirHockey",
+    "rootNamespace": "LazySquirrelLabs.AirHockey",
+    "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

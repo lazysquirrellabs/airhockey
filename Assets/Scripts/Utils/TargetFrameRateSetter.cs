@@ -1,22 +1,22 @@
 using UnityEngine;
 
-namespace AirHockey.Utils
+namespace LazySquirrelLabs.AirHockey.Utils
 {
-    internal class TargetFrameRateSetter : MonoBehaviour
-    {
-        #region Serialized fields
+	internal class TargetFrameRateSetter : MonoBehaviour
+	{
+		#region Serialized fields
 
-        [SerializeField, Range(1, 120)] private int _targetFrameRate;
+		[SerializeField, Range(1, 120)] private int _targetFrameRate;
 
-        #endregion
+		#endregion
 
-        #region Setup
+		#region Setup
 
-        private void Awake()
-        {
-            Application.targetFrameRate = _targetFrameRate;
-        }
+		private void Awake()
+		{
+			Application.targetFrameRate = _targetFrameRate;
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

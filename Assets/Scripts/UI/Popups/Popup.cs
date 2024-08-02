@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace AirHockey.UI.Popups
+namespace LazySquirrelLabs.AirHockey.UI.Popups
 {
 	internal abstract class Popup : MonoBehaviour
 	{
@@ -10,7 +10,7 @@ namespace AirHockey.UI.Popups
 		[SerializeField] private Text _text;
 
 		#endregion
-		
+
 		#region Properties
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace AirHockey.UI.Popups
 		}
 
 		#endregion
-		
+
 		#region Internal
 
 		internal void Show()
