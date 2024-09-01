@@ -4,7 +4,7 @@ A 2D local multiplayer air hockey game with four match modes: highest score, bes
 
 <img src="https://github.com/SneakySquirrelLabs/sneakysquirrellabs.github.io/raw/master/assets/images/apps/AirHockey/banner.png" width="100%">
 
-<p align="center"><a href="https://play.google.com/store/apps/details?id=com.sneakysquirrellabs.airhockey" target="_blank">
+<p align="center"><a href="https://play.google.com/store/apps/details?id=com.lazysquirrellabs.airhockey" target="_blank">
 <img src="https://github.com/SneakySquirrelLabs/sneakysquirrellabs.github.io/raw/master/assets/images/apps/get_it_google.svg" width="40%"></a>
 </p>
 
