@@ -13,7 +13,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -38,13 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
-  m_GIWorkflowMode: 1
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -67,9 +66,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 0
@@ -374,6 +370,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1923084553065615342, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 176609a7830654c57a4f3fb88b85597c, type: 3}
+  m_Resource: {fileID: 8300000, guid: 176609a7830654c57a4f3fb88b85597c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1061,6 +1058,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1923084553065615342, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 5e67944876e6c4531b985b772d14658d, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5e67944876e6c4531b985b772d14658d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1290,6 +1288,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -7677770069386006384, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: afe5298faea974c32919349e195e06ed, type: 3}
+  m_Resource: {fileID: 8300000, guid: afe5298faea974c32919349e195e06ed, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1696,6 +1695,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!1 &1524960825
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,6 +1730,9 @@ SpriteMask:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1764,6 +1767,7 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+  m_MaskSource: 0
 --- !u!4 &1524960827
 Transform:
   m_ObjectHideFlags: 0
@@ -1823,6 +1827,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1923084553065615342, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 9d6044beb17744c7480b46bd2bb84762, type: 3}
+  m_Resource: {fileID: 8300000, guid: 9d6044beb17744c7480b46bd2bb84762, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
