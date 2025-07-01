@@ -27,7 +27,7 @@ namespace LazySquirrelLabs.AirHockey.Utils
 			{
 				throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
 			}
-			
+
 			var startTime = Time.time;
 			var delta = 0f;
 

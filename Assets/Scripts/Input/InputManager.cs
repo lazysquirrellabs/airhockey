@@ -12,7 +12,7 @@ namespace LazySquirrelLabs.AirHockey.Input
 		#region Events
 
 		/// <summary>
-		/// Invoked whenever the a back action (e.g. Android's back button) is invoked.
+		/// Invoked whenever the back action (e.g. Android's back button) is invoked.
 		/// </summary>
 		internal event Action OnBack;
 

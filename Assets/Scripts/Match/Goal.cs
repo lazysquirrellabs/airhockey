@@ -5,7 +5,7 @@ using UnityEngine;
 namespace LazySquirrelLabs.AirHockey.Match
 {
 	/// <summary>
-	/// A goal (the area where a pucks has to go in to score) in the match.
+	/// A goal (the area where a puck has to go in to score) in the match.
 	/// </summary>
 	internal class Goal : MonoBehaviour
 	{
