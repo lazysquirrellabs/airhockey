@@ -19,7 +19,7 @@ namespace LazySquirrelLabs.AirHockey.Match.Managers
 
 		private void Awake()
 		{
-			// Setup the mouse listener's delegate.
+			// Set the mouse listener's delegate up.
 			foreach (var listener in _mousePositionListeners)
 			{
 				listener.GetMousePosition = GetMouseWorldPosition2D;

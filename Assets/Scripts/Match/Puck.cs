@@ -32,7 +32,7 @@ namespace LazySquirrelLabs.AirHockey.Match
 		/// <param name="position"></param>
 		internal void Regroup(Vector2 position)
 		{
-			_rigidbody2D.velocity = Vector2.zero;
+			_rigidbody2D.linearVelocity = Vector2.zero;
 			_rigidbody2D.position = position;
 			_rigidbody2D.angularVelocity = 0f;
 			_rigidbody2D.rotation = 0f;
@@ -43,8 +43,8 @@ namespace LazySquirrelLabs.AirHockey.Match
 		/// </summary>
 		internal void StopMoving()
 		{
-			_rigidbody2D.isKinematic = true;
-			_rigidbody2D.velocity = Vector2.zero;
+			_rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+			_rigidbody2D.linearVelocity = Vector2.zero;
 			_rigidbody2D.angularVelocity = 0f;
 		}
 

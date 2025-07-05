@@ -43,7 +43,7 @@ namespace LazySquirrelLabs.AirHockey.Movement
 
 				_canMove = value;
 				_position = _rigidBody.position;
-				_rigidBody.velocity = Vector2.zero;
+				_rigidBody.linearVelocity = Vector2.zero;
 			}
 		}
 

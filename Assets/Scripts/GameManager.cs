@@ -13,7 +13,7 @@ using InputManager = LazySquirrelLabs.AirHockey.Input.InputManager;
 namespace LazySquirrelLabs.AirHockey
 {
 	/// <summary>
-	/// The top-most manager int he entire application.
+	/// The top-most manager in the entire application.
 	/// </summary>
 	internal class GameManager : MonoBehaviour
 	{
