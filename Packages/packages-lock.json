@@ -8,10 +8,12 @@
       "hash": "f9fd769be7c634610f2a61aa914a1a55f34740e1"
     },
     "com.unity.2d.pixel-perfect": {
-      "version": "5.0.3",
+      "version": "5.1.0",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.sprite": {
