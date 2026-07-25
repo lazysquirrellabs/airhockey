@@ -106,6 +106,8 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - Locale
+    - Locale-en-GB
+    - Locale-pt-BR
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 714ac08ea5c2d45b99769435cad2c3de, type: 2}

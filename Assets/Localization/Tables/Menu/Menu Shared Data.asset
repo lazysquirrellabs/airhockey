@@ -32,7 +32,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3345531002880
-    m_Key: 
+    m_Key: Menu.Credits.DevelopedBy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6132956389376
+    m_Key: Menu.Credits.Developer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6636553887744
+    m_Key: Menu.Credits.Version
     m_Metadata:
       m_Items: []
   m_Metadata:

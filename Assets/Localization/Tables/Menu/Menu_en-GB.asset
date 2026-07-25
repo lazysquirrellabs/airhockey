@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en-GB
   m_SharedData: {fileID: 11400000, guid: 19e8ab9e41a5c4e97a376ff76b655f46, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 517185562798981344
   m_TableData:
   - m_Id: 1424468467712
     m_Localized: PLAY
@@ -34,6 +35,25 @@ MonoBehaviour:
     m_Localized: DO YOU WANT TO QUIT THE APPLICATION?
     m_Metadata:
       m_Items: []
+  - m_Id: 3345531002880
+    m_Localized: DEVELOPED BY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6132956389376
+    m_Localized: DEVELOPER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6636553887744
+    m_Localized: 'VERSION: {version}'
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981344
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 517185562798981344
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 6636553887744
