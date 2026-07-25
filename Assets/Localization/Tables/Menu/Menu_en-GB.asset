@@ -48,6 +48,26 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 517185562798981344
+  - m_Id: 52849936424960
+    m_Localized: AUDIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Localized: MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Localized: CROWD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Localized: UI
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

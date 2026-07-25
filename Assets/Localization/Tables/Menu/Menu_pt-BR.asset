@@ -48,6 +48,26 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 517185562798981345
+  - m_Id: 52849936424960
+    m_Localized: "\xC1UDIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Localized: MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Localized: TORCIDA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Localized: EFEITOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Localized: INTERFACE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

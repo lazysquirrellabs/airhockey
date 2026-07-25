@@ -43,6 +43,26 @@ MonoBehaviour:
     m_Key: Menu.Credits.Version
     m_Metadata:
       m_Items: []
+  - m_Id: 52849936424960
+    m_Key: Menu.Settings.Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Key: Menu.Settings.Audio.Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Key: Menu.Settings.Audio.Crowd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Key: Menu.Settings.Audio.SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Key: Menu.Settings.Audio.UI
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
