@@ -1,10 +1,13 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using LazySquirrelLabs.AirHockey.Localization;
 using LazySquirrelLabs.AirHockey.Match.Scoring;
 using LazySquirrelLabs.AirHockey.Utils;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UniTaskExtensions = LazySquirrelLabs.AirHockey.Utils.UniTaskExtensions;
 
 namespace LazySquirrelLabs.AirHockey.Match
@@ -17,26 +20,30 @@ namespace LazySquirrelLabs.AirHockey.Match
 		#region Serialized fields
 
 		[SerializeField] private CanvasGroup _canvas;
-		[SerializeField] private Text _leftText;
-		[SerializeField] private Text _rightText;
-
+		[SerializeField] private LocalizeStringEvent _leftLocalizer;
+		[SerializeField] private LocalizeStringEvent _rightLocalizer;
+		[Header("Localization entries")]
+		[SerializeField] private LocalizedString _matchStartLocalization;
+		[SerializeField] private LocalizedString _scoredLocalization;
+		[SerializeField] private LocalizedString _otherScoredLocalization;
+		[SerializeField] private LocalizedString _getReadyLocalization;
+		[SerializeField] private LocalizedString _goLocalization;
+		[SerializeField] private LocalizedString _youWinLocalization;
+		[SerializeField] private LocalizedString _youLoseLocalization;
+		[SerializeField] private LocalizedString _tieLocalization;
+			
 		#endregion
 
 		#region Fields
 
 		/// <summary> Duration in seconds of general fade outs used in FadeOutAsync. </summary>
 		private const float FadeOutDuration = 1f;
-
 		private const float MatchStartFadeDuration = 0.5f;
 		private const float MatchEndFadeDuration = 0.5f;
-		private const string MatchStartText = "MATCH STARTS IN {0}...";
-		private const string ScoredText = "GOAL!!!";
-		private const string OtherScoreText = "PLAYER {0} SCORED";
-		private const string GetReadyText = "ON YOUR MARKS...";
-		private const string GoText = "GO!";
-		private const string YouWinText = "YOU WIN!!";
-		private const string YouLoseText = "YOU LOSE";
-		private const string TieText = "IT'' A TIE";
+		// Localization
+		private const string ValueKey = "value";
+		private StringVariable _leftVariable;
+		private StringVariable _rightVariable;
 
 		#endregion
 
@@ -47,6 +54,12 @@ namespace LazySquirrelLabs.AirHockey.Match
 		#endregion
 
 		#region Setup
+
+		private void Awake()
+		{
+			_leftVariable = _leftLocalizer.GetVariable<StringVariable>(ValueKey);
+			_rightVariable = _rightLocalizer.GetVariable<StringVariable>(ValueKey);
+		}
 
 		private void OnDestroy()
 		{
@@ -73,14 +86,16 @@ namespace LazySquirrelLabs.AirHockey.Match
 				throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
 			}
 
-			SetTexts(duration);
+			_leftLocalizer.Localize(_matchStartLocalization);
+			_rightLocalizer.Localize(_matchStartLocalization);
+			SetLocalizationVariable(duration);
 			var unifiedToken = token.Unify(_cancellationTokenSource.Token);
 			await FadeInAsync(MatchStartFadeDuration, unifiedToken);
 			_canvas.alpha = 1f;
 
 			while (duration > 0)
 			{
-				SetTexts(duration);
+				SetLocalizationVariable(duration);
 				await UniTask.Delay(1_000, false, PlayerLoopTiming.Update, unifiedToken);
 				duration--;
 			}
@@ -88,10 +103,10 @@ namespace LazySquirrelLabs.AirHockey.Match
 			await FadeOutAsync(MatchStartFadeDuration, unifiedToken);
 			return;
 
-			void SetTexts(int s)
+			void SetLocalizationVariable(int seconds)
 			{
-				_leftText.text = string.Format(MatchStartText, s);
-				_rightText.text = string.Format(MatchStartText, s);
+				_leftVariable.Value = seconds.ToString();
+				_rightVariable.Value = seconds.ToString();
 			}
 		}
 
@@ -116,12 +131,14 @@ namespace LazySquirrelLabs.AirHockey.Match
 			switch (player)
 			{
 				case Player.LeftPlayer:
-					_leftText.text = ScoredText;
-					_rightText.text = string.Format(OtherScoreText, 1);
+					_leftLocalizer.Localize(_scoredLocalization);
+					_rightLocalizer.Localize(_otherScoredLocalization);
+					_rightVariable.Value = 1.ToString();
 					break;
 				case Player.RightPlayer:
-					_leftText.text = string.Format(OtherScoreText, 2);
-					_rightText.text = ScoredText;
+					_rightLocalizer.Localize(_scoredLocalization);
+					_leftLocalizer.Localize(_otherScoredLocalization);
+					_leftVariable.Value = 2.ToString();
 					break;
 				default:
 					throw new NotImplementedException($"Player not valid: {player}");
@@ -148,13 +165,13 @@ namespace LazySquirrelLabs.AirHockey.Match
 				throw new ArgumentOutOfRangeException(nameof(duration), duration, "Duration must be positive.");
 			}
 
-			_leftText.text = GetReadyText;
-			_rightText.text = GetReadyText;
+			_leftLocalizer.Localize(_getReadyLocalization);
+			_rightLocalizer.Localize(_getReadyLocalization);
 			var unifiedToken = token.Unify(_cancellationTokenSource.Token);
 			await FadeInAsync(duration * 0.1f, unifiedToken);
 			await UniTask.Delay((int)(duration * 1_000 * 0.9f), false, PlayerLoopTiming.Update, unifiedToken);
-			_leftText.text = GoText;
-			_rightText.text = GoText;
+			_leftLocalizer.Localize(_goLocalization);
+			_rightLocalizer.Localize(_goLocalization);
 		}
 
 		/// <summary>
@@ -173,16 +190,16 @@ namespace LazySquirrelLabs.AirHockey.Match
 			switch (matchResult)
 			{
 				case MatchResult.Tie:
-					_leftText.text = TieText;
-					_rightText.text = TieText;
+					_leftLocalizer.Localize(_tieLocalization);
+					_rightLocalizer.Localize(_tieLocalization);
 					break;
 				case MatchResult.LeftPlayerWin:
-					_leftText.text = YouWinText;
-					_rightText.text = YouLoseText;
+					_leftLocalizer.Localize(_youWinLocalization);
+					_rightLocalizer.Localize(_youLoseLocalization);
 					break;
 				case MatchResult.RightPlayerWin:
-					_leftText.text = YouLoseText;
-					_rightText.text = YouWinText;
+					_leftLocalizer.Localize(_youLoseLocalization);
+					_rightLocalizer.Localize(_youWinLocalization);
 					break;
 				default:
 					throw new NotImplementedException($"Result not valid: {matchResult}");
