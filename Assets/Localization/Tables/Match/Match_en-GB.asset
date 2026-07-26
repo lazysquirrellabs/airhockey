@@ -53,6 +53,28 @@ MonoBehaviour:
     m_Localized: IT'S A TIE
     m_Metadata:
       m_Items: []
+  - m_Id: 20477694173184
+    m_Localized: IT'S A TIE!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20494018404352
+    m_Localized: PLAYER 1 WINS!\n{string-value}
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981389
+  - m_Id: 20530739535872
+    m_Localized: PLAYER 2 WINS!\n{string-value}
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981389
+  - m_Id: 30121955155968
+    m_Localized: RESTART
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30168516124672
+    m_Localized: LEAVE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -63,3 +85,5 @@ MonoBehaviour:
         m_SharedEntries:
         - id: 88356151296
         - id: 2436130398208
+        - id: 20494018404352
+        - id: 20530739535872

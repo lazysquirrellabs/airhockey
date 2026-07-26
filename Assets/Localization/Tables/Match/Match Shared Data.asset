@@ -47,6 +47,26 @@ MonoBehaviour:
     m_Key: Tie
     m_Metadata:
       m_Items: []
+  - m_Id: 20477694173184
+    m_Key: Result.Tie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20494018404352
+    m_Key: Result.LeftWins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20530739535872
+    m_Key: Result.RightWins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30121955155968
+    m_Key: Restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30168516124672
+    m_Key: Leave
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

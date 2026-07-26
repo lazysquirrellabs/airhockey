@@ -18,7 +18,9 @@ namespace LazySquirrelLabs.AirHockey.Localization
 
 		internal static void Localize(this LocalizeStringEvent localizer, LocalizedString entry)
 		{
-			localizer.StringReference.TableEntryReference = entry.TableEntryReference;
+			var stringReference = localizer.StringReference;
+			stringReference.TableReference = entry.TableReference;
+			stringReference.TableEntryReference = entry.TableEntryReference;
 		}
 
 		#endregion

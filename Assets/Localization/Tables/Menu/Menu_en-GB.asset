@@ -113,6 +113,16 @@ MonoBehaviour:
     m_Localized: MINUTES
     m_Metadata:
       m_Items: []
+  - m_Id: 277807669174272
+    m_Localized: PROVIDE THE MODE {value} BEFORE STARTING A MATCH
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981344
+  - m_Id: 280100326072320
+    m_Localized: YOU ARE ABOUT TO ENTER AN ENDLESS MATCH. YOU CAN LEAVE THE MATCH
+      BY TAPPING ON YOUR DEVICE'S "BACK" BUTTON.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -123,3 +133,4 @@ MonoBehaviour:
         m_SharedEntries:
         - id: 6636553887744
         - id: 60439642759168
+        - id: 277807669174272

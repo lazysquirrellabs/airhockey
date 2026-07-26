@@ -98,11 +98,11 @@ MonoBehaviour:
       m_Items:
       - rid: 517185562798981345
   - m_Id: 245950944632832
-    m_Localized: PONTOS
+    m_Localized: OS PONTOS
     m_Metadata:
       m_Items: []
   - m_Id: 246023455760384
-    m_Localized: "DURA\xC7\xC3O"
+    m_Localized: "A DURA\xC7\xC3O"
     m_Metadata:
       m_Items: []
   - m_Id: 246083685965824
@@ -111,6 +111,16 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 246144809558016
     m_Localized: MINUTOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 277807669174272
+    m_Localized: "INFORME {value} DO MODO ANTES DE COME\xC7AR A PARTIDA"
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981345
+  - m_Id: 280100326072320
+    m_Localized: "VOC\xCA EST\xC1 PRESTES A ENTRAR EM UMA PARTIDA SEM FIM. VOC\xCA
+      PODE SAIR DA PARTIDA APERTANDO O BOT\xC3O DE \"VOLTAR\" DO SEU DISPOSITIVO."
     m_Metadata:
       m_Items: []
   references:
@@ -123,3 +133,4 @@ MonoBehaviour:
         m_SharedEntries:
         - id: 6636553887744
         - id: 60439642759168
+        - id: 277807669174272

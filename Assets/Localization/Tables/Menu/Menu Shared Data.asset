@@ -107,6 +107,14 @@ MonoBehaviour:
     m_Key: Menu.Match.ExtraInfo.Minutes
     m_Metadata:
       m_Items: []
+  - m_Id: 277807669174272
+    m_Key: Menu.Match.ProvideExtraInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280100326072320
+    m_Key: Menu.Match.EndlessModeWarning
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -32,7 +32,6 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		[SerializeField] private Button _startButton;
 		[SerializeField] private InputField _extraInfoInput;
 		[SerializeField] private MessagePopup _popup;
-		[SerializeField, TextArea] private string _endlessModeWarning;
 		[Header("Localization")]
 		[SerializeField] private LocalizeStringEvent _extraInfoLocalizer;
 		[SerializeField] private LocalizeStringEvent _unitLocalizer;
@@ -40,6 +39,8 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		[SerializeField] private LocalizedString _durationLocalizationKey;
 		[SerializeField] private LocalizedString _pointsLocalizationKey;
 		[SerializeField] private LocalizedString _minutesLocalizationKey;
+		[SerializeField] private LocalizedString _provideModeInfoLocalizationKey;
+		[SerializeField] private LocalizedString _endlessModeWarningLocalizationKey;
 
 		#endregion
 
@@ -82,8 +83,8 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		{
 			if (_needsExtraInfo && !TryGetExtraInfo())
 			{
-				// TODO: Fix popup
-				// _popup.Message = $"PROVIDE THE MODE {_matchMode.InfoName().ToUpper()} BEFORE STARTING A MATCH";
+				var extraInfoLocalization = GetMatchModeExtraInfoLocalization(_matchMode);
+				_popup.SetMessageWithVariable(_provideModeInfoLocalizationKey, extraInfoLocalization);
 				_popup.Show();
 				return;
 			}
@@ -91,7 +92,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
 			// There is no "end of match" popup on endless mode, so we need to let the user know how to leave the match.
 			if (_matchMode == MatchMode.Endless)
 			{
-				_popup.Message = _endlessModeWarning;
+				_popup.SetMessage(_endlessModeWarningLocalizationKey);
 				_popup.OnAcknowledge += StartMatch;
 				_popup.Show();
 				return;

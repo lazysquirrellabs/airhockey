@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33c7c7496f4446669198893efa445496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 3688583377209082351}
+  _localizer: {fileID: 3556734226798444960}
   _firstChoiceButton: {fileID: 5625650575858229743}
   _secondChoiceButton: {fileID: 7035406303882952962}
 --- !u!1001 &661901798041800018
@@ -875,7 +875,13 @@ MonoBehaviour:
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
-    m_LocalVariables: []
+    m_LocalVariables:
+    - name: value
+      variable:
+        rid: 517185562798981395
+    - name: string-value
+      variable:
+        rid: 517185562798981400
   m_FormatArguments: []
   m_UpdateString:
     m_PersistentCalls:
@@ -894,7 +900,23 @@ MonoBehaviour:
         m_CallState: 1
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 517185562798981395
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: 
+        m_TableEntryReference:
+          m_KeyId: 0
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 517185562798981400
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables,
+        asm: Unity.Localization}
+      data:
+        m_Value: 
 --- !u!224 &3095021133613999229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 516113199800340489, guid: e746554fa8b98438799ee73b3617f8bf,

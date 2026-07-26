@@ -60,8 +60,6 @@ MonoBehaviour:
   _startButton: {fileID: 6030338728526523019}
   _extraInfoInput: {fileID: 2521832660103405372}
   _popup: {fileID: 3126856790456739607}
-  _endlessModeWarning: YOU ARE ABOUT TO ENTER AN ENDLESS MATCH. YOU CAN LEAVE THE
-    MATCH BY TAPPING ON YOUR DEVICE'S "BACK" BUTTON.
   _extraInfoLocalizer: {fileID: 2846862407567068150}
   _unitLocalizer: {fileID: 1474065644098453928}
   _scoreLocalizationKey:
@@ -96,6 +94,24 @@ MonoBehaviour:
       m_TableCollectionName: GUID:19e8ab9e41a5c4e97a376ff76b655f46
     m_TableEntryReference:
       m_KeyId: 246144809558016
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _provideModeInfoLocalizationKey:
+    m_TableReference:
+      m_TableCollectionName: GUID:19e8ab9e41a5c4e97a376ff76b655f46
+    m_TableEntryReference:
+      m_KeyId: 277807669174272
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _endlessModeWarningLocalizationKey:
+    m_TableReference:
+      m_TableCollectionName: GUID:19e8ab9e41a5c4e97a376ff76b655f46
+    m_TableEntryReference:
+      m_KeyId: 280100326072320
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
