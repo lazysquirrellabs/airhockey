@@ -63,6 +63,50 @@ MonoBehaviour:
     m_Key: Menu.Settings.Audio.UI
     m_Metadata:
       m_Items: []
+  - m_Id: 58961037352960
+    m_Key: Menu.Match.Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59059733520384
+    m_Key: Menu.Match.Mode.HighScore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59374973214720
+    m_Key: Menu.Match.Mode.BestOfScore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59566497718272
+    m_Key: Menu.Match.Mode.TimeLimit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59695325765632
+    m_Key: Menu.Match.Mode.Endless
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60439642759168
+    m_Key: Menu.Match.ExtraInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59752578015232
+    m_Key: Menu.Match.Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 245950944632832
+    m_Key: Menu.Match.ExtraInfo.Score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246023455760384
+    m_Key: Menu.Match.ExtraInfo.Duration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246083685965824
+    m_Key: Menu.Match.ExtraInfo.Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246144809558016
+    m_Key: Menu.Match.ExtraInfo.Minutes
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

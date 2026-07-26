@@ -68,6 +68,51 @@ MonoBehaviour:
     m_Localized: INTERFACE
     m_Metadata:
       m_Items: []
+  - m_Id: 58961037352960
+    m_Localized: MODO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59059733520384
+    m_Localized: "PONTUA\xC7\xC3O M\xC1XIMA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59374973214720
+    m_Localized: MELHOR DE...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59566497718272
+    m_Localized: LIMITE DE TEMPO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59695325765632
+    m_Localized: SEM FIM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59752578015232
+    m_Localized: JOGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60439642759168
+    m_Localized: INSIRA {extra_info} AQUI
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981345
+  - m_Id: 245950944632832
+    m_Localized: PONTOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246023455760384
+    m_Localized: "DURA\xC7\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246083685965824
+    m_Localized: PONTOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246144809558016
+    m_Localized: MINUTOS
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
@@ -77,3 +122,4 @@ MonoBehaviour:
         m_Entries: 
         m_SharedEntries:
         - id: 6636553887744
+        - id: 60439642759168
