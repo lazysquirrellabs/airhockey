@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using LazySquirrelLabs.AirHockey.Localization;
 using LazySquirrelLabs.AirHockey.Match;
 using LazySquirrelLabs.AirHockey.UI.Menu;
 using LazySquirrelLabs.AirHockey.UI.Popups;
@@ -33,8 +34,8 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		[SerializeField] private MessagePopup _popup;
 		[SerializeField, TextArea] private string _endlessModeWarning;
 		[Header("Localization")]
-		[SerializeField] private LocalizeStringEvent _extraInfoLocalization;
-		[SerializeField] private LocalizeStringEvent _unitLocalization;
+		[SerializeField] private LocalizeStringEvent _extraInfoLocalizer;
+		[SerializeField] private LocalizeStringEvent _unitLocalizer;
 		[SerializeField] private LocalizedString _scoreLocalizationKey;
 		[SerializeField] private LocalizedString _durationLocalizationKey;
 		[SerializeField] private LocalizedString _pointsLocalizationKey;
@@ -60,10 +61,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
 			base.Awake();
 			_startButton.onClick.AddListener(HandleStart);
 			_modeSelector.OnSelect += HandleModeSelect;
-			if (_extraInfoLocalization.StringReference[ExtraInfoKey] is LocalizedString variable)
-				_extraInfoVariable = variable;
-			else
-				Debug.LogWarning($"Extra info variable mismatch with key: {ExtraInfoKey}");
+			_extraInfoVariable = _extraInfoLocalizer.GetVariable<LocalizedString>(ExtraInfoKey);
 		}
 
 		protected override void OnDestroy()
@@ -144,7 +142,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
 					var extraInfoLocalization = GetMatchModeExtraInfoLocalization(matchMode);
 					_extraInfoVariable.TableEntryReference = extraInfoLocalization.TableEntryReference;
 					var unitLocalization = GetMatchModeUnitLocalization(matchMode);
-					_unitLocalization.StringReference = unitLocalization;
+					_unitLocalizer.Localize(unitLocalization);
 					_needsExtraInfo = true;
 					break;
 				case MatchMode.Endless:

@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d603229a3ee424d9334ccc923c0101, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _localizeStringEvent: {fileID: 3080095124677613228}
+  _localizes: {fileID: 3080095124677613228}
   _label: {fileID: 767496836430981556}
 --- !u!114 &3080095124677613228
 MonoBehaviour:

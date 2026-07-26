@@ -1,3 +1,4 @@
+using LazySquirrelLabs.AirHockey.Localization;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.SmartFormat.PersistentVariables;
@@ -12,7 +13,7 @@ namespace LazySquirrelLabs.AirHockey.UI
 	{
 		#region Serialized fields
 
-		[SerializeField] private LocalizeStringEvent _localizeStringEvent;
+		[SerializeField] private LocalizeStringEvent _localizes;
 		[SerializeField] private Text _label;
 
 		#endregion
@@ -27,10 +28,8 @@ namespace LazySquirrelLabs.AirHockey.UI
 
 		private void Start()
 		{
-			if (_localizeStringEvent.StringReference[VariableKey] is StringVariable parameter)
-				parameter.Value = Application.version;
-			else
-				Debug.LogWarning($"Version label's variable key ({VariableKey}) not found.");
+			var parameter = _localizes.GetVariable<StringVariable>(VariableKey);
+			parameter.Value = Application.version;
 		}
 
 		#endregion

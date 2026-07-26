@@ -62,8 +62,8 @@ MonoBehaviour:
   _popup: {fileID: 3126856790456739607}
   _endlessModeWarning: YOU ARE ABOUT TO ENTER AN ENDLESS MATCH. YOU CAN LEAVE THE
     MATCH BY TAPPING ON YOUR DEVICE'S "BACK" BUTTON.
-  _extraInfoLocalization: {fileID: 2846862407567068150}
-  _unitLocalization: {fileID: 1474065644098453928}
+  _extraInfoLocalizer: {fileID: 2846862407567068150}
+  _unitLocalizer: {fileID: 1474065644098453928}
   _scoreLocalizationKey:
     m_TableReference:
       m_TableCollectionName: GUID:19e8ab9e41a5c4e97a376ff76b655f46
