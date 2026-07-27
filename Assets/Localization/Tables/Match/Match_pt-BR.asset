@@ -20,7 +20,7 @@ MonoBehaviour:
     - rid: 517185562798981390
   m_TableData:
   - m_Id: 88356151296
-    m_Localized: "PARTIDA COME\xC7A EM {value}..."
+    m_Localized: "A PARTIDA COME\xC7A EM {value}..."
     m_Metadata:
       m_Items:
       - rid: 517185562798981390
