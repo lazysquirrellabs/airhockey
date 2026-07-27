@@ -27,12 +27,14 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-GB
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 8dd5de062e68b447fb82de7aa69ef588
     m_Address: General_en-GB
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-GB
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: e090845951f8244438524e8c26ab656b, type: 2}

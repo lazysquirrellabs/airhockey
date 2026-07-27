@@ -156,6 +156,8 @@ MonoBehaviour:
     _scenePath: Assets/Scenes/Match.unity
   _transition: {fileID: 686083401}
   _inputManager: {fileID: 1379932018}
+  _localizationSettings: {fileID: 11400000, guid: 74c610fa105d64f9ca5b25a12e21aa89,
+    type: 2}
   _transitionDuration: 0.5
 --- !u!4 &437329616
 Transform:
@@ -280,7 +282,7 @@ LightingSettings:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Settings.lighting
-  serializedVersion: 9
+  serializedVersion: 10
   m_EnableBakedLightmaps: 0
   m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
@@ -295,6 +297,12 @@ LightingSettings:
   m_BakeResolution: 40
   m_Padding: 2
   m_LightmapCompression: 3
+  m_LightmapPackingMode: 1
+  m_LightmapPackingMethod: 0
+  m_XAtlasPackingAttempts: 16384
+  m_XAtlasBruteForce: 0
+  m_XAtlasBlockAlign: 0
+  m_XAtlasRepackUnderutilizedLightmaps: 1
   m_AO: 0
   m_AOMaxDistance: 1
   m_CompAOExponent: 1
