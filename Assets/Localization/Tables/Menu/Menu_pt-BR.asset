@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Menu_pt-BR
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: pt-BR
+  m_SharedData: {fileID: 11400000, guid: 19e8ab9e41a5c4e97a376ff76b655f46, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 517185562798981345
+  m_TableData:
+  - m_Id: 1424468467712
+    m_Localized: JOGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2712342093824
+    m_Localized: "CONFIGURA\xC7\xD5ES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862389125120
+    m_Localized: "CR\xC9DITOS"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3161434611712
+    m_Localized: "VOC\xCA QUER SAIR DO APLICATIVO?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3345531002880
+    m_Localized: DESENVOLVIDO POR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6132956389376
+    m_Localized: DESENVOLVEDOR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6636553887744
+    m_Localized: "VERS\xC3O: {version}"
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981345
+  - m_Id: 52849936424960
+    m_Localized: "\xC1UDIO"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Localized: MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Localized: TORCIDA
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Localized: EFEITOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Localized: MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58961037352960
+    m_Localized: MODO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59059733520384
+    m_Localized: "PONTUA\xC7\xC3O M\xC1XIMA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59374973214720
+    m_Localized: MELHOR DE...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59566497718272
+    m_Localized: LIMITE DE TEMPO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59695325765632
+    m_Localized: SEM FIM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59752578015232
+    m_Localized: JOGAR
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60439642759168
+    m_Localized: INSIRA {extra_info} AQUI
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981345
+  - m_Id: 245950944632832
+    m_Localized: OS PONTOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246023455760384
+    m_Localized: "A DURA\xC7\xC3O"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246083685965824
+    m_Localized: PONTOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246144809558016
+    m_Localized: MINUTOS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 277807669174272
+    m_Localized: "INFORME {value} DO MODO ANTES DE COME\xC7AR A PARTIDA"
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981345
+  - m_Id: 280100326072320
+    m_Localized: "VOC\xCA EST\xC1 PRESTES A ENTRAR EM UMA PARTIDA SEM FIM. VOC\xCA
+      PODE SAIR DA PARTIDA APERTANDO O BOT\xC3O DE \"VOLTAR\" DO SEU DISPOSITIVO."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683087242452992
+    m_Localized: IDIOMA
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981345
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 6636553887744
+        - id: 60439642759168
+        - id: 277807669174272

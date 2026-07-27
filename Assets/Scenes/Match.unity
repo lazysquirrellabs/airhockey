@@ -369,7 +369,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1923084553065615342, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 176609a7830654c57a4f3fb88b85597c, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 176609a7830654c57a4f3fb88b85597c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -769,6 +769,36 @@ MonoBehaviour:
   _resetDuration: 2
   _preparationDuration: 2
   _endMatchDelay: 2
+  _tieLocalizationKey:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 20477694173184
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _leftPlayerWinsLocalizationKey:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 20494018404352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _rightPlayerWinsLocalizationKey:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 20530739535872
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &800636274 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8991452649823197486, guid: c972f906cf0c24e678e4001819b18332,
@@ -954,6 +984,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -803.31757
       objectReference: {fileID: 0}
+    - target: {fileID: 6285397669522657240, guid: f177b3cc7d70f4c50bb2e555391a9f9b,
+        type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 30168516124672
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285397669522657240, guid: f177b3cc7d70f4c50bb2e555391a9f9b,
+        type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:0c27357e6421c45508ccbfe4afac5bf1
+      objectReference: {fileID: 0}
     - target: {fileID: 7035406303882952963, guid: f177b3cc7d70f4c50bb2e555391a9f9b,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -993,6 +1033,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8685944254797442869, guid: f177b3cc7d70f4c50bb2e555391a9f9b,
+        type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 30121955155968
+      objectReference: {fileID: 0}
+    - target: {fileID: 8685944254797442869, guid: f177b3cc7d70f4c50bb2e555391a9f9b,
+        type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:0c27357e6421c45508ccbfe4afac5bf1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1057,7 +1107,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1923084553065615342, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 5e67944876e6c4531b985b772d14658d, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 5e67944876e6c4531b985b772d14658d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1287,7 +1337,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -7677770069386006384, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: afe5298faea974c32919349e195e06ed, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: afe5298faea974c32919349e195e06ed, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1733,6 +1783,8 @@ SpriteMask:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1754,9 +1806,11 @@ SpriteMask:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 3361c3597a60f406ab38095e5344729e, type: 3}
   m_MaskAlphaCutoff: 0
   m_FrontSortingLayerID: 0
@@ -1826,7 +1880,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1923084553065615342, guid: b3a3494fec7474643b7e84fffd0a62f4,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9d6044beb17744c7480b46bd2bb84762, type: 3}
+  m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 9d6044beb17744c7480b46bd2bb84762, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1

@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Menu Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Menu
+  m_TableCollectionNameGuidString: 19e8ab9e41a5c4e97a376ff76b655f46
+  m_Entries:
+  - m_Id: 1424468467712
+    m_Key: Menu.Main.Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2712342093824
+    m_Key: Menu.Main.Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862389125120
+    m_Key: Menu.Main.Credits
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3161434611712
+    m_Key: Menu.Main.QuitPopup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3345531002880
+    m_Key: Menu.Credits.DevelopedBy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6132956389376
+    m_Key: Menu.Credits.Developer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6636553887744
+    m_Key: Menu.Credits.Version
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52849936424960
+    m_Key: Menu.Settings.Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Key: Menu.Settings.Audio.Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Key: Menu.Settings.Audio.Crowd
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Key: Menu.Settings.Audio.SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Key: Menu.Settings.Audio.UI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58961037352960
+    m_Key: Menu.Match.Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59059733520384
+    m_Key: Menu.Match.Mode.HighScore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59374973214720
+    m_Key: Menu.Match.Mode.BestOfScore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59566497718272
+    m_Key: Menu.Match.Mode.TimeLimit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59695325765632
+    m_Key: Menu.Match.Mode.Endless
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60439642759168
+    m_Key: Menu.Match.ExtraInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59752578015232
+    m_Key: Menu.Match.Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 245950944632832
+    m_Key: Menu.Match.ExtraInfo.Score
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246023455760384
+    m_Key: Menu.Match.ExtraInfo.Duration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246083685965824
+    m_Key: Menu.Match.ExtraInfo.Points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246144809558016
+    m_Key: Menu.Match.ExtraInfo.Minutes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 277807669174272
+    m_Key: Menu.Match.ProvideExtraInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280100326072320
+    m_Key: Menu.Match.EndlessModeWarning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683087242452992
+    m_Key: Menu.Settings.Language
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 517185562798981327
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981327
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1785000163843

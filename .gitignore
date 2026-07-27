@@ -66,3 +66,8 @@ crashlytics-build.properties
 # macOS files
 **/.DS_Store
 
+# Addressables
+Assets/AddressableAssetsData/Android/*.bin*
+Assets/AddressableAssetsData/iOS/*.bin*
+Assets/AddressableAssetsData/link.xml*
+

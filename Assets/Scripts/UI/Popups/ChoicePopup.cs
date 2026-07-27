@@ -23,7 +23,7 @@ namespace LazySquirrelLabs.AirHockey.UI.Popups
 
 		#region Setup
 
-		protected void Awake()
+		private void Awake()
 		{
 			_firstChoiceButton.onClick.AddListener(HandleSelectFirstChoice);
 			_secondChoiceButton.onClick.AddListener(HandleSelectSecondChoice);
