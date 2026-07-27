@@ -30,12 +30,12 @@ MonoBehaviour:
       m_Items:
       - rid: 517185609529819136
   - m_Id: 20494018404352
-    m_Localized: "JOUEUX 1 A GAGN\xC9!\\n{string-value}"
+    m_Localized: "JOUEUR 1 A GAGN\xC9!\\n{string-value}"
     m_Metadata:
       m_Items:
       - rid: 517185609529819136
   - m_Id: 20530739535872
-    m_Localized: "JOUEUX 2 A GAGN\xC9!\\n{string-value}"
+    m_Localized: "JOUEUR 2 A GAGN\xC9!\\n{string-value}"
     m_Metadata:
       m_Items:
       - rid: 517185609529819136
@@ -44,11 +44,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12012737257472
-    m_Localized: "\xC0 VOS MARQUES..."
+    m_Localized: "PR\xCATS..."
     m_Metadata:
       m_Items: []
   - m_Id: 12113568325632
-    m_Localized: ALLEZ!
+    m_Localized: PARTEZ!
     m_Metadata:
       m_Items: []
   - m_Id: 12212251910144

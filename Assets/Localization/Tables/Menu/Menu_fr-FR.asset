@@ -25,12 +25,12 @@ MonoBehaviour:
       m_Items:
       - rid: 517185609529819137
   - m_Id: 60439642759168
-    m_Localized: INSIREZ {extra_info} ICI
+    m_Localized: INSEREZ {extra_info} ICI
     m_Metadata:
       m_Items:
       - rid: 517185609529819137
   - m_Id: 277807669174272
-    m_Localized: "S\xC9LECTIONNEZ LE {value} DU MODE AVANT DE LANCER UN MATCH."
+    m_Localized: CHOISISSEZ {value} DU MODE AVANT DE LANCER UN MATCH.
     m_Metadata:
       m_Items:
       - rid: 517185609529819137
@@ -51,11 +51,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 52926146928640
-    m_Localized: MASTER
+    m_Localized: PRINCIPAL
     m_Metadata:
       m_Items: []
   - m_Id: 52977191608320
-    m_Localized: FOULE
+    m_Localized: PUBLIC
     m_Metadata:
       m_Items: []
   - m_Id: 53154379980800
@@ -75,7 +75,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 246023455760384
-    m_Localized: LA DURATION
+    m_Localized: "LA DUR\xC9E"
     m_Metadata:
       m_Items: []
   - m_Id: 246083685965824
@@ -95,11 +95,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2862389125120
-    m_Localized: "G\xC9N\xC9RIQUES"
+    m_Localized: "CR\xC9DITS"
     m_Metadata:
       m_Items: []
   - m_Id: 3161434611712
-    m_Localized: VOULEZ-VOUS QUITTER L'APPLICATION ?
+    m_Localized: QUITTER LE JEU ?
     m_Metadata:
       m_Items: []
   - m_Id: 59752578015232
