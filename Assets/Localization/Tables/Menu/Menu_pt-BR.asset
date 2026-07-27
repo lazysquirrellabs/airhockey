@@ -123,6 +123,10 @@ MonoBehaviour:
       PODE SAIR DA PARTIDA APERTANDO O BOT\xC3O DE \"VOLTAR\" DO SEU DISPOSITIVO."
     m_Metadata:
       m_Items: []
+  - m_Id: 683087242452992
+    m_Localized: IDIOMA
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

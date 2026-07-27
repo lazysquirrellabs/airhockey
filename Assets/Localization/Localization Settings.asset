@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Localization Settings
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Settings.LocalizationSettings
   m_StartupSelectors:
+  - rid: 517185607224787004
   - rid: 517185562798981303
   - rid: 517185562798981304
   m_AvailableLocales:
@@ -220,3 +221,8 @@ MonoBehaviour:
         - default
         - d
         - 
+    - rid: 517185607224787004
+      type: {class: PlayerPrefLocaleSelector, ns: UnityEngine.Localization.Settings,
+        asm: Unity.Localization}
+      data:
+        m_PlayerPreferenceKey: air_hockey_language
