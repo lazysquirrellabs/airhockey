@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Menu_fr-FR
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr-FR
+  m_SharedData: {fileID: 11400000, guid: 19e8ab9e41a5c4e97a376ff76b655f46, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 517185609529819137
+  m_TableData:
+  - m_Id: 6636553887744
+    m_Localized: 'VERSION: {version}'
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819137
+  - m_Id: 60439642759168
+    m_Localized: INSIREZ {extra_info} ICI
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819137
+  - m_Id: 277807669174272
+    m_Localized: "S\xC9LECTIONNEZ LE {value} DU MODE AVANT DE LANCER UN MATCH."
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819137
+  - m_Id: 2712342093824
+    m_Localized: "PARAM\xC8TRES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3345531002880
+    m_Localized: "D\xC9VELOPP\xC9 PAR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6132956389376
+    m_Localized: "D\xC9VELOPPEUR"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52849936424960
+    m_Localized: AUDIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Localized: MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Localized: FOULE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Localized: EFFETS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Localized: MENU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58961037352960
+    m_Localized: MODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 245950944632832
+    m_Localized: LES POINTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246023455760384
+    m_Localized: LA DURATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246083685965824
+    m_Localized: POINTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246144809558016
+    m_Localized: MINUTES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683087242452992
+    m_Localized: LANGUE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1424468467712
+    m_Localized: JOUER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862389125120
+    m_Localized: "G\xC9N\xC9RIQUES"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3161434611712
+    m_Localized: VOULEZ-VOUS QUITTER L'APPLICATION ?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59752578015232
+    m_Localized: JOUER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59059733520384
+    m_Localized: MEILLEUR SCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59374973214720
+    m_Localized: AU MEILLEUR DES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59566497718272
+    m_Localized: "D\xC9LAI"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59695325765632
+    m_Localized: SANS FIN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 280100326072320
+    m_Localized: "VOUS \xCATES SUR LE POINT DE COMMENCER UN MATCH SANS FIN. VOUS
+      POUVEZ QUITTER LE MATCH EN APPUYANT SUR LE BOUTON \xAB RETOUR \xBB DE VOTRE
+      APPAREIL."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185609529819137
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 6636553887744
+        - id: 60439642759168
+        - id: 277807669174272

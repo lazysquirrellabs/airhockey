@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Match_fr-FR
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr-FR
+  m_SharedData: {fileID: 11400000, guid: 0c27357e6421c45508ccbfe4afac5bf1, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 517185609529819136
+  m_TableData:
+  - m_Id: 88356151296
+    m_Localized: LE MATCH COMMENCE DANS {value}...
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819136
+  - m_Id: 2436130398208
+    m_Localized: "JOUEUR {value} A MARQU\xC9"
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819136
+  - m_Id: 20494018404352
+    m_Localized: "JOUEUX 1 A GAGN\xC9!\\n{string-value}"
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819136
+  - m_Id: 20530739535872
+    m_Localized: "JOUEUX 2 A GAGN\xC9!\\n{string-value}"
+    m_Metadata:
+      m_Items:
+      - rid: 517185609529819136
+  - m_Id: 2290046984192
+    m_Localized: BUT!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12012737257472
+    m_Localized: "\xC0 VOS MARQUES..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12113568325632
+    m_Localized: ALLEZ!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12212251910144
+    m_Localized: "VOUS AVEZ GAGN\xC9!"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12310855802880
+    m_Localized: VOUS AVEZ PERDU
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12373137022976
+    m_Localized: C'EST UN MATCH NUL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20477694173184
+    m_Localized: C'EST UN MATCH NUL !!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30121955155968
+    m_Localized: RELANCER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30168516124672
+    m_Localized: QUITTER
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185609529819136
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 88356151296
+        - id: 2436130398208
+        - id: 20494018404352
+        - id: 20530739535872
