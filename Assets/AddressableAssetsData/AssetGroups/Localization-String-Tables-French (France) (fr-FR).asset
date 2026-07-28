@@ -10,32 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Localization-Locales
+  m_Name: Localization-String-Tables-French (France) (fr-FR)
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
-  m_GroupName: Localization-Locales
-  m_GUID: d766227a7d84e4d3fb905692d2f0143f
+  m_GroupName: Localization-String-Tables-French (France) (fr-FR)
+  m_GUID: 212a4d702ba4e43f390ce34b91375e9f
   m_SerializeEntries:
-  - m_GUID: 5113eccb384f3464bbaf685134f4e4e1
-    m_Address: French (France) (fr-FR)
+  - m_GUID: 340e07d29bb424f7e843bbc6cc0ccbd7
+    m_Address: Match_fr-FR
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale
+    - Locale-fr-FR
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5b0ea0739a7b04f24979f9c3f51655c5
-    m_Address: Portuguese (Brazil) (pt-BR)
+  - m_GUID: 6e7c065fb4d6c4baaa866178b7502612
+    m_Address: General_fr-FR
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale
+    - Locale-fr-FR
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a459c17a6909a49ee8f3a83e662f690b
-    m_Address: English (United Kingdom) (en-GB)
+  - m_GUID: a9464b5fb280c46459f694b2d778fb42
+    m_Address: Menu_fr-FR
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale
+    - Locale-fr-FR
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: e090845951f8244438524e8c26ab656b, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: dbfd369de8e3b4b009b35ef5c8baff9a, type: 2}
-    - {fileID: 11400000, guid: 70389aa95b7b84fc29c267721d110efa, type: 2}
+    - {fileID: 11400000, guid: 30afe0ff3841546cc9f562b19e4936e3, type: 2}
+    - {fileID: 11400000, guid: 87ef97a29abac420ea8242a4d5560da6, type: 2}

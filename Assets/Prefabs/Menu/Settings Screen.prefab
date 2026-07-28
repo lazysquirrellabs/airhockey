@@ -905,6 +905,8 @@ MonoBehaviour:
     _label: ENGLISH
   - _locale: {fileID: 11400000, guid: 5b0ea0739a7b04f24979f9c3f51655c5, type: 2}
     _label: "PORTUGU\xCAS"
+  - _locale: {fileID: 11400000, guid: 5113eccb384f3464bbaf685134f4e4e1, type: 2}
+    _label: "FRAN\xC7AIS"
 --- !u!1 &6135420781845133902
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,7 +945,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 0, y: 160}
+  m_SizeDelta: {x: 0, y: 240}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3901880895603025728
 CanvasRenderer:

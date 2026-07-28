@@ -145,10 +145,12 @@ namespace LazySquirrelLabs.AirHockey.Menu
 					var unitLocalization = GetMatchModeUnitLocalization(matchMode);
 					_unitLocalizer.Localize(unitLocalization);
 					_needsExtraInfo = true;
+					_unitLocalizer.gameObject.SetActive(true);
 					break;
 				case MatchMode.Endless:
 					_extraInfoInput.gameObject.SetActive(false);
 					_needsExtraInfo = false;
+					_unitLocalizer.gameObject.SetActive(false);
 					break;
 				default:
 					throw new NotImplementedException($"Match mode not implemented: {_matchMode}");
