@@ -1,4 +1,7 @@
+using LazySquirrelLabs.AirHockey.Localization;
 using UnityEngine;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.SmartFormat.PersistentVariables;
 using UnityEngine.UI;
 
 namespace LazySquirrelLabs.AirHockey.UI
@@ -10,15 +13,23 @@ namespace LazySquirrelLabs.AirHockey.UI
 	{
 		#region Serialized fields
 
+		[SerializeField] private LocalizeStringEvent _localizes;
 		[SerializeField] private Text _label;
+
+		#endregion
+
+		#region Fields
+
+		private const string VariableKey = "version";
 
 		#endregion
 
 		#region Setup
 
-		private void Awake()
+		private void Start()
 		{
-			_label.text = $"VERSION {Application.version}";
+			var parameter = _localizes.GetVariable<StringVariable>(VariableKey);
+			parameter.Value = Application.version;
 		}
 
 		#endregion

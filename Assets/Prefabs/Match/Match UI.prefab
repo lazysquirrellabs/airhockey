@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 635175494892028989}
   - component: {fileID: 6914432923456010149}
   - component: {fileID: 1219871993833350656}
+  - component: {fileID: 3205438056402281275}
   m_Layer: 5
   m_Name: Announcement Text Right
   m_TagString: Untagged
@@ -35,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0.85, y: -0.00000029802322}
-  m_SizeDelta: {x: 2.797554, y: 0.275}
+  m_SizeDelta: {x: 3.5, y: 0.275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6914432923456010149
 CanvasRenderer:
@@ -78,7 +79,55 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAYER 1 SCORED!
+  m_Text: 
+--- !u!114 &3205438056402281275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095038932333189310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: value
+      variable:
+        rid: 517185562798981387
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1219871993833350656}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981387
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables,
+        asm: Unity.Localization}
+      data:
+        m_Value: XXX
 --- !u!1 &2542771135016691755
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,6 +172,7 @@ GameObject:
   - component: {fileID: 2542771135213693773}
   - component: {fileID: 2542771135213693762}
   - component: {fileID: 2542771135213693763}
+  - component: {fileID: 5765942050211920356}
   m_Layer: 5
   m_Name: Announcement Text Left
   m_TagString: Untagged
@@ -147,7 +197,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.85, y: -0.0017700791}
-  m_SizeDelta: {x: 2.797554, y: 0.275}
+  m_SizeDelta: {x: 3.5, y: 0.275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2542771135213693762
 CanvasRenderer:
@@ -190,7 +240,55 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAYER 1 SCORED!
+  m_Text: 
+--- !u!114 &5765942050211920356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542771135213693760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: value
+      variable:
+        rid: 517185562798981386
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2542771135213693763}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981386
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables,
+        asm: Unity.Localization}
+      data:
+        m_Value: XXX
 --- !u!1 &5844351748858905579
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,8 +434,83 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5634891007340441183}
-  _leftText: {fileID: 2542771135213693763}
-  _rightText: {fileID: 1219871993833350656}
+  _leftLocalizer: {fileID: 5765942050211920356}
+  _rightLocalizer: {fileID: 3205438056402281275}
+  _matchStartLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 88356151296
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _scoredLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 2290046984192
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _otherScoredLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 2436130398208
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _getReadyLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 12012737257472
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _goLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 12113568325632
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _youWinLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 12212251910144
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _youLoseLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 12310855802880
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  _tieLocalization:
+    m_TableReference:
+      m_TableCollectionName: GUID:0c27357e6421c45508ccbfe4afac5bf1
+    m_TableEntryReference:
+      m_KeyId: 12373137022976
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!223 &1724812601120279952
 Canvas:
   m_ObjectHideFlags: 0
@@ -446,7 +619,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 150
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4017427430074961832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,7 +722,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 150
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2466426640446882612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,4 +830,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0   0
+  m_Text: 0 0

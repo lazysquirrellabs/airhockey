@@ -6,6 +6,7 @@ using LazySquirrelLabs.AirHockey.Match.Scoring;
 using LazySquirrelLabs.AirHockey.UI.Popups;
 using LazySquirrelLabs.AirHockey.Utils;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace LazySquirrelLabs.AirHockey.Match.Managers
 {
@@ -36,6 +37,10 @@ namespace LazySquirrelLabs.AirHockey.Match.Managers
 		[SerializeField, Range(0, 10)] private int _resetDuration;
 		[SerializeField, Range(0, 10)] private int _preparationDuration;
 		[SerializeField, Range(0, 10)] private float _endMatchDelay;
+		[Header("Localization")]
+		[SerializeField] private LocalizedString _tieLocalizationKey;
+		[SerializeField] private LocalizedString _leftPlayerWinsLocalizationKey;
+		[SerializeField] private LocalizedString _rightPlayerWinsLocalizationKey;
 
 		#endregion
 
@@ -195,17 +200,16 @@ namespace LazySquirrelLabs.AirHockey.Match.Managers
 			await _announcementBoard.AnnounceEndOfMatchAsync(_score.FinalResult, token);
 			var delayMilli = (int)(_endMatchDelay * 1_000);
 			await UniTask.Delay(delayMilli, DelayType.Realtime, PlayerLoopTiming.Update, token);
-			_endMatchPopup.Message = _score.FinalResult switch
+			var messageKey = _score.FinalResult switch
 			{
-				MatchResult.Tie            => "It's a tie!!",
-				MatchResult.LeftPlayerWin  => $"Player 1 wins!\n{GetScoreMessage(_score)}",
-				MatchResult.RightPlayerWin => $"Player 2 wins!\n{GetScoreMessage(_score)}",
+				MatchResult.Tie            => _tieLocalizationKey,
+				MatchResult.LeftPlayerWin  => _leftPlayerWinsLocalizationKey,
+				MatchResult.RightPlayerWin => _rightPlayerWinsLocalizationKey,
 				_                          => throw new ArgumentOutOfRangeException()
 			};
+			var scoreData = $"({_score.LeftPlayer} x {_score.RightPlayer})";
+			_endMatchPopup.SetMessageWithText(messageKey, scoreData);
 			_endMatchPopup.Show();
-			return;
-
-			string GetScoreMessage(Score score) => $"({score.LeftPlayer} x {score.RightPlayer})";
 		}
 
 		#endregion

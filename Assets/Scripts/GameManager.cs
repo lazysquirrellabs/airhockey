@@ -7,6 +7,7 @@ using LazySquirrelLabs.AirHockey.Menu;
 using LazySquirrelLabs.AirHockey.SceneManagement;
 using LazySquirrelLabs.AirHockey.UI;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 using InputManager = LazySquirrelLabs.AirHockey.Input.InputManager;
 
@@ -40,6 +41,7 @@ namespace LazySquirrelLabs.AirHockey
 		[SerializeField] private SceneReference _matchScene;
 		[SerializeField] private CanvasFader _transition;
 		[SerializeField] private InputManager _inputManager;
+		[SerializeField] private LocalizationSettings _localizationSettings;
 
 		/// <summary>
 		/// The duration of &lt;see cref="UI.Screen"/&gt; transitions in the UI.
@@ -83,7 +85,11 @@ namespace LazySquirrelLabs.AirHockey
 		{
 			try
 			{
-				await LoadMenuAsync(false);
+				var loadLocalizationOperation = _localizationSettings.GetInitializationOperation();
+				var loadLocalizationTask = loadLocalizationOperation.ToUniTask(PlayerLoopTiming.Update,
+				                                                               _cancellationTokenSource.Token);
+				var loadMenuTask = LoadMenuAsync(false);
+				await UniTask.WhenAll(loadLocalizationTask, loadMenuTask);
 				_inputManager.OnBack += HandleBackNavigation;
 			}
 			catch (OperationCanceledException)

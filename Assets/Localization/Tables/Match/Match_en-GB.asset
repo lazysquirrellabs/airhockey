@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Match_en-GB
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en-GB
+  m_SharedData: {fileID: 11400000, guid: 0c27357e6421c45508ccbfe4afac5bf1, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 517185562798981389
+  m_TableData:
+  - m_Id: 88356151296
+    m_Localized: MATCH STARTS IN {value}...
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981389
+  - m_Id: 2290046984192
+    m_Localized: GOAL!!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2436130398208
+    m_Localized: PLAYER {value} SCORED
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981389
+  - m_Id: 12012737257472
+    m_Localized: ON YOUR MARKS...
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12113568325632
+    m_Localized: GO!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12212251910144
+    m_Localized: YOU WIN!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12310855802880
+    m_Localized: YOU LOSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12373137022976
+    m_Localized: IT'S A TIE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20477694173184
+    m_Localized: IT'S A TIE!!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 20494018404352
+    m_Localized: PLAYER 1 WINS!\n{string-value}
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981389
+  - m_Id: 20530739535872
+    m_Localized: PLAYER 2 WINS!\n{string-value}
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981389
+  - m_Id: 30121955155968
+    m_Localized: RESTART
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30168516124672
+    m_Localized: LEAVE
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981389
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 88356151296
+        - id: 2436130398208
+        - id: 20494018404352
+        - id: 20530739535872

@@ -1,9 +1,12 @@
 using System;
 using System.Globalization;
+using LazySquirrelLabs.AirHockey.Localization;
 using LazySquirrelLabs.AirHockey.Match;
 using LazySquirrelLabs.AirHockey.UI.Menu;
 using LazySquirrelLabs.AirHockey.UI.Popups;
 using UnityEngine;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 using Screen = LazySquirrelLabs.AirHockey.UI.Screen;
 
@@ -28,19 +31,27 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		[SerializeField] private ModeToggleGroup _modeSelector;
 		[SerializeField] private Button _startButton;
 		[SerializeField] private InputField _extraInfoInput;
-		[SerializeField] private Text _extraFieldLabel;
-		[SerializeField] private Text _extraInfoUnit;
 		[SerializeField] private MessagePopup _popup;
-		[SerializeField, TextArea] private string _endlessModeWarning;
+		[Header("Localization")]
+		[SerializeField] private LocalizeStringEvent _extraInfoLocalizer;
+		[SerializeField] private LocalizeStringEvent _unitLocalizer;
+		[SerializeField] private LocalizedString _scoreLocalizationKey;
+		[SerializeField] private LocalizedString _durationLocalizationKey;
+		[SerializeField] private LocalizedString _pointsLocalizationKey;
+		[SerializeField] private LocalizedString _minutesLocalizationKey;
+		[SerializeField] private LocalizedString _provideModeInfoLocalizationKey;
+		[SerializeField] private LocalizedString _endlessModeWarningLocalizationKey;
 
 		#endregion
 
 		#region Fields
 
+		private const string ExtraInfoKey = "extra_info";
 		private MatchMode _matchMode;
 		private uint _extraInfo;
 		private bool _needsExtraInfo;
 		private bool _validExtraInfo;
+		private LocalizedString _extraInfoVariable;
 
 		#endregion
 
@@ -51,6 +62,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
 			base.Awake();
 			_startButton.onClick.AddListener(HandleStart);
 			_modeSelector.OnSelect += HandleModeSelect;
+			_extraInfoVariable = _extraInfoLocalizer.GetVariable<LocalizedString>(ExtraInfoKey);
 		}
 
 		protected override void OnDestroy()
@@ -71,7 +83,8 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		{
 			if (_needsExtraInfo && !TryGetExtraInfo())
 			{
-				_popup.Message = $"PROVIDE THE MODE {_matchMode.InfoName().ToUpper()} BEFORE STARTING A MATCH";
+				var extraInfoLocalization = GetMatchModeExtraInfoLocalization(_matchMode);
+				_popup.SetMessageWithVariable(_provideModeInfoLocalizationKey, extraInfoLocalization);
 				_popup.Show();
 				return;
 			}
@@ -79,7 +92,7 @@ namespace LazySquirrelLabs.AirHockey.Menu
 			// There is no "end of match" popup on endless mode, so we need to let the user know how to leave the match.
 			if (_matchMode == MatchMode.Endless)
 			{
-				_popup.Message = _endlessModeWarning;
+				_popup.SetMessage(_endlessModeWarningLocalizationKey);
 				_popup.OnAcknowledge += StartMatch;
 				_popup.Show();
 				return;
@@ -120,22 +133,24 @@ namespace LazySquirrelLabs.AirHockey.Menu
 		private void HandleModeSelect(MatchMode matchMode)
 		{
 			_matchMode = matchMode;
-
+			_extraInfoInput.text = string.Empty;
 			switch (matchMode)
 			{
 				case MatchMode.HighScore:
 				case MatchMode.BestOfScore:
 				case MatchMode.Time:
 					_extraInfoInput.gameObject.SetActive(true);
-					_extraFieldLabel.text = $"INSERT {_matchMode.InfoName().ToUpper()} HERE";
-					_extraInfoInput.text = "";
-					_extraInfoUnit.text = _matchMode.InfoUnitName().ToUpper();
+					var extraInfoLocalization = GetMatchModeExtraInfoLocalization(matchMode);
+					_extraInfoVariable.TableEntryReference = extraInfoLocalization.TableEntryReference;
+					var unitLocalization = GetMatchModeUnitLocalization(matchMode);
+					_unitLocalizer.Localize(unitLocalization);
 					_needsExtraInfo = true;
+					_unitLocalizer.gameObject.SetActive(true);
 					break;
 				case MatchMode.Endless:
 					_extraInfoInput.gameObject.SetActive(false);
 					_needsExtraInfo = false;
-					_extraInfoUnit.text = "";
+					_unitLocalizer.gameObject.SetActive(false);
 					break;
 				default:
 					throw new NotImplementedException($"Match mode not implemented: {_matchMode}");
@@ -152,6 +167,63 @@ namespace LazySquirrelLabs.AirHockey.Menu
 			gameObject.SetActive(false);
 			_popup.Hide();
 			base.Hide();
+		}
+
+		#endregion
+
+		#region Private
+
+		/// <summary>
+		/// Fetches the localization key of the extra information needed by a <paramref name="matchMode"/> to be valid.
+		/// </summary>
+		/// <param name="matchMode">The mode.</param>
+		/// <returns>The localization key for the extra information.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown whenever the given <paramref name="matchMode"/>
+		/// does not require extra information.</exception>
+		/// <exception cref="NotImplementedException">Thrown whenever the given <paramref name="matchMode"/> has not
+		/// been implemented yet.</exception>
+		private LocalizedString GetMatchModeExtraInfoLocalization(MatchMode matchMode)
+		{
+			switch (matchMode)
+			{
+				case MatchMode.HighScore:
+				case MatchMode.BestOfScore:
+					return _scoreLocalizationKey;
+				case MatchMode.Time:
+					return _durationLocalizationKey;
+				case MatchMode.Endless:
+					const string message = "Endless mode doesn't require info.";
+					throw new ArgumentOutOfRangeException(nameof(matchMode), matchMode, message);
+				default:
+					throw new NotImplementedException($"Mode not implemented: {matchMode}.");
+			}
+		}
+
+		/// <summary>
+		/// Fetches the localization key of units of the extra information needed by a <paramref name="matchMode"/>
+		/// to be valid.
+		/// </summary>
+		/// <param name="matchMode">The mode.</param>
+		/// <returns>The localization key for the extra information's unit.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown whenever the given <paramref name="matchMode"/>
+		/// does not require extra information.</exception>
+		/// <exception cref="NotImplementedException">Thrown whenever the given <paramref name="matchMode"/> has not
+		/// been implemented yet.</exception>
+		private LocalizedString GetMatchModeUnitLocalization(MatchMode matchMode)
+		{
+			switch (matchMode)
+			{
+				case MatchMode.HighScore:
+				case MatchMode.BestOfScore:
+					return _pointsLocalizationKey;
+				case MatchMode.Time:
+					return _minutesLocalizationKey;
+				case MatchMode.Endless:
+					const string message = "Endless mode doesn't require info.";
+					throw new ArgumentOutOfRangeException(nameof(matchMode), matchMode, message);
+				default:
+					throw new NotImplementedException($"Mode not implemented: {matchMode}.");
+			}
 		}
 
 		#endregion

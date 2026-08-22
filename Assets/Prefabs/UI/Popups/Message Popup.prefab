@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bc6203028554d98bf48e49fb84fc0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 6131319441701792200}
+  _localizer: {fileID: 7134599435008393203}
   _acknowledgeButton: {fileID: 5625650575858229743}
 --- !u!1001 &661901798041800018
 PrefabInstance:
@@ -298,6 +298,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188987138062328423, guid: 14d8a9637b52f4a09851e85a04d5d150,
+        type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 286318201397248
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188987138062328423, guid: 14d8a9637b52f4a09851e85a04d5d150,
+        type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:b5fb3b3820d0a4741bd352b433ae3db4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -602,8 +612,80 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5240676137010181436, guid: 53ac1c62f39bb4de9809593b774f9b53,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7134599435008393203}
   m_SourcePrefab: {fileID: 100100000, guid: 53ac1c62f39bb4de9809593b774f9b53, type: 3}
+--- !u!1 &1811050999595636234 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5240676137010181436, guid: 53ac1c62f39bb4de9809593b774f9b53,
+    type: 3}
+  m_PrefabInstance: {fileID: 5879654268370690870}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7134599435008393203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811050999595636234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Components.LocalizeStringEvent
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: value
+      variable:
+        rid: 517185562798981396
+    - name: string-value
+      variable:
+        rid: 517185562798981398
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6131319441701792200}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981396
+      type: {class: LocalizedString, ns: UnityEngine.Localization, asm: Unity.Localization}
+      data:
+        m_TableReference:
+          m_TableCollectionName: 
+        m_TableEntryReference:
+          m_KeyId: 0
+          m_Key: 
+        m_FallbackState: 0
+        m_WaitForCompletion: 0
+        m_LocalVariables: []
+    - rid: 517185562798981398
+      type: {class: StringVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables,
+        asm: Unity.Localization}
+      data:
+        m_Value: 
 --- !u!224 &2699956771232041781 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8421896260636272643, guid: 53ac1c62f39bb4de9809593b774f9b53,
@@ -616,7 +698,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5879654268370690870}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1811050999595636234}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}

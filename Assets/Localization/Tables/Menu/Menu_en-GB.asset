@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Menu_en-GB
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en-GB
+  m_SharedData: {fileID: 11400000, guid: 19e8ab9e41a5c4e97a376ff76b655f46, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 517185562798981344
+  m_TableData:
+  - m_Id: 1424468467712
+    m_Localized: PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2712342093824
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2862389125120
+    m_Localized: CREDITS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3161434611712
+    m_Localized: DO YOU WANT TO QUIT THE GAME?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3345531002880
+    m_Localized: DEVELOPED BY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6132956389376
+    m_Localized: DEVELOPER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6636553887744
+    m_Localized: 'VERSION: {version}'
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981344
+  - m_Id: 52849936424960
+    m_Localized: AUDIO
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52926146928640
+    m_Localized: MASTER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 52977191608320
+    m_Localized: CROWD
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53154379980800
+    m_Localized: SFX
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53219651739648
+    m_Localized: UI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58961037352960
+    m_Localized: MODE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59059733520384
+    m_Localized: HIGH SCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59374973214720
+    m_Localized: BEST OF SCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59566497718272
+    m_Localized: TIME LIMIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59695325765632
+    m_Localized: ENDLESS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59752578015232
+    m_Localized: PLAY
+    m_Metadata:
+      m_Items: []
+  - m_Id: 60439642759168
+    m_Localized: INSERT {extra_info} HERE
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981344
+  - m_Id: 245950944632832
+    m_Localized: SCORE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246023455760384
+    m_Localized: DURATION
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246083685965824
+    m_Localized: POINTS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 246144809558016
+    m_Localized: MINUTES
+    m_Metadata:
+      m_Items: []
+  - m_Id: 277807669174272
+    m_Localized: PROVIDE THE MODE {value} BEFORE STARTING A MATCH
+    m_Metadata:
+      m_Items:
+      - rid: 517185562798981344
+  - m_Id: 280100326072320
+    m_Localized: YOU ARE ABOUT TO ENTER AN ENDLESS MATCH. YOU CAN LEAVE THE MATCH
+      BY TAPPING ON YOUR DEVICE'S "BACK" BUTTON.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683087242452992
+    m_Localized: LANGUAGE
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 517185562798981344
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 
+        m_SharedEntries:
+        - id: 6636553887744
+        - id: 60439642759168
+        - id: 277807669174272
